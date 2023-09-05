@@ -3,7 +3,6 @@ plugins {
 	id 'io.github.juuxel.loom-vineflower' version '1.+'
 	id 'java-library'
 	id 'maven-publish'
-	id 'com.github.johnrengelman.shadow' version '7.1.2'
 	id 'com.modrinth.minotaur' version '2.+'
 	id 'com.matthewprenger.cursegradle' version '1.4.+'
 }
@@ -46,11 +45,6 @@ repositories {
 	}
 }
 
-configurations {
-	shadow
-	api.extendsFrom shadow
-}
-
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "org.quiltmc:quilt-mappings:${project.quilt_mappings}:intermediary-v2"
@@ -81,7 +75,7 @@ tasks.withType(JavaCompile).configureEach {
 processResources {
 	inputs.property 'version', project.version
 
-	filesMatching('fabric.mod.json') {
+	filesMatching('META-INF/mods.toml') {
 		expand 'version': project.version
 	}
 }
@@ -92,3 +86,15 @@ jar {
 	}
 }
 
+// configure the maven publication
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+
+	repositories {
+
+	}
+}
