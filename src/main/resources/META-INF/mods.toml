@@ -5,12 +5,14 @@ license="MIT"
 [[mods]]
 modId="lambdynlights"
 version="${version}"
-displayName="LambDynamicLights"
+displayName="RyoamicLights"
 displayURL="https://github.com/ThinkingStudios/LambDynamicLights-Forge"
 logoFile= "icon.png"
 credits="LambdAurora"
 authors="TexTrue, TexTrueStudio"
 description='''
+LambDynamicLights unofficial forge port.
+
 Adds dynamic lights to the game.
 '''
 

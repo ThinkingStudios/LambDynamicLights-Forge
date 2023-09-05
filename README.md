@@ -3,6 +3,8 @@
 [![GitHub license](https://img.shields.io/github/license/LambdAurora/LambDynamicLights?style=flat-square)](https://raw.githubusercontent.com/LambdAurora/LambDynamicLights/1.19/LICENSE)
 ![Environment: Client](https://img.shields.io/badge/environment-client-1976d2?style=flat-square)
 
+LambDynamicLights unofficial forge port.
+
 A dynamic lights mod for MinecraftForge/NeoForge.
 
 ## 📖 What's this mod?
@@ -19,7 +21,8 @@ item which makes light as a block, or created by an entity on fire, etc.
 
 [Trailer](https://www.youtube.com/embed/r8r1TNG45tM?wmode=transparent)
 
-Searching other mods to replace OptiFine? [Check out this list!](https://gist.github.com/LambdAurora/1f6a4a99af374ce500f250c6b42e8754)
+Searching other mods to replace OptiFine? 
+[Check out this list!](https://lambdaurora.dev/optifine_alternatives)
 
 ## ✅ Features:
 
@@ -76,9 +79,9 @@ Light emitted from items depend on the light emitted from their respective block
 
 Using this mod is very simple!
 
-Install it in your mods folder along with [Architectury API](https://modrinth.com/mod/architectury-api) and [ModMenu], (and [Rubidium](https://modrinth.com/mod/rubidium) if wanted for better performances).
+Install it in your mods folder along with [Architectury API](https://modrinth.com/mod/architectury-api), (and [Rubidium](https://modrinth.com/mod/rubidium) if wanted for better performances).
 
-You will notice nothing at first but if you go into the video options or into the settings screen of the mod via [ModMenu], you will notice an option called Dynamic Lights which is by default off, choose the wanted configuration and enjoy!
+You will notice nothing at first but if you go into the video options or into the settings screen of the mod via Forge's Mod List, you will notice an option called Dynamic Lights which is by default off, choose the wanted configuration and enjoy!
 You can also configure the mod by editing the file in `config/lambdynlights.toml`.
 
 ### Build
@@ -87,11 +90,11 @@ Just do `./gradlew build` and everything should build just fine!
 
 ## 📖 How does it work internally?
 
-Check [this documentation](https://github.com/LambdAurora/LambDynamicLights/blob/1.17/HOW_DOES_IT_WORK.md).
+Check [this documentation](HOW_DOES_IT_WORK.md).
 
 ## 📖 Is there an API? How to use it as a developer?
 
-Check [this documentation](https://github.com/LambdAurora/LambDynamicLights/blob/1.17/API.md).
+Check [this documentation](API.md).
 
 # 📖 Compatibility
 
