@@ -9,9 +9,7 @@
 
 package dev.lambdaurora.lambdynlights;
 
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.Version;
-import net.fabricmc.loader.api.VersionParsingException;
+import dev.architectury.platform.Platform;
 
 /**
  * Represents a utility class for compatibility.
@@ -27,7 +25,7 @@ public final class LambDynLightsCompat {
 	 * @return {@code true} if Canvas is installed, else {@code false}
 	 */
 	public static boolean isCanvasInstalled() {
-		return FabricLoader.getInstance().isModLoaded("canvas");
+		return Platform.isModLoaded("canvas");
 	}
 
 	/**
@@ -37,7 +35,7 @@ public final class LambDynLightsCompat {
 	 */
 	public static boolean isLilTaterReloadedInstalled() {
 		// Don't even think about it Yog.
-		return FabricLoader.getInstance().isModLoaded("ltr");
+		return Platform.isModLoaded("ltr");
 	}
 
 	/**
@@ -46,15 +44,15 @@ public final class LambDynLightsCompat {
 	 * @return {@code true} if Sodium 0.1.0 is installed, else {@code false}
 	 */
 	public static boolean isSodium010Installed() {
-		return FabricLoader.getInstance().getModContainer("sodium").map(mod -> mod.getMetadata().getVersion().getFriendlyString().startsWith("0.1.0"))
+		return Platform.getOptionalMod("sodium").map(mod -> mod.getVersion().startsWith("0.1.0"))
 				.orElse(false);
 	}
 
 	public static boolean isSodium05XInstalled() {
-		return FabricLoader.getInstance().getModContainer("sodium").map(mod -> {
+		return Platform.getOptionalMod("rubidium").map(mod -> {
 			try {
-				return mod.getMetadata().getVersion().compareTo(Version.parse("0.5.0")) >= 0;
-			} catch (VersionParsingException e) {
+				return mod.getVersion().compareTo("0.7.0") >= 0;
+			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}
 		}).orElse(false);

@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[46,)"
+license="MIT"
+
+[[mods]]
+modId="lambdynlights"
+version="${version}"
+displayName="LambDynamicLights"
+displayURL="https://github.com/ThinkingStudios/LambDynamicLights-Forge"
+logoFile= "icon.png"
+credits="LambdAurora"
+authors="TexTrue, TexTrueStudio"
+description='''
+Adds dynamic lights to the game.
+'''
+
+[[dependencies.lambdynlights]]
+modId = "forge"
+mandatory = true
+versionRange = "[46,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.lambdynlights]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20,)"
+ordering = "NONE"
+side = "BOTH"
