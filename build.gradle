@@ -48,9 +48,9 @@ repositories {
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "org.quiltmc:quilt-mappings:${project.quilt_mappings}:intermediary-v2"
-    forge "net.minecraftforge:forge:${project.forge_version}"
+        forge "net.minecraftforge:forge:${project.forge_version}"
 
-    modImplementation("dev.architectury:architectury-forge:${project.architectury_version}")
+        modImplementation("dev.architectury:architectury-forge:${project.architectury_version}")
 
 	modImplementation("maven.modrinth:obsidianui:${project.spruceui_version}")
 
