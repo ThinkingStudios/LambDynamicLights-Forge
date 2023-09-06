@@ -52,12 +52,10 @@ dependencies {
 
     modImplementation("dev.architectury:architectury-forge:${project.architectury_version}")
 
-	modImplementation include("maven.modrinth:obsidianui:${project.spruceui_version}")
+	modImplementation("maven.modrinth:obsidianui:${project.spruceui_version}")
 
-	modImplementation "maven.modrinth:rubidium:${project.sodium_version}"
-
-	implementation 'com.electronwill.night-config:core:3.6.6'
-	implementation 'com.electronwill.night-config:toml:3.6.6'
+	modCompileOnly "maven.modrinth:rubidium:${project.rubidium_version}"
+	modCompileOnly "maven.modrinth:embeddium:${project.embeddium_version}"
 }
 
 java {
