@@ -1,15 +1,12 @@
 plugins {
-	id 'fabric-loom' version '1.+'
-	id 'io.github.juuxel.loom-quiltflower' version '1.8.+'
-	id 'org.quiltmc.gradle.licenser' version '1.1.+'
+	id 'dev.architectury.loom' version '1.2-SNAPSHOT'
+	id 'io.github.juuxel.loom-vineflower' version '1.+'
 	id 'java-library'
 	id 'maven-publish'
 	id 'com.github.johnrengelman.shadow' version '7.1.2'
 	id 'com.modrinth.minotaur' version '2.+'
 	id 'com.matthewprenger.cursegradle' version '1.4.+'
 }
-
-import com.modrinth.minotaur.dependencies.ModDependency
 
 group = project.maven_group
 version = "${project.mod_version}+${project.minecraft_version}"
@@ -18,59 +15,16 @@ archivesBaseName = project.archives_base_name
 // This field defines the Java version your mod target.
 def targetJavaVersion = 17
 
-boolean isMCVersionNonRelease() {
-	return project.minecraft_version.matches('^\\d\\dw\\d\\d[a-z]$')
-			|| project.minecraft_version.matches('\\d+\\.\\d+-(pre|rc)(\\d+)')
-}
+loom {
+	accessWidenerPath = file("src/main/resources/lambdynlights.accesswidener")
 
-String getMCVersionString() {
-	if (isMCVersionNonRelease()) {
-		return project.minecraft_version
-	}
-	def version = project.minecraft_version.split('\\.')
-	return version[0] + '.' + version[1]
-}
+	forge {
+		convertAccessWideners = true
+		extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
 
-String getVersionType() {
-	if (isMCVersionNonRelease() || version.contains("-alpha.")) {
-		return "alpha"
-	} else if (version.contains("-beta.")) {
-		return "beta"
-	} else {
-		return "release"
-	}
-}
-
-String parseReadme() {
-	def excludeRegex = /(?m)<!-- modrinth_exclude\.start -->(.|\n)*?<!-- modrinth_exclude\.end -->/
-	def linkRegex = /!\[([A-z_ ]+)]\((images\/[A-z.\/_]+)\)/
-
-	def readme = (String) file('README.md').text
-	readme = readme.replaceAll(excludeRegex, '')
-	readme = readme.replaceAll(linkRegex, '![$1](https://raw.githubusercontent.com/LambdAurora/LambDynamicLights/1.19/$2)')
-	return readme
-}
-
-String fetchChangelog() {
-	def changelogText = file('CHANGELOG.md').text
-	def regexVersion = ((String) project.mod_version).replaceAll('\\.', /\\./).replaceAll('\\+', '\\+')
-	def changelogRegex = ~"###? ${regexVersion}\\n\\n(( *- .+\\n)+)"
-	def matcher = changelogText =~ changelogRegex
-
-	if (matcher.find()) {
-		def changelogContent = matcher.group(1)
-
-		def changelogLines = changelogText.split('\n')
-		def linkRefRegex = ~'^\\[([A-z\\d _\\-/+.]+)]: '
-		for (int i = changelogLines.length - 1; i > 0; i--) {
-			def line = changelogLines[i]
-			if ((line =~ linkRefRegex).find())
-				changelogContent += '\n' + line
-			else break
-		}
-		return changelogContent
-	} else {
-		return null;
+		mixinConfigs = [
+				"lambdynlights.mixins.json","lambdynlights.lightsource.mixins.json"
+		]
 	}
 }
 
@@ -81,51 +35,31 @@ repositories {
 		name "Quilt"
 		url "https://maven.quiltmc.org/repository/release"
 	}
-	maven {
-		name 'Terraformers'
-		url 'https://maven.terraformersmc.com/releases/'
+	exclusiveContent {
+		forRepository {
+			maven {
+				name "Modrinth"
+				url "https://api.modrinth.com/maven"
+			}
+		}
+		filter {
+			includeGroup "maven.modrinth"
+		}
 	}
-	maven {
-		name 'Gegy'
-		url 'https://maven.gegy.dev'
-	}
-	maven {
-		name 'grondag'
-		url 'https://maven.dblsaiko.net/'
-	}
-}
-
-configurations {
-	shadow
-	api.extendsFrom shadow
-}
-
-loom {
-	accessWidenerPath = file("src/main/resources/lambdynlights.accesswidener")
 }
 
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "org.quiltmc:quilt-mappings:${minecraft_version}+build.${project.quilt_mappings}:intermediary-v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	mappings "org.quiltmc:quilt-mappings:${project.quilt_mappings}:intermediary-v2"
+	forge "net.minecraftforge:forge:${project.forge_version}"
 
-	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+	modImplementation("dev.architectury:architectury-forge:${project.architectury_version}")
 
-	modImplementation include("dev.lambdaurora:spruceui:${project.spruceui_version}")
-	modImplementation include("io.github.queerbric:pridelib:${project.pridelib_version}")
-
-	modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}") {
-		transitive = false
-	}
-
-	shadow 'com.electronwill.night-config:core:3.6.3'
-	shadow 'com.electronwill.night-config:toml:3.6.3'
+	modImplementation("maven.modrinth:obsidianui:${project.spruceui_version}")
 }
 
 java {
-	sourceCompatibility = JavaVersion.toVersion(targetJavaVersion)
-	targetCompatibility = JavaVersion.toVersion(targetJavaVersion)
+	sourceCompatibility = targetCompatibility = JavaVersion.toVersion(targetJavaVersion)
 
 	withSourcesJar()
 }
@@ -139,7 +73,7 @@ tasks.withType(JavaCompile).configureEach {
 processResources {
 	inputs.property 'version', project.version
 
-	filesMatching('fabric.mod.json') {
+	filesMatching('META-INF/mods.toml') {
 		expand 'version': project.version
 	}
 }
@@ -150,120 +84,15 @@ jar {
 	}
 }
 
-license {
-	rule file('HEADER')
-	include '**/*.java'
-}
-
-shadowJar {
-	dependsOn jar
-	configurations = [project.configurations.shadow]
-	destinationDirectory.set(file("${project.buildDir}/devlibs"))
-	archiveClassifier.set('dev')
-
-	relocate 'com.electronwill.nightconfig', 'dev.lambdaurora.lambdynlights.shadow.nightconfig'
-}
-prepareRemapJar.dependsOn(shadowJar)
-
-modrinth {
-	projectId = project.modrinth_id
-	versionName = "LambDynamicLights ${project.mod_version} (${getMCVersionString()})"
-	uploadFile = tasks.remapJar
-	loaders = ["fabric", "quilt"]
-	gameVersions = [project.minecraft_version]
-	versionType = isMCVersionNonRelease() ? "beta" : "release"
-	syncBodyFrom = parseReadme()
-	dependencies = [
-			new ModDependency("P7dR8mSH", "required")
-	]
-
-	// Changelog fetching
-	def changelogContent = fetchChangelog()
-
-	if (changelogContent) {
-		changelog = changelogContent
-	} else {
-		afterEvaluate {
-			tasks.modrinth.setEnabled(false)
-		}
-	}
-}
-tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
-
-curseforge {
-	if (System.getenv("CURSEFORGE_TOKEN")) {
-		apiKey = System.getenv("CURSEFORGE_TOKEN")
-	}
-
-	project {
-		id = project.curseforge_id
-		releaseType = this.getVersionType()
-		addGameVersion project.minecraft_version
-		addGameVersion "Fabric"
-		addGameVersion "Quilt"
-		addGameVersion "Java 17"
-		addGameVersion "Java 18"
-
-		// Changelog fetching
-		def changelogContent = fetchChangelog()
-
-		if (changelogContent) {
-			changelogType = "markdown"
-			changelog = "Changelog:\n\n${changelogContent}"
-		} else {
-			afterEvaluate {
-				uploadTask.setEnabled(false)
-			}
-		}
-
-		mainArtifact(remapJar) {
-			displayName = "LambDynamicLights ${project.mod_version} (${project.minecraft_version})"
-
-			relations {
-				requiredDependency "fabric-api"
-				optionalDependency "modmenu"
-				incompatible "optifabric"
-			}
-		}
-
-		afterEvaluate {
-			uploadTask.setGroup("publishing")
-			uploadTask.dependsOn("remapJar")
-		}
-	}
-}
-tasks.curseforge.setGroup("publishing")
-
 // configure the maven publication
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			from components.java
-
-			pom {
-				name = "LambDynamicLights"
-				description = "Adds dynamic lights to the game."
-			}
 		}
 	}
 
 	repositories {
 		mavenLocal()
-		maven {
-			name = 'BuildDirLocal'
-			url = "$buildDir/repo"
-		}
-
-		def ldlMaven = System.getenv('LDL_MAVEN')
-		if (ldlMaven) {
-			maven {
-				name = 'LambDynamicLightsMaven'
-				url = uri(ldlMaven)
-				credentials {
-					username = project.findProperty('gpr.user') ?: System.getenv('MAVEN_USERNAME')
-					password = project.findProperty('gpr.key') ?: System.getenv('MAVEN_PASSWORD')
-				}
-			}
-		}
 	}
 }
