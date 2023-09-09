@@ -16,7 +16,6 @@ import dev.lambdaurora.spruceui.option.SpruceCyclingOption;
 import dev.lambdaurora.spruceui.option.SpruceOption;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
@@ -62,7 +61,8 @@ public class DynamicLightsConfig {
 	public DynamicLightsConfig(@NotNull LambDynLights mod) {
 		this.mod = mod;
 
-		this.config = FileConfig.builder(CONFIG_FILE_PATH).concurrent().defaultResource("/lambdynlights.toml").autosave().build();
+		//this.config = FileConfig.builder(CONFIG_FILE_PATH).concurrent().defaultResource("/lambdynlights.toml").autosave().build();
+		this.config = FileConfig.builder(CONFIG_FILE_PATH).concurrent().autosave().build();
 		this.entitiesLightSource = new BooleanSettingEntry("light_sources.entities", DEFAULT_ENTITIES_LIGHT_SOURCE, this.config,
 				Text.translatable("lambdynlights.tooltip.entities"))
 				.withOnSet(value -> {
