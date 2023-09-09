@@ -29,3 +29,10 @@ mandatory = true
 versionRange = "[1.19.4,)"
 ordering = "NONE"
 side = "BOTH"
+
+[[dependencies.lambdynlights]]
+modId = "architectury"
+mandatory = true
+versionRange = "[8,)"
+ordering = "NONE"
+side = "BOTH"
