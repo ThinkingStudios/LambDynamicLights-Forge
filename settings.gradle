@@ -1,19 +1,11 @@
 pluginManagement {
     repositories {
-        maven {
-            name 'Quilt'
-            url 'https://maven.quiltmc.org/repository/release'
-        }
-        maven {
-            name 'Fabric'
-            url 'https://maven.fabricmc.net/'
-        }
-        maven {
-            name 'Cotton'
-            url 'https://server.bbkr.space/artifactory/libs-release/'
-        }
+        maven { url "https://maven.quiltmc.org/repository/release" }
+        maven { url "https://maven.fabricmc.net/" }
+        maven { url "https://maven.architectury.dev/" }
+        maven { url "https://files.minecraftforge.net/maven/" }
         gradlePluginPortal()
     }
 }
 
-rootProject.name = 'lambdynamiclights'
+rootProject.name = 'RyoamicLights'

@@ -9,17 +9,14 @@
 
 package dev.lambdaurora.lambdynlights;
 
+import dev.architectury.platform.Platform;
+import dev.architectury.registry.ReloadListenerRegistry;
+import dev.architectury.utils.EnvExecutor;
 import dev.lambdaurora.lambdynlights.accessor.WorldRendererAccessor;
 import dev.lambdaurora.lambdynlights.api.DynamicLightHandlers;
-import dev.lambdaurora.lambdynlights.api.DynamicLightsInitializer;
 import dev.lambdaurora.lambdynlights.api.item.ItemLightSources;
+import dev.lambdaurora.lambdynlights.gui.SettingsScreen;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.LightmapTextureManager;
@@ -29,11 +26,13 @@ import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
+import net.minecraft.resource.SynchronousResourceReloader;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -51,7 +50,8 @@ import java.util.function.Predicate;
  * @version 2.1.0
  * @since 1.0.0
  */
-public class LambDynLights implements ClientModInitializer {
+@Mod(LambDynLights.NAMESPACE)
+public class LambDynLights {
 	public static final String NAMESPACE = "lambdynlights";
 	private static final double MAX_RADIUS = 7.75;
 	private static final double MAX_RADIUS_SQUARED = MAX_RADIUS * MAX_RADIUS;
@@ -63,33 +63,18 @@ public class LambDynLights implements ClientModInitializer {
 	private long lastUpdate = System.currentTimeMillis();
 	private int lastUpdateCount = 0;
 
-	@Override
+	public LambDynLights() {
+		EnvExecutor.runInEnv(Dist.CLIENT, () -> this::onInitializeClient);
+	}
+
 	public void onInitializeClient() {
 		INSTANCE = this;
 		this.log("Initializing LambDynamicLights...");
 
 		this.config.load();
 
-		FabricLoader.getInstance().getEntrypointContainers("dynamiclights", DynamicLightsInitializer.class)
-				.stream().map(EntrypointContainer::getEntrypoint)
-				.forEach(DynamicLightsInitializer::onInitializeDynamicLights);
-
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
-			@Override
-			public Identifier getFabricId() {
-				return new Identifier(NAMESPACE, "dynamiclights_resources");
-			}
-
-			@Override
-			public void reload(ResourceManager manager) {
-				ItemLightSources.load(manager);
-			}
-		});
-
-		WorldRenderEvents.START.register(context -> {
-			MinecraftClient.getInstance().getProfiler().swap("dynamic_lighting");
-			this.updateAll(context.worldRenderer());
-		});
+		ReloadListenerRegistry.register(ResourceType.CLIENT_RESOURCES, (SynchronousResourceReloader) manager -> ItemLightSources.load(manager), new Identifier(NAMESPACE, "dynamiclights_resources"));
+		Platform.getMod(NAMESPACE).registerConfigurationScreen(SettingsScreen::new);
 
 		DynamicLightHandlers.registerDefaultHandlers();
 	}
