@@ -11,10 +11,10 @@ package me.lambdaurora.lambdynlights.gui;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.options.GameOptions;
-import net.minecraft.client.options.Option;
+import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.option.GameOptions;
+import net.minecraft.client.option.Option;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
@@ -31,7 +31,7 @@ public final class DynamicLightsOptionsOption extends Option {
     }
 
     @Override
-    public AbstractButtonWidget createButton(GameOptions options, int x, int y, int width) {
+    public ClickableWidget createButton(GameOptions options, int x, int y, int width) {
         return new ButtonWidget(x, y, width, 20, this.text, btn -> MinecraftClient.getInstance().openScreen(new SettingsScreen(this.parent)));
     }
 }

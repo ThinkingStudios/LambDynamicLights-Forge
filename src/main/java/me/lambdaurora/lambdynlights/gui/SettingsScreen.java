@@ -117,8 +117,8 @@ public class SettingsScreen extends SpruceScreen {
     public void renderTitle(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         drawCenteredText(matrices, this.textRenderer, this.title, this.width / 2, 18, 16777215);
         if (LambDynLightsCompat.isCanvasInstalled()) {
-            drawCenteredString(matrices, this.textRenderer, I18n.translate("lambdynlights.menu.canvas.1"), this.width / 2, this.height - 29 - (5 + this.textRenderer.fontHeight) * 3, 0xFFFF0000);
-            drawCenteredString(matrices, this.textRenderer, I18n.translate("lambdynlights.menu.canvas.2"), this.width / 2, this.height - 29 - (5 + this.textRenderer.fontHeight) * 2, 0xFFFF0000);
+            drawCenteredText(matrices, this.textRenderer, I18n.translate("lambdynlights.menu.canvas.1"), this.width / 2, this.height - 29 - (5 + this.textRenderer.fontHeight) * 3, 0xFFFF0000);
+            drawCenteredText(matrices, this.textRenderer, I18n.translate("lambdynlights.menu.canvas.2"), this.width / 2, this.height - 29 - (5 + this.textRenderer.fontHeight) * 2, 0xFFFF0000);
         }
     }
 }

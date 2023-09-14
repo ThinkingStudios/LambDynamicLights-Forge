@@ -7,11 +7,11 @@
     "ClientWorldMixin",
     "CommonWorldRendererMixin",
     "DebugHudMixin",
-    "EntityLighterMixin",
     "EntityRendererMixin",
     "MinecraftClientMixin",
     "VideoOptionsScreenMixin",
     "WorldMixin",
+    "forge.WorldRendererMixin",
     "ltr.LilTaterBlockEntityMixin",
     "ltr.LilTaterBlocksMixin"
   ],

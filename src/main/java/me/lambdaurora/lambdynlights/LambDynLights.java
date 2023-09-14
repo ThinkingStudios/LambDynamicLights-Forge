@@ -12,14 +12,11 @@ package me.lambdaurora.lambdynlights;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import me.lambdaurora.lambdynlights.accessor.WorldRendererAccessor;
 import me.lambdaurora.lambdynlights.api.DynamicLightHandlers;
-import me.lambdaurora.lambdynlights.api.DynamicLightsInitializer;
 import me.lambdaurora.lambdynlights.api.item.ItemLightSources;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
+import me.lambdaurora.lambdynlights.gui.SettingsScreen;
+import me.shedaniel.architectury.platform.Platform;
+import me.shedaniel.architectury.registry.ReloadListeners;
+import me.shedaniel.architectury.utils.EnvExecutor;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.LightmapTextureManager;
@@ -29,12 +26,16 @@ import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
-import net.minecraft.util.Identifier;
+import net.minecraft.resource.SynchronousResourceReloader;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.ExtensionPoint;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.network.FMLNetworkConstants;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -51,7 +52,8 @@ import java.util.function.Predicate;
  * @version 1.3.4
  * @since 1.0.0
  */
-public class LambDynLights implements ClientModInitializer {
+@Mod(LambDynLights.MODID)
+public class LambDynLights {
     public static final String MODID = "lambdynlights";
     private static final double MAX_RADIUS = 7.75;
     private static LambDynLights INSTANCE;
@@ -61,33 +63,19 @@ public class LambDynLights implements ClientModInitializer {
     private long lastUpdate = System.currentTimeMillis();
     private int lastUpdateCount = 0;
 
-    @Override
+    public LambDynLights() {
+        ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
+        EnvExecutor.runInEnv(Dist.CLIENT, () -> this::onInitializeClient);
+    }
+
     public void onInitializeClient() {
         INSTANCE = this;
         this.log("Initializing LambDynamicLights...");
 
         this.config.load();
 
-        FabricLoader.getInstance().getEntrypointContainers("dynamiclights", DynamicLightsInitializer.class)
-                .stream().map(EntrypointContainer::getEntrypoint)
-                .forEach(DynamicLightsInitializer::onInitializeDynamicLights);
-
-        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
-            @Override
-            public Identifier getFabricId() {
-                return new Identifier(MODID, "dynamiclights_resources");
-            }
-
-            @Override
-            public void apply(ResourceManager manager) {
-                ItemLightSources.load(manager);
-            }
-        });
-
-        WorldRenderEvents.START.register(context -> {
-            MinecraftClient.getInstance().getProfiler().swap("dynamic_lighting");
-            this.updateAll(context.worldRenderer());
-        });
+        ReloadListeners.registerReloadListener(ResourceType.CLIENT_RESOURCES, (SynchronousResourceReloader) manager -> ItemLightSources.load(manager));
+        Platform.getMod(MODID).registerConfigurationScreen(SettingsScreen::new);
 
         DynamicLightHandlers.registerDefaultHandlers();
     }

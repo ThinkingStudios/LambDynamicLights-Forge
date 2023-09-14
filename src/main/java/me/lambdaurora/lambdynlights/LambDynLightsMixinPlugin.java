@@ -33,8 +33,6 @@ public class LambDynLightsMixinPlugin implements IMixinConfigPlugin
         boolean ltrInstalled = LambDynLightsCompat.isLilTaterReloadedInstalled();
         this.conditionalMixins.put("me.lambdaurora.lambdynlights.mixin.ltr.LilTaterBlocksMixin", ltrInstalled);
         this.conditionalMixins.put("me.lambdaurora.lambdynlights.mixin.ltr.LilTaterBlockEntityMixin", ltrInstalled);
-
-        this.conditionalMixins.put("me.lambdaurora.lambdynlights.mixin.EntityLighterMixin", LambDynLightsCompat.isSodium010Installed());
     }
 
     @Override

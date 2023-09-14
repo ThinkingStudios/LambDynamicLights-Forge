@@ -1,74 +1,56 @@
-import net.fabricmc.loom.task.RemapJarTask
-
 plugins {
-    id 'fabric-loom' version '0.5-SNAPSHOT'
-    id 'java-library'
+    id 'dev.architectury.loom' version '1.2-SNAPSHOT'
     id 'maven-publish'
-    id 'com.github.johnrengelman.shadow' version '5.1.0'
-    id 'net.minecrell.licenser' version '0.4.1'
 }
 
 group = project.maven_group
-version = "${project.mod_version}+${getMCVersionString()}"
+version = "${project.mod_version}+${project.minecraft_version}"
 archivesBaseName = project.archives_base_name + "-fabric"
 
-def getMCVersionString() {
-    if (project.minecraft_version.matches("\\d\\dw\\d\\d[a-z]")) {
-        return project.minecraft_version
+loom {
+    forge {
+        mixinConfigs = [
+                "lambdynlights.mixins.json","lambdynlights.lightsource.mixins.json"
+        ]
     }
-    int lastDot = project.minecraft_version.lastIndexOf('.')
-    return project.minecraft_version.substring(0, lastDot)
-}
-
-minecraft {
 }
 
 repositories {
-    mavenLocal()
-    mavenCentral()
     maven {
         name = "AperLambda"
         url = 'https://aperlambda.github.io/maven'
     }
-    maven { url = "https://jitpack.io" }
-    maven {
-        name = "grondag"
-        url = "https://grondag-repo.appspot.com"
-        credentials {
-            username "guest"
-            password ""
+    maven { url "https://maven.architectury.dev/" }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name "Modrinth"
+                url "https://api.modrinth.com/maven"
+            }
         }
-    }
-    maven {
-        name = "Cotton"
-        url = "http://server.bbkr.space:8081/artifactory/libs-release/"
+        filter {
+            includeGroup "maven.modrinth"
+        }
     }
 }
 
 configurations {
-    shadow
-    api.extendsFrom shadow
+    api.extendsFrom libApi
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    forge "net.minecraftforge:forge:${project.forge_version}"
 
-    // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    modImplementation("me.shedaniel:architectury-forge:${project.architectury_version}")
 
-    modImplementation "com.github.lambdaurora:spruceui:${project.spruceui_version}"
-    include "com.github.lambdaurora:spruceui:${project.spruceui_version}"
+    modImplementation("maven.modrinth:obsidianui:${project.spruceui_version}")
 
-    modImplementation("io.github.prospector:modmenu:${project.modmenu_version}") {
-        transitive = false
+    libApi("org.aperlambda:lambdajcommon:1.8.1") {
+        exclude group: 'com.google.code.gson'
+        exclude group: 'com.google.guava'
     }
-    //modImplementation "grondag:canvas-mc116:1.0.+"
-    modImplementation "com.github.jellysquid3:sodium-fabric:mc1.16.3-0.1.0"
-
-    shadow "com.electronwill.night-config:core:3.6.3"
-    shadow "com.electronwill.night-config:toml:3.6.3"
 }
 
 tasks.withType(JavaCompile) {
@@ -78,19 +60,13 @@ tasks.withType(JavaCompile) {
 processResources {
     inputs.property "version", project.version
 
-    from(sourceSets.main.resources.srcDirs) {
-        include "fabric.mod.json"
-        expand "version": project.version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude "fabric.mod.json"
+    filesMatching('META-INF/mods.toml') {
+        expand 'version': project.version
     }
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
 
     withSourcesJar()
 }
@@ -99,72 +75,15 @@ jar {
     from "../LICENSE"
 }
 
-license {
-    header file('HEADER')
-    include '**/*.java'
-}
-
-shadowJar {
-    dependsOn(project(":").jar)
-    configurations = [project.configurations.shadow]
-    archiveClassifier.set('dev')
-
-    relocate 'com.electronwill.nightconfig', 'me.lambdaurora.lambdynlights.shadow.nightconfig'
-}
-
-task shadowRemapJar(type: RemapJarTask) {
-    dependsOn shadowJar
-
-    input = file("${project.buildDir}/libs/$archivesBaseName-$version-dev.jar")
-    archiveName = "${archivesBaseName}-${version}.jar"
-    addNestedDependencies = true
-}
-build.dependsOn(shadowRemapJar)
-
 // configure the maven publication
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifact(remapJar) {
-                builtBy remapJar
-            }
-            artifact(sourcesJar) {
-                builtBy remapSourcesJar
-            }
-
-            pom {
-                name = "LambDynamicLights"
-                description = "Adds dynamic lights to the game."
-            }
-
-            pom.withXml {
-                def dependenciesNode = asNode().appendNode('dependencies')
-
-                configurations.shadow.allDependencies.each {
-                    def dependencyNode = dependenciesNode.appendNode('dependency')
-
-                    dependencyNode.appendNode('groupId', it.group)
-                    dependencyNode.appendNode('artifactId', it.name)
-                    dependencyNode.appendNode('version', it.version)
-                    dependencyNode.appendNode('scope', 'compile')
-                }
-            }
+            from components.java
         }
     }
 
     repositories {
-        mavenLocal()
-        maven {
-            name = "BuildDirLocal"
-            url = "$buildDir/repo"
-        }
-        maven {
-            name = "GithubPackages"
-            url = uri("https://maven.pkg.github.com/LambdAurora/LambDynamicLights")
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
-            }
-        }
+
     }
 }
