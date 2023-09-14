@@ -21,9 +21,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Pseudo
 @Mixin(targets = "me.jellysquid.mods.sodium.client.model.light.data.ArrayLightDataCache", remap = false)
-public abstract class ArrayLightDataCacheMixin extends LightDataAccess {
+public abstract class ArrayLightDataCacheMixin {
     @Dynamic
-    @Inject(method = "get(III)I", at = @At("HEAD"))
+    @Inject(method = "get(III)I", at = @At("HEAD"), require = 0)
     private void lambdynlights$storeLightPos(int x, int y, int z, CallbackInfoReturnable<Integer> cir) {
         if (!LambDynLights.get().config.getDynamicLightsMode().isEnabled())
             return;
@@ -31,6 +31,6 @@ public abstract class ArrayLightDataCacheMixin extends LightDataAccess {
         // Store the current light position.
         // This is possible under smooth lighting scenarios, because AoFaceData in Sodium runs a get() call
         // before getting the lightmap.
-        SodiumDynamicLightHandler.lambdynlights$pos.get().set(x, y, z);
+        SodiumDynamicLightHandler.pos.get().set(x, y, z);
     }
 }

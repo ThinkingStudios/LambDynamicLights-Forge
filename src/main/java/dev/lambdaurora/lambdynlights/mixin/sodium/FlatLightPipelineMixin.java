@@ -24,9 +24,9 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 @Mixin(targets = "me.jellysquid.mods.sodium.client.model.light.flat.FlatLightPipeline", remap = false)
 public abstract class FlatLightPipelineMixin {
     @Dynamic
-    @Inject(method = "getOffsetLightmap", at = @At(value = "RETURN", ordinal = 1), remap = false, locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    private void lambdynlights$getLightmap(BlockPos pos, Direction face, CallbackInfoReturnable<Integer> cir, int word, int adjWord) {
-        int lightmap = SodiumDynamicLightHandler.lambdynlights$getLightmap(pos, adjWord, cir.getReturnValueI());
+    @Inject(method = "getLightmap", at = @At("RETURN"), remap = false, require = 0, cancellable = true)
+    private static void lambdynlights$getLightmap(int word, CallbackInfoReturnable<Integer> cir) {
+        int lightmap = SodiumDynamicLightHandler.getLightmap(SodiumDynamicLightHandler.pos.get(), word, cir.getReturnValueI());
         cir.setReturnValue(lightmap);
     }
 }

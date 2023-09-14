@@ -19,14 +19,14 @@ public interface SodiumDynamicLightHandler {
     // Stores the current light position being used by ArrayLightDataCache#get
     // We use ThreadLocal because Sodium's chunk builder is multithreaded, otherwise it will break
     // catastrophically.
-    ThreadLocal<BlockPos.Mutable> lambdynlights$pos = ThreadLocal.withInitial(BlockPos.Mutable::new);
+    ThreadLocal<BlockPos.Mutable> pos = ThreadLocal.withInitial(BlockPos.Mutable::new);
 
-    static int lambdynlights$getLightmap(BlockPos pos, int word, int lightmap) {
+    static int getLightmap(BlockPos pos, int word, int lightmap) {
         if (!LambDynLights.get().config.getDynamicLightsMode().isEnabled())
             return lightmap;
 
         // Equivalent to world.getBlockState(pos).isOpaqueFullCube(world, pos)
-        if (LightDataAccess.unpackFO(word))
+        if (/*LightDataAccess.unpackFO(word)*/ (word >>> 30 & 1) != 0)
             return lightmap;
 
         double dynamic = LambDynLights.get().getDynamicLightLevel(pos);
