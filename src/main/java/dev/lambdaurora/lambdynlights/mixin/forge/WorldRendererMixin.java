@@ -15,8 +15,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
+    /**
+     * Architectury API/Forge NOT HAVE {@code WorldRenderEvents}
+     *
+     * @author TexTrue
+     */
     @Inject(at = @At("HEAD"), method = "render")
-    public void render(MatrixStack outlinebuffersource, float i, long j, boolean k, Camera l, GameRenderer i1, LightmapTextureManager lightTexture, Matrix4f multibuffersource, CallbackInfo ci) {
+    public void render(MatrixStack matrices, float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, CallbackInfo ci) {
         MinecraftClient.getInstance().getProfiler().push("dynamic_lighting");
         LambDynLights.get().updateAll((WorldRenderer) (Object) this);
     }
