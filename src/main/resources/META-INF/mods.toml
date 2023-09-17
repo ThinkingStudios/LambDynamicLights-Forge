@@ -29,3 +29,17 @@ mandatory = true
 versionRange = "[1.16.4,1.16.5)"
 ordering = "NONE"
 side = "BOTH"
+
+[[dependencies.lambdynlights]]
+modId = "architectury"
+mandatory = true
+versionRange = "[1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.lambdynlights]]
+modId = "spruceui"
+mandatory = true
+versionRange = "[0.1,)"
+ordering = "NONE"
+side = "BOTH"

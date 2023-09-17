@@ -1,6 +1,8 @@
 plugins {
     id 'dev.architectury.loom' version '1.2-SNAPSHOT'
     id 'maven-publish'
+    id 'com.modrinth.minotaur' version '2.+'
+    id 'net.darkhax.curseforgegradle' version '1.+'
 }
 
 group = project.maven_group
@@ -34,10 +36,6 @@ repositories {
     }
 }
 
-configurations {
-    api.extendsFrom libApi
-}
-
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
@@ -47,7 +45,7 @@ dependencies {
 
     modImplementation("maven.modrinth:obsidianui:${project.spruceui_version}")
 
-    libApi("org.aperlambda:lambdajcommon:1.8.1") {
+    implementation("org.aperlambda:lambdajcommon:1.8.1") {
         exclude group: 'com.google.code.gson'
         exclude group: 'com.google.guava'
     }
@@ -73,6 +71,41 @@ java {
 
 jar {
     from "../LICENSE"
+}
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+
+    projectId = "${project.modrinth_id}"
+    versionNumber = "${project.version}"
+    versionType = "beta"
+    changelog = file("CHANGELOG.md").getText('UTF-8')
+    uploadFile = remapJar
+    additionalFiles = [sourcesJar]
+    gameVersions = ["1.16.4", "1.16.5"]
+    loaders = ["forge"]
+    dependencies {
+        required.project "obsidianui"
+    }
+}
+
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+    apiToken = System.getenv("CURSEFORGE_TOKEN")
+    disableVersionDetection()
+
+    def mainFile = upload(project.curseforge_id, remapJar)
+    mainFile.displayName = "${project.version}"
+    mainFile.releaseType = "beta"
+    mainFile.changelog = file("CHANGELOG.md")
+    mainFile.changelogType = "markdown"
+    mainFile.addModLoader("Forge")
+    mainFile.addJavaVersion("Java 8")
+    mainFile.addGameVersion("1.16.4", "1.16.5")
+    mainFile.addRequirement("obsidianui")
+
+    def sourcesFile = mainFile.withAdditionalFile(sourcesJar)
+    sourcesFile.changelog = file("CHANGELOG.md")
+    sourcesFile.changelogType = "markdown"
 }
 
 // configure the maven publication
