@@ -3,9 +3,8 @@ plugins {
 	id 'io.github.juuxel.loom-vineflower' version '1.+'
 	id 'java-library'
 	id 'maven-publish'
-	id 'com.github.johnrengelman.shadow' version '7.1.2'
 	id 'com.modrinth.minotaur' version '2.+'
-	id 'com.matthewprenger.cursegradle' version '1.4.+'
+	id 'net.darkhax.curseforgegradle' version '1.+'
 }
 
 group = project.maven_group
@@ -82,6 +81,41 @@ jar {
 	from('LICENSE') {
 		rename { "${it}_${project.archivesBaseName}" }
 	}
+}
+
+modrinth {
+	token = System.getenv("MODRINTH_TOKEN")
+
+	projectId = "${project.modrinth_id}"
+	versionNumber = "${project.version}"
+	versionType = "beta"
+	changelog = file("CHANGELOG.md").getText('UTF-8')
+	uploadFile = remapJar
+	additionalFiles = [sourcesJar]
+	gameVersions = ["1.19", "1.19.2"]
+	loaders = ["forge"]
+	dependencies {
+		required.project "obsidianui"
+	}
+}
+
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+	apiToken = System.getenv("CURSEFORGE_TOKEN")
+	disableVersionDetection()
+
+	def mainFile = upload(project.curseforge_id, remapJar)
+	mainFile.displayName = "${project.version}"
+	mainFile.releaseType = "beta"
+	mainFile.changelog = file("CHANGELOG.md")
+	mainFile.changelogType = "markdown"
+	mainFile.addModLoader("Forge")
+	mainFile.addJavaVersion("Java 17", "Java 18")
+	mainFile.addGameVersion("1.19", "1.19.2")
+	mainFile.addRequirement("obsidianui")
+
+	def sourcesFile = mainFile.withAdditionalFile(sourcesJar)
+	sourcesFile.changelog = file("CHANGELOG.md")
+	sourcesFile.changelogType = "markdown"
 }
 
 // configure the maven publication
