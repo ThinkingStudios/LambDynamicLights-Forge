@@ -54,7 +54,7 @@ dependencies {
 
 	modImplementation("maven.modrinth:obsidianui:${project.spruceui_version}")
 
-	modCompileOnly "maven.modrinth:rubidium:${project.rubidium_version}"
+	//modCompileOnly "maven.modrinth:rubidium:0.7.0"
 	modCompileOnly "maven.modrinth:embeddium:${project.embeddium_version}"
 }
 
