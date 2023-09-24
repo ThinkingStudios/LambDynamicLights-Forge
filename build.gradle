@@ -18,10 +18,6 @@ loom {
 }
 
 repositories {
-    maven {
-        name = "AperLambda"
-        url = 'https://aperlambda.github.io/maven'
-    }
     maven { url "https://maven.architectury.dev/" }
     exclusiveContent {
         forRepository {
@@ -44,11 +40,6 @@ dependencies {
     modImplementation("me.shedaniel:architectury-forge:${project.architectury_version}")
 
     modImplementation("maven.modrinth:obsidianui:${project.spruceui_version}")
-
-    implementation("org.aperlambda:lambdajcommon:1.8.1") {
-        exclude group: 'com.google.code.gson'
-        exclude group: 'com.google.guava'
-    }
 }
 
 tasks.withType(JavaCompile) {
@@ -70,7 +61,9 @@ java {
 }
 
 jar {
-    from "../LICENSE"
+    from('LICENSE') {
+        rename { "${it}_${project.archivesBaseName}" }
+    }
 }
 
 modrinth {
