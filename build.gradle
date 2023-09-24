@@ -7,7 +7,7 @@ plugins {
 
 group = project.maven_group
 version = "${project.mod_version}+${project.minecraft_version}"
-archivesBaseName = project.archives_base_name + "-fabric"
+archivesBaseName = project.archives_base_name
 
 loom {
     forge {
