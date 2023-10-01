@@ -26,12 +26,19 @@ side = "BOTH"
 [[dependencies.lambdynlights]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.19,)"
+versionRange = "[1.19,1.19.2]"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.lambdynlights]]
 modId = "architectury"
+mandatory = true
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.lambdynlights]]
+modId = "spruceui"
 mandatory = true
 versionRange = "*"
 ordering = "NONE"
