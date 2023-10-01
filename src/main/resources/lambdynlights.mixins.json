@@ -13,7 +13,6 @@
     "MinecraftClientMixin",
     "VideoOptionsScreenMixin",
     "WorldMixin",
-    "forge.WorldRendererMixin",
     "ltr.LilTaterBlockEntityMixin",
     "ltr.LilTaterBlocksMixin",
     "sodium.ArrayLightDataCacheMixin",
