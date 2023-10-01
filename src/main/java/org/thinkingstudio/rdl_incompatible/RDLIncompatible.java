@@ -1,4 +1,4 @@
-package org.thinkingstudio.ryoamiclights_compat;
+package org.thinkingstudio.rdl_incompatible;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

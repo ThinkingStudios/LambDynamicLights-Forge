@@ -1,4 +1,4 @@
-package org.thinkingstudio.ryoamiclights_compat;
+package org.thinkingstudio.rdl_incompatible;
 
 import dev.architectury.platform.Platform;
 import net.minecraft.client.font.MultilineText;
@@ -10,7 +10,7 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Util;
-import org.thinkingstudio.ryoamiclights_compat.mixin.WarningScreenAccessor;
+import org.thinkingstudio.rdl_incompatible.mixin.WarningScreenAccessor;
 
 import java.io.File;
 

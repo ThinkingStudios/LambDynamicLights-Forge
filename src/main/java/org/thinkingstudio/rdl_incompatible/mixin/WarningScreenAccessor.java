@@ -1,4 +1,4 @@
-package org.thinkingstudio.ryoamiclights_compat.mixin;
+package org.thinkingstudio.rdl_incompatible.mixin;
 
 import net.minecraft.client.font.MultilineText;
 import net.minecraft.client.gui.screen.WarningScreen;
