@@ -22,7 +22,7 @@ loom {
 		extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
 
 		mixinConfigs = [
-				"lambdynlights.mixins.json","lambdynlights.lightsource.mixins.json", "ryoamiclights.incompatible.mixins.json"
+				"lambdynlights.mixins.json", "lambdynlights.lightsource.mixins.json"
 		]
 	}
 }
@@ -30,10 +30,7 @@ loom {
 repositories {
 	mavenLocal()
 	mavenCentral()
-	maven {
-		name "Quilt"
-		url "https://maven.quiltmc.org/repository/release"
-	}
+	maven { url "https://maven.quiltmc.org/repository/release" }
 	exclusiveContent {
 		forRepository {
 			maven {
