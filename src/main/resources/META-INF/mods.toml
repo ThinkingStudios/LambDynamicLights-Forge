@@ -3,7 +3,7 @@ loaderVersion="[41,)"
 license="MIT"
 
 [[mods]]
-modId="lambdynlights"
+modId="ryoamiclights"
 version="${version}"
 displayName="RyoamicLights"
 displayURL="https://github.com/ThinkingStudios/LambDynamicLights-Forge"
@@ -16,28 +16,28 @@ LambDynamicLights unofficial forge port.
 Adds dynamic lights to the game.
 '''
 
-[[dependencies.lambdynlights]]
+[[dependencies.ryoamiclights]]
 modId = "forge"
 mandatory = true
 versionRange = "[41,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.lambdynlights]]
+[[dependencies.ryoamiclights]]
 modId = "minecraft"
 mandatory = true
 versionRange = "[1.19,1.19.2]"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.lambdynlights]]
+[[dependencies.ryoamiclights]]
 modId = "architectury"
 mandatory = true
 versionRange = "*"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.lambdynlights]]
+[[dependencies.ryoamiclights]]
 modId = "spruceui"
 mandatory = true
 versionRange = "*"

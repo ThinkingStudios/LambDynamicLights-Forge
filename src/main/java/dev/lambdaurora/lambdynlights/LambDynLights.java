@@ -58,7 +58,7 @@ import java.util.function.Predicate;
  */
 @Mod(LambDynLights.NAMESPACE)
 public class LambDynLights {
-	public static final String NAMESPACE = "lambdynlights";
+	public static final String NAMESPACE = "ryoamiclights";
 	private static final double MAX_RADIUS = 7.75;
 	private static final double MAX_RADIUS_SQUARED = MAX_RADIUS * MAX_RADIUS;
 	private static LambDynLights INSTANCE;
