@@ -33,6 +33,6 @@ side = "BOTH"
 [[dependencies.lambdynlights]]
 modId = "architectury"
 mandatory = true
-versionRange = "[6,)"
+versionRange = "*"
 ordering = "NONE"
 side = "BOTH"

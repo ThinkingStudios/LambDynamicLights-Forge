@@ -12,7 +12,6 @@ package dev.lambdaurora.lambdynlights.gui;
 import dev.lambdaurora.lambdynlights.DynamicLightsConfig;
 import dev.lambdaurora.lambdynlights.ExplosiveLightingMode;
 import dev.lambdaurora.lambdynlights.LambDynLights;
-import dev.lambdaurora.lambdynlights.LambDynLightsCompat;
 import dev.lambdaurora.lambdynlights.accessor.DynamicLightHandlerHolder;
 import dev.lambdaurora.spruceui.Position;
 import dev.lambdaurora.spruceui.SpruceTexts;
@@ -129,8 +128,7 @@ public class SettingsScreen extends SpruceScreen {
 		label.setCentered(true);
 		container.addChild(label);
 
-		var innerWidget = factory.build(width, height - this.getTextHeight() - 29
-				- (LambDynLightsCompat.isCanvasInstalled() ? 43 : 0));
+		var innerWidget = factory.build(width, height - this.getTextHeight() - 29);
 		innerWidget.getPosition().setRelativeY(43);
 		container.addChild(innerWidget);
 
@@ -152,17 +150,6 @@ public class SettingsScreen extends SpruceScreen {
 						vOffset / 32.f, bg.red(), bg.green(), bg.blue(), bg.alpha());
 			}
 		});
-
-		if (LambDynLightsCompat.isCanvasInstalled()) {
-			var firstLine = new SpruceLabelWidget(Position.of(0, height - 29 - (5 + this.textRenderer.fontHeight) * 3),
-					Text.translatable("lambdynlights.menu.canvas.1"), width);
-			firstLine.setCentered(true);
-			container.addChild(firstLine);
-			label = new SpruceLabelWidget(Position.of(0, firstLine.getY() + firstLine.getHeight() + 5),
-					Text.translatable("lambdynlights.menu.canvas.2"), width);
-			label.setCentered(true);
-			container.addChild(label);
-		}
 
 		container.addChild(this.resetOption.createWidget(Position.of(this, width / 2 - 155, height - 29), 150));
 		container.addChild(new SpruceButtonWidget(Position.of(this, width / 2 - 155 + 160, height - 29), 150, 20,

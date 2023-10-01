@@ -32,6 +32,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -40,6 +43,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.thinkingstudio.ryoamiclights_compat.RDLIncompatible;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -76,12 +80,23 @@ public class LambDynLights {
 		INSTANCE = this;
 		this.log("Initializing LambDynamicLights...");
 
+		RDLIncompatible.onInitializeClient();
+
 		this.config.load();
 
 		ReloadListenerRegistry.register(ResourceType.CLIENT_RESOURCES, (SynchronousResourceReloader) manager -> ItemLightSources.load(manager), new Identifier(NAMESPACE, "dynamiclights_resources"));
 		Platform.getMod(NAMESPACE).registerConfigurationScreen(SettingsScreen::new);
+		MinecraftForge.EVENT_BUS.addListener(this::renderWorldLastEvent);
 
 		DynamicLightHandlers.registerDefaultHandlers();
+	}
+
+	@SubscribeEvent
+	public void renderWorldLastEvent(RenderLevelStageEvent event) {
+		if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRIPWIRE_BLOCKS) {
+			MinecraftClient.getInstance().getProfiler().push("dynamic_lighting");
+			get().updateAll(event.getLevelRenderer());
+		}
 	}
 
 	/**

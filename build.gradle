@@ -23,7 +23,7 @@ loom {
 		extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
 
 		mixinConfigs = [
-				"lambdynlights.mixins.json","lambdynlights.lightsource.mixins.json"
+				"lambdynlights.mixins.json","lambdynlights.lightsource.mixins.json", "ryoamiclights.incompatible.mixins.json"
 		]
 	}
 }

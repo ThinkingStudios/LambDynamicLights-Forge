@@ -20,12 +20,12 @@ import dev.architectury.platform.Platform;
  */
 public final class LambDynLightsCompat {
 	/**
-	 * Returns whether Canvas is installed.
+	 * Returns whether Ars Nouveau is installed.
 	 *
-	 * @return {@code true} if Canvas is installed, else {@code false}
+	 * @return {@code true} if Ars Nouveau is installed, else {@code false}
 	 */
-	public static boolean isCanvasInstalled() {
-		return Platform.isModLoaded("canvas");
+	public static boolean isArsNouveauInstalled() {
+		return Platform.isModLoaded("ars_nouveau");
 	}
 
 	/**
