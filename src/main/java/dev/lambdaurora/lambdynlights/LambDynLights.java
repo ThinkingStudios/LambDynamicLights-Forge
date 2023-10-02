@@ -33,7 +33,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -73,6 +72,7 @@ public class LambDynLights {
 	public LambDynLights() {
 		ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> NetworkConstants.IGNORESERVERONLY, (a, b) -> true));
 		EnvExecutor.runInEnv(Dist.CLIENT, () -> this::onInitializeClient);
+		EnvExecutor.runInEnv(Dist.CLIENT, () -> () -> Mod.EventBusSubscriber.Bus.FORGE.bus().get().addListener(this::renderWorldLastEvent));
 	}
 
 	public void onInitializeClient() {
@@ -83,7 +83,6 @@ public class LambDynLights {
 
 		ReloadListenerRegistry.register(ResourceType.CLIENT_RESOURCES, (SynchronousResourceReloader) manager -> ItemLightSources.load(manager), new Identifier(NAMESPACE, "dynamiclights_resources"));
 		Platform.getMod(NAMESPACE).registerConfigurationScreen(SettingsScreen::new);
-		MinecraftForge.EVENT_BUS.addListener(this::renderWorldLastEvent);
 
 		DynamicLightHandlers.registerDefaultHandlers();
 	}
