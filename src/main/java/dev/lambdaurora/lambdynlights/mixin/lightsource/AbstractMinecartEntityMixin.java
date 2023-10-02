@@ -53,14 +53,14 @@ public abstract class AbstractMinecartEntityMixin extends Entity implements Dyna
 				if (!LambDynLights.get().config.getEntitiesLightSource().get() || !DynamicLightHandlers.canLightUp(this))
 					this.lambdynlights$luminance = 0;
 				else
-					this.dynamicLightTick();
+					this.ryoamicLights$dynamicLightTick();
 				LambDynLights.updateTracking(this);
 			}
 		}
 	}
 
 	@Override
-	public void dynamicLightTick() {
+	public void ryoamicLights$dynamicLightTick() {
 		this.lambdynlights$luminance = Math.max(
 				Math.max(
 						this.isOnFire() ? 15 : 0,
@@ -71,7 +71,7 @@ public abstract class AbstractMinecartEntityMixin extends Entity implements Dyna
 	}
 
 	@Override
-	public int getLuminance() {
+	public int ryoamicLights$getLuminance() {
 		return this.lambdynlights$luminance;
 	}
 }
