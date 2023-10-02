@@ -18,14 +18,14 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class ExplosiveProjectileEntityMixin implements DynamicLightSource
 {
     @Override
-    public void dynamicLightTick()
+    public void ryoamicLights$dynamicLightTick()
     {
         if (!this.isDynamicLightEnabled())
             this.setDynamicLightEnabled(true);
     }
 
     @Override
-    public int getLuminance()
+    public int ryoamicLights$getLuminance()
     {
         if (LambDynLights.get().config.hasEntitiesLightSource())
             return 14;

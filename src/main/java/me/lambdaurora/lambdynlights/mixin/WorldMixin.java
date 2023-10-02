@@ -37,7 +37,7 @@ public abstract class WorldMixin
     private void onBlockEntityTick(CallbackInfo ci, Profiler profiler, Iterator<BlockEntity> iterator, BlockEntity blockEntity)
     {
         if (this.isClient() && LambDynLights.get().config.hasBlockEntitiesLightSource()) {
-            ((DynamicLightSource) blockEntity).dynamicLightTick();
+            ((DynamicLightSource) blockEntity).ryoamicLights$dynamicLightTick();
         }
     }
 }

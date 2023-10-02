@@ -36,7 +36,7 @@ public abstract class AbstractDecorationEntityMixin extends Entity implements Dy
             if (this.removed) {
                 this.setDynamicLightEnabled(false);
             } else {
-                this.dynamicLightTick();
+                this.ryoamicLights$dynamicLightTick();
                 LambDynLights.updateTracking(this);
             }
         }
