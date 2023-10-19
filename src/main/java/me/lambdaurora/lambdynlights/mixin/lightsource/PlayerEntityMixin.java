@@ -19,6 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity implements DynamicLightSource
@@ -26,7 +27,9 @@ public abstract class PlayerEntityMixin extends LivingEntity implements DynamicL
     @Shadow
     public abstract boolean isSpectator();
 
+    @Unique
     private int   lambdynlights_luminance;
+    @Unique
     private World lambdynlights_lastWorld;
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world)

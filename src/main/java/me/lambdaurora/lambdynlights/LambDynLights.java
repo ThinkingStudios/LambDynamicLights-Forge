@@ -14,9 +14,6 @@ import me.lambdaurora.lambdynlights.accessor.WorldRendererAccessor;
 import me.lambdaurora.lambdynlights.api.DynamicLightHandlers;
 import me.lambdaurora.lambdynlights.api.item.ItemLightSources;
 import me.lambdaurora.lambdynlights.gui.SettingsScreen;
-import me.shedaniel.architectury.platform.Platform;
-import me.shedaniel.architectury.registry.ReloadListeners;
-import me.shedaniel.architectury.utils.EnvExecutor;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.LightmapTextureManager;
@@ -26,16 +23,16 @@ import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.resource.ResourceType;
-import net.minecraft.resource.SynchronousResourceReloader;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ExtensionPoint;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.network.FMLNetworkConstants;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
@@ -67,8 +64,10 @@ public class LambDynLights {
 
     public LambDynLights() {
         ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
-        EnvExecutor.runInEnv(Dist.CLIENT, () -> this::onInitializeClient);
-        EnvExecutor.runInEnv(Dist.CLIENT, () -> () -> Mod.EventBusSubscriber.Bus.FORGE.bus().get().addListener(this::renderWorldLastEvent));
+        if (FMLLoader.getDist().isClient()) {
+            this.onInitializeClient();
+            MinecraftForge.EVENT_BUS.addListener(this::renderWorldLastEvent);
+        }
     }
 
     public void onInitializeClient() {
@@ -76,15 +75,14 @@ public class LambDynLights {
         this.log("Initializing LambDynamicLights...");
 
         this.config.load();
-
-        ReloadListeners.registerReloadListener(ResourceType.CLIENT_RESOURCES, (SynchronousResourceReloader) manager -> ItemLightSources.load(manager));
-        Platform.getMod(MODID).registerConfigurationScreen(SettingsScreen::new);
+        ItemLightSources.load(MinecraftClient.getInstance().getResourceManager());
+        ModList.get().getModContainerById(MODID).orElseThrow(RuntimeException::new).registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, () -> ((minecraftClient, screen) -> new SettingsScreen(screen)));
 
         DynamicLightHandlers.registerDefaultHandlers();
     }
 
     @SubscribeEvent
-    public void renderWorldLastEvent(RenderWorldLastEvent event) {
+    public void renderWorldLastEvent(@NotNull RenderWorldLastEvent event) {
         MinecraftClient.getInstance().getProfiler().push("dynamic_lighting");
         get().updateAll(event.getContext());
     }

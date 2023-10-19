@@ -31,6 +31,7 @@ public enum DynamicLightsMode implements Nameable {
     FAST(250, Formatting.YELLOW, SpruceTexts.OPTIONS_GENERIC_FAST),
     FANCY(0, Formatting.GREEN, SpruceTexts.OPTIONS_GENERIC_FANCY);
 
+    public static final DynamicLightsMode[] DYNAMIC_LIGHTS_MODES = values();
     private final int delay;
     private final Text translatedText;
 
@@ -72,10 +73,9 @@ public enum DynamicLightsMode implements Nameable {
      * @return the next available dynamic lights mode
      */
     public DynamicLightsMode next() {
-        DynamicLightsMode[] v = values();
-        if (v.length == this.ordinal() + 1)
-            return v[0];
-        return v[this.ordinal() + 1];
+        if (DYNAMIC_LIGHTS_MODES.length == this.ordinal() + 1)
+            return DYNAMIC_LIGHTS_MODES[0];
+        return DYNAMIC_LIGHTS_MODES[this.ordinal() + 1];
     }
 
     /**
@@ -99,6 +99,6 @@ public enum DynamicLightsMode implements Nameable {
      * @return the dynamic lights mode if found, else empty
      */
     public static @NotNull Optional<DynamicLightsMode> byId(@NotNull String id) {
-        return Arrays.stream(values()).filter(mode -> mode.getName().equalsIgnoreCase(id)).findFirst();
+        return Arrays.stream(DYNAMIC_LIGHTS_MODES).filter(mode -> mode.getName().equalsIgnoreCase(id)).findFirst();
     }
 }

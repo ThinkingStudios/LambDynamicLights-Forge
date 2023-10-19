@@ -18,6 +18,7 @@ import net.minecraft.entity.TntEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -28,7 +29,9 @@ public abstract class TntEntityMixin extends Entity implements DynamicLightSourc
     @Shadow
     private int fuseTimer;
 
+    @Unique
     private double lambdynlights_startFuseTimer = 80.0;
+    @Unique
     private int lambdynlights_luminance;
 
     public TntEntityMixin(EntityType<?> type, World world)

@@ -25,6 +25,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -63,13 +64,20 @@ public abstract class EntityMixin implements DynamicLightSource {
     @Shadow
     public abstract BlockPos getBlockPos();
 
+    @Unique
     private int lambdynlights_luminance = 0;
+    @Unique
     private int lambdynlights_lastLuminance = 0;
+    @Unique
     private long lambdynlights_lastUpdate = 0;
+    @Unique
     private double lambdynlights_prevX;
+    @Unique
     private double lambdynlights_prevY;
+    @Unique
     private double lambdynlights_prevZ;
-    private LongOpenHashSet trackedLitChunkPos = new LongOpenHashSet();
+    @Unique
+    private LongOpenHashSet ryoamicLights$trackedLitChunkPos = new LongOpenHashSet();
 
     @Inject(method = "tick", at = @At("TAIL"))
     public void onTick(CallbackInfo ci) {
@@ -169,7 +177,7 @@ public abstract class EntityMixin implements DynamicLightSource {
                 BlockPos.Mutable chunkPos = new BlockPos.Mutable(this.chunkX, MathHelper.floorDiv((int) this.getEyeY(), 16), this.chunkZ);
 
                 LambDynLights.scheduleChunkRebuild(renderer, chunkPos);
-                LambDynLights.updateTrackedChunks(chunkPos, this.trackedLitChunkPos, newPos);
+                LambDynLights.updateTrackedChunks(chunkPos, this.ryoamicLights$trackedLitChunkPos, newPos);
 
                 Direction directionX = (this.getBlockPos().getX() & 15) >= 8 ? Direction.EAST : Direction.WEST;
                 Direction directionY = (MathHelper.fastFloor(this.getEyeY()) & 15) >= 8 ? Direction.UP : Direction.DOWN;
@@ -187,14 +195,14 @@ public abstract class EntityMixin implements DynamicLightSource {
                         chunkPos.move(directionY); // Y
                     }
                     LambDynLights.scheduleChunkRebuild(renderer, chunkPos);
-                    LambDynLights.updateTrackedChunks(chunkPos, this.trackedLitChunkPos, newPos);
+                    LambDynLights.updateTrackedChunks(chunkPos, this.ryoamicLights$trackedLitChunkPos, newPos);
                 }
             }
 
             // Schedules the rebuild of removed chunks.
             this.ryoamicLights$scheduleTrackedChunksRebuild(renderer);
             // Update tracked lit chunks.
-            this.trackedLitChunkPos = newPos;
+            this.ryoamicLights$trackedLitChunkPos = newPos;
             return true;
         }
         return false;
@@ -203,7 +211,7 @@ public abstract class EntityMixin implements DynamicLightSource {
     @Override
     public void ryoamicLights$scheduleTrackedChunksRebuild(@NotNull WorldRenderer renderer) {
         if (MinecraftClient.getInstance().world == this.world)
-            for (long pos : this.trackedLitChunkPos) {
+            for (long pos : this.ryoamicLights$trackedLitChunkPos) {
                 LambDynLights.scheduleChunkRebuild(renderer, pos);
             }
     }

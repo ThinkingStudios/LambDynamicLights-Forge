@@ -24,6 +24,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -42,10 +43,14 @@ public abstract class BlockEntityMixin implements DynamicLightSource
 
     @Shadow
     protected boolean removed;
+    @Unique
     private int lambdynlights_luminance = 0;
+    @Unique
     private int lambdynlights_lastLuminance = 0;
+    @Unique
     private long lambdynlights_lastUpdate = 0;
-    private LongOpenHashSet trackedLitChunkPos = new LongOpenHashSet();
+    @Unique
+    private final LongOpenHashSet ryoamicLights$trackedLitChunkPos = new LongOpenHashSet();
 
     @Override
     public double ryoamicLights$getDynamicLightX()
@@ -133,12 +138,12 @@ public abstract class BlockEntityMixin implements DynamicLightSource
         if (luminance != this.lambdynlights_lastLuminance) {
             this.lambdynlights_lastLuminance = luminance;
 
-            if (this.trackedLitChunkPos.isEmpty()) {
+            if (this.ryoamicLights$trackedLitChunkPos.isEmpty()) {
                 BlockPos.Mutable chunkPos = new BlockPos.Mutable(MathHelper.floorDiv(this.pos.getX(), 16),
                         MathHelper.floorDiv(this.pos.getY(), 16),
                         MathHelper.floorDiv(this.pos.getZ(), 16));
 
-                LambDynLights.updateTrackedChunks(chunkPos, null, this.trackedLitChunkPos);
+                LambDynLights.updateTrackedChunks(chunkPos, null, this.ryoamicLights$trackedLitChunkPos);
 
                 Direction directionX = (this.pos.getX() & 15) >= 8 ? Direction.EAST : Direction.WEST;
                 Direction directionY = (this.pos.getY() & 15) >= 8 ? Direction.UP : Direction.DOWN;
@@ -155,7 +160,7 @@ public abstract class BlockEntityMixin implements DynamicLightSource
                         chunkPos.move(directionZ.getOpposite()); // origin
                         chunkPos.move(directionY); // Y
                     }
-                    LambDynLights.updateTrackedChunks(chunkPos, null, this.trackedLitChunkPos);
+                    LambDynLights.updateTrackedChunks(chunkPos, null, this.ryoamicLights$trackedLitChunkPos);
                 }
             }
 
@@ -169,9 +174,10 @@ public abstract class BlockEntityMixin implements DynamicLightSource
     @Override
     public void ryoamicLights$scheduleTrackedChunksRebuild(@NotNull WorldRenderer renderer)
     {
-        if (this.world == MinecraftClient.getInstance().world)
-        for (long pos : this.trackedLitChunkPos) {
-            LambDynLights.scheduleChunkRebuild(renderer, pos);
+        if (this.world == MinecraftClient.getInstance().world) {
+            for (long pos : this.ryoamicLights$trackedLitChunkPos) {
+                LambDynLights.scheduleChunkRebuild(renderer, pos);
+            }
         }
     }
 }

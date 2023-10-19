@@ -10,19 +10,18 @@
 package me.lambdaurora.lambdynlights.api.item;
 
 import com.google.gson.JsonObject;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import me.lambdaurora.lambdynlights.LambDynLights;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import org.aperlambda.lambdacommon.LambdaConstants;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,8 +34,8 @@ import java.util.Optional;
  */
 public final class ItemLightSources
 {
-    private static final List<ItemLightSource> ITEM_LIGHT_SOURCES = new ArrayList<>();
-    private static final List<ItemLightSource> STATIC_ITEM_LIGHT_SOURCES = new ArrayList<>();
+    private static final List<ItemLightSource> ITEM_LIGHT_SOURCES = new ObjectArrayList<>();
+    private static final List<ItemLightSource> STATIC_ITEM_LIGHT_SOURCES = new ObjectArrayList<>();
 
     private ItemLightSources()
     {
@@ -88,7 +87,7 @@ public final class ItemLightSources
         for (ItemLightSource other : ITEM_LIGHT_SOURCES) {
             if (other.item == data.item) {
                 LambDynLights.get().warn("Failed to register item light source \"" + data.id + "\", duplicates item \""
-                        + Registry.ITEM.getId(data.item) + "\" found in \"" + other.id + "\".");
+                        + data.item.getRegistryName() + "\" found in \"" + other.id + "\".");
                 return;
             }
         }
@@ -106,7 +105,7 @@ public final class ItemLightSources
         for (ItemLightSource other : STATIC_ITEM_LIGHT_SOURCES) {
             if (other.item == data.item) {
                 LambDynLights.get().warn("Failed to register item light source \"" + data.id + "\", duplicates item \""
-                        + Registry.ITEM.getId(data.item) + "\" found in \"" + other.id + "\".");
+                        + data.item.getRegistryName() + "\" found in \"" + other.id + "\".");
                 return;
             }
         }
@@ -125,7 +124,7 @@ public final class ItemLightSources
     {
         for (ItemLightSource data : ITEM_LIGHT_SOURCES) {
             if (data.item == stack.getItem()) {
-                return data.getLuminance(stack, submergedInWater);
+                return data.getLuminance(submergedInWater);
             }
         }
         if (stack.getItem() instanceof BlockItem)

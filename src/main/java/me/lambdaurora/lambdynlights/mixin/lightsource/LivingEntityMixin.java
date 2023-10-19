@@ -19,10 +19,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements DynamicLightSource
 {
+    @Unique
     private int lambdynlights_luminance;
 
     public LivingEntityMixin(EntityType<?> type, World world)

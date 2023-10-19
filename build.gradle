@@ -1,5 +1,5 @@
 plugins {
-    id 'dev.architectury.loom' version '1.2-SNAPSHOT'
+    id 'dev.architectury.loom' version '1.3-SNAPSHOT'
     id 'maven-publish'
     id 'com.modrinth.minotaur' version '2.+'
     id 'net.darkhax.curseforgegradle' version '1.+'
@@ -12,13 +12,12 @@ archivesBaseName = project.archives_base_name
 loom {
     forge {
         mixinConfigs = [
-                "lambdynlights.mixins.json","lambdynlights.lightsource.mixins.json"
+                "lambdynlights.mixins.json"
         ]
     }
 }
 
 repositories {
-    maven { url "https://maven.architectury.dev/" }
     exclusiveContent {
         forRepository {
             maven {
@@ -36,9 +35,6 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     forge "net.minecraftforge:forge:${project.forge_version}"
-
-    modImplementation("me.shedaniel:architectury-forge:${project.architectury_version}")
-
     modImplementation("maven.modrinth:obsidianui:${project.spruceui_version}")
 }
 

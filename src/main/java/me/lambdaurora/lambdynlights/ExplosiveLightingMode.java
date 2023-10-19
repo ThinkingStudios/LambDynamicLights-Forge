@@ -30,6 +30,7 @@ public enum ExplosiveLightingMode implements Nameable {
     SIMPLE(Formatting.YELLOW, SpruceTexts.OPTIONS_GENERIC_SIMPLE),
     FANCY(Formatting.GREEN, SpruceTexts.OPTIONS_GENERIC_FANCY);
 
+    public static final ExplosiveLightingMode[] EXPLOSIVE_LIGHTING_MODES = values();
     private final Text translatedText;
 
     ExplosiveLightingMode(@NotNull Formatting formatting, @NotNull Text translatedText) {
@@ -51,10 +52,9 @@ public enum ExplosiveLightingMode implements Nameable {
      * @return the next available explosives dynamic lighting mode
      */
     public ExplosiveLightingMode next() {
-        ExplosiveLightingMode[] v = values();
-        if (v.length == this.ordinal() + 1)
-            return v[0];
-        return v[this.ordinal() + 1];
+        if (EXPLOSIVE_LIGHTING_MODES.length == this.ordinal() + 1)
+            return EXPLOSIVE_LIGHTING_MODES[0];
+        return EXPLOSIVE_LIGHTING_MODES[this.ordinal() + 1];
     }
 
     /**
@@ -78,6 +78,6 @@ public enum ExplosiveLightingMode implements Nameable {
      * @return the explosives dynamic lighting mode if found, else empty
      */
     public static @NotNull Optional<ExplosiveLightingMode> byId(@NotNull String id) {
-        return Arrays.stream(values()).filter(mode -> mode.getName().equalsIgnoreCase(id)).findFirst();
+        return Arrays.stream(EXPLOSIVE_LIGHTING_MODES).filter(mode -> mode.getName().equalsIgnoreCase(id)).findFirst();
     }
 }

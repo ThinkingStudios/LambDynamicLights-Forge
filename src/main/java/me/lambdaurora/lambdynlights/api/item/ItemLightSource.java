@@ -16,10 +16,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -55,11 +54,10 @@ public class ItemLightSource
     /**
      * Gets the luminance of the item.
      *
-     * @param stack            The item stack.
      * @param submergedInWater True if submerged in water, else false.
      * @return The luminance value between 0 and 15.
      */
-    public int getLuminance(@NotNull ItemStack stack, boolean submergedInWater)
+    public int getLuminance(boolean submergedInWater)
     {
         if (this.waterSensitive && LambDynLights.get().config.hasWaterSensitiveCheck() && submergedInWater)
             return 0; // Don't emit light with water sensitive items while submerged in water.
@@ -103,9 +101,9 @@ public class ItemLightSource
         }
 
         Identifier affectId = new Identifier(json.get("item").getAsString());
-        Item item = Registry.ITEM.get(affectId);
+        Item item = ForgeRegistries.ITEMS.getValue(affectId);
 
-        if (item == Items.AIR)
+        if (item == Items.AIR || item == null)
             return Optional.empty();
 
         int luminance;
@@ -121,8 +119,8 @@ public class ItemLightSource
                     return Optional.empty();
                 }
             } else {
-                Block block = Registry.BLOCK.get(new Identifier(luminanceStr));
-                if (block == Blocks.AIR)
+                Block block = ForgeRegistries.BLOCKS.getValue(new Identifier(luminanceStr));
+                if (block == Blocks.AIR || block == null)
                     return Optional.empty();
 
                 luminance = block.getDefaultState().getLuminance();
