@@ -11,6 +11,7 @@ package dev.lambdaurora.lambdynlights.api.item;
 
 import com.google.gson.JsonParser;
 import dev.lambdaurora.lambdynlights.LambDynLights;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.resource.ResourceManager;
@@ -32,8 +33,8 @@ import java.util.List;
  */
 public final class ItemLightSources {
 	private static final JsonParser JSON_PARSER = new JsonParser();
-	private static final List<ItemLightSource> ITEM_LIGHT_SOURCES = new ArrayList<>();
-	private static final List<ItemLightSource> STATIC_ITEM_LIGHT_SOURCES = new ArrayList<>();
+	private static final List<ItemLightSource> ITEM_LIGHT_SOURCES = new ObjectArrayList<>();
+	private static final List<ItemLightSource> STATIC_ITEM_LIGHT_SOURCES = new ObjectArrayList<>();
 
 	private ItemLightSources() {
 		throw new UnsupportedOperationException("ItemLightSources only contains static definitions.");
@@ -76,7 +77,7 @@ public final class ItemLightSources {
 		for (var other : ITEM_LIGHT_SOURCES) {
 			if (other.item() == data.item()) {
 				LambDynLights.get().warn("Failed to register item light source \"" + data.id() + "\", duplicates item \""
-						+ Registry.ITEM.getId(data.item()) + "\" found in \"" + other.id() + "\".");
+						+ data.item().getRegistryName() + "\" found in \"" + other.id() + "\".");
 				return;
 			}
 		}
@@ -93,7 +94,7 @@ public final class ItemLightSources {
 		for (var other : STATIC_ITEM_LIGHT_SOURCES) {
 			if (other.item() == data.item()) {
 				LambDynLights.get().warn("Failed to register item light source \"" + data.id() + "\", duplicates item \""
-						+ Registry.ITEM.getId(data.item()) + "\" found in \"" + other.id() + "\".");
+						+ data.item().getRegistryName() + "\" found in \"" + other.id() + "\".");
 				return;
 			}
 		}

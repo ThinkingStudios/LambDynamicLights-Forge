@@ -19,7 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -96,9 +96,9 @@ public abstract class ItemLightSource {
 		}
 
 		var affectId = new Identifier(json.get("item").getAsString());
-		var item = Registry.ITEM.get(affectId);
+		var item = ForgeRegistries.ITEMS.getValue(affectId);
 
-		if (item == Items.AIR)
+		if (item == Items.AIR || item == null)
 			return Optional.empty();
 
 		boolean waterSensitive = false;
@@ -117,8 +117,8 @@ public abstract class ItemLightSource {
 			} else {
 				var blockId = Identifier.tryParse(luminanceStr);
 				if (blockId != null) {
-					var block = Registry.BLOCK.get(blockId);
-					if (block != Blocks.AIR)
+					var block = ForgeRegistries.BLOCKS.getValue(blockId);
+					if (block != Blocks.AIR || block == null)
 						return Optional.of(new BlockItemLightSource(id, item, block.getDefaultState(), waterSensitive));
 				}
 			}
