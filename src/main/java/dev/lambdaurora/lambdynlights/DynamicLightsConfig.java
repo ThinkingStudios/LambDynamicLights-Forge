@@ -17,10 +17,10 @@ import dev.lambdaurora.spruceui.option.SpruceOption;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraftforge.fml.loading.FMLPaths;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * Represents the mod configuration.
@@ -38,7 +38,7 @@ public class DynamicLightsConfig {
 	private static final ExplosiveLightingMode DEFAULT_CREEPER_LIGHTING_MODE = ExplosiveLightingMode.SIMPLE;
 	private static final ExplosiveLightingMode DEFAULT_TNT_LIGHTING_MODE = ExplosiveLightingMode.OFF;
 
-	public static final Path CONFIG_FILE_PATH = Paths.get("config/lambdynlights.toml");
+	public static final Path CONFIG_FILE_PATH = FMLPaths.CONFIGDIR.get().resolve("lambdynlights.toml");
 	protected final FileConfig config;
 	private final LambDynLights mod;
 	private DynamicLightsMode dynamicLightsMode;
