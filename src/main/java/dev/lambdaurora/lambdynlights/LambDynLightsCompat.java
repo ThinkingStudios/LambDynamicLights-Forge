@@ -9,7 +9,7 @@
 
 package dev.lambdaurora.lambdynlights;
 
-import dev.architectury.platform.Platform;
+import net.minecraftforge.fml.loading.FMLLoader;
 
 /**
  * Represents a utility class for compatibility.
@@ -20,12 +20,12 @@ import dev.architectury.platform.Platform;
  */
 public final class LambDynLightsCompat {
 	/**
-	 * Returns whether Ars Nouveau is installed.
+	 * Returns whether Canvas is installed.
 	 *
-	 * @return {@code true} if Ars Nouveau is installed, else {@code false}
+	 * @return {@code true} if Canvas is installed, else {@code false}
 	 */
-	public static boolean isArsNouveauInstalled() {
-		return Platform.isModLoaded("ars_nouveau");
+	public static boolean isCanvasInstalled() {
+		return FMLLoader.getLoadingModList().getModFileById("canvas") != null;
 	}
 
 	/**
@@ -35,6 +35,6 @@ public final class LambDynLightsCompat {
 	 */
 	public static boolean isLilTaterReloadedInstalled() {
 		// Don't even think about it Yog.
-		return Platform.isModLoaded("ltr");
+		return FMLLoader.getLoadingModList().getModFileById("ltr") != null;
 	}
 }
