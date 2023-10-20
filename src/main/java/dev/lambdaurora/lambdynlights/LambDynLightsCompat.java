@@ -9,7 +9,7 @@
 
 package dev.lambdaurora.lambdynlights;
 
-import dev.architectury.platform.Platform;
+import net.minecraftforge.fml.loading.FMLLoader;
 
 /**
  * Represents a utility class for compatibility.
@@ -25,7 +25,7 @@ public final class LambDynLightsCompat {
 	 * @return {@code true} if Canvas is installed, else {@code false}
 	 */
 	public static boolean isCanvasInstalled() {
-		return Platform.isModLoaded("canvas");
+		return FMLLoader.getLoadingModList().getModFileById("canvas") != null;
 	}
 
 	/**
@@ -35,26 +35,15 @@ public final class LambDynLightsCompat {
 	 */
 	public static boolean isLilTaterReloadedInstalled() {
 		// Don't even think about it Yog.
-		return Platform.isModLoaded("ltr");
+		return FMLLoader.getLoadingModList().getModFileById("ltr") != null;
 	}
 
 	/**
-	 * Returns whether Sodium 0.1.0 is installed.
+	 * Returns whether Rubidium 0.7.x and above is installed.
 	 *
-	 * @return {@code true} if Sodium 0.1.0 is installed, else {@code false}
+	 * @return {@code true} if Rubidium 0.7.x and above is installed, else {@code false}
 	 */
-	public static boolean isSodium010Installed() {
-		return Platform.getOptionalMod("sodium").map(mod -> mod.getVersion().startsWith("0.1.0"))
-				.orElse(false);
-	}
-
-	public static boolean isSodium05XInstalled() {
-		return Platform.getOptionalMod("rubidium").map(mod -> {
-			try {
-				return mod.getVersion().compareTo("0.7.0") >= 0;
-			} catch (Exception e) {
-				throw new RuntimeException(e);
-			}
-		}).orElse(false);
+	public static boolean isRubidium07XInstalled() {
+		return FMLLoader.getLoadingModList().getModFileById("rubidium").versionString().startsWith("0.7.0");
 	}
 }
