@@ -31,13 +31,6 @@ ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ryoamiclights]]
-modId = "architectury"
-mandatory = true
-versionRange = "[8,)"
-ordering = "NONE"
-side = "BOTH"
-
-[[dependencies.ryoamiclights]]
 modId = "spruceui"
 mandatory = true
 versionRange = "*"

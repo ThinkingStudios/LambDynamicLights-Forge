@@ -44,11 +44,11 @@ public abstract class BlockEntityMixin implements DynamicLightSource {
 	protected boolean removed;
 
 	@Unique
-	private int luminance = 0;
+	private int ryoamicLights$luminance = 0;
 	@Unique
-	private int lastLuminance = 0;
+	private int ryoamicLights$lastLuminance = 0;
 	@Unique
-	private long lastUpdate = 0;
+	private long ryoamicLights$lastUpdate = 0;
 	@Unique
 	private final LongOpenHashSet lambdynlights$trackedLitChunkPos = new LongOpenHashSet();
 
@@ -79,7 +79,7 @@ public abstract class BlockEntityMixin implements DynamicLightSource {
 
 	@Override
 	public void ryoamicLights$resetDynamicLight() {
-		this.lastLuminance = 0;
+		this.ryoamicLights$lastLuminance = 0;
 	}
 
 	@Override
@@ -88,18 +88,18 @@ public abstract class BlockEntityMixin implements DynamicLightSource {
 		if (this.world == null || !this.world.isClient())
 			return;
 		if (!this.removed) {
-			this.luminance = DynamicLightHandlers.getLuminanceFrom((BlockEntity) (Object) this);
+			this.ryoamicLights$luminance = DynamicLightHandlers.getLuminanceFrom((BlockEntity) (Object) this);
 			LambDynLights.updateTracking(this);
 
 			if (!this.isDynamicLightEnabled()) {
-				this.lastLuminance = 0;
+				this.ryoamicLights$lastLuminance = 0;
 			}
 		}
 	}
 
 	@Override
 	public int ryoamicLights$getLuminance() {
-		return this.luminance;
+		return this.ryoamicLights$luminance;
 	}
 
 	@Override
@@ -109,11 +109,11 @@ public abstract class BlockEntityMixin implements DynamicLightSource {
 			return false;
 		if (mode.hasDelay()) {
 			long currentTime = System.currentTimeMillis();
-			if (currentTime < this.lastUpdate + mode.getDelay()) {
+			if (currentTime < this.ryoamicLights$lastUpdate + mode.getDelay()) {
 				return false;
 			}
 
-			this.lastUpdate = currentTime;
+			this.ryoamicLights$lastUpdate = currentTime;
 		}
 		return true;
 	}
@@ -125,8 +125,8 @@ public abstract class BlockEntityMixin implements DynamicLightSource {
 
 		int luminance = this.ryoamicLights$getLuminance();
 
-		if (luminance != this.lastLuminance) {
-			this.lastLuminance = luminance;
+		if (luminance != this.ryoamicLights$lastLuminance) {
+			this.ryoamicLights$lastLuminance = luminance;
 
 			if (this.lambdynlights$trackedLitChunkPos.isEmpty()) {
 				var chunkPos = new BlockPos.Mutable(MathHelper.floorDiv(this.pos.getX(), 16),
