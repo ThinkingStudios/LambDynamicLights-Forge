@@ -16,6 +16,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.aperlambda.lambdacommon.LambdaConstants;
 import org.jetbrains.annotations.NotNull;
 
@@ -87,7 +88,7 @@ public final class ItemLightSources
         for (ItemLightSource other : ITEM_LIGHT_SOURCES) {
             if (other.item == data.item) {
                 LambDynLights.get().warn("Failed to register item light source \"" + data.id + "\", duplicates item \""
-                        + data.item.getRegistryName() + "\" found in \"" + other.id + "\".");
+                        + ForgeRegistries.ITEMS.getKey(data.item) + "\" found in \"" + other.id + "\".");
                 return;
             }
         }
@@ -105,7 +106,7 @@ public final class ItemLightSources
         for (ItemLightSource other : STATIC_ITEM_LIGHT_SOURCES) {
             if (other.item == data.item) {
                 LambDynLights.get().warn("Failed to register item light source \"" + data.id + "\", duplicates item \""
-                        + data.item.getRegistryName() + "\" found in \"" + other.id + "\".");
+                        + ForgeRegistries.ITEMS.getKey(data.item) + "\" found in \"" + other.id + "\".");
                 return;
             }
         }
