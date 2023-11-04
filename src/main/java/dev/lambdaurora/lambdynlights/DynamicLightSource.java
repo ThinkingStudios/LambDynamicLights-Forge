@@ -55,7 +55,7 @@ public interface DynamicLightSource {
 	 *
 	 * @return {@code true} if the dynamic light is enabled, else {@code false}
 	 */
-	default boolean isDynamicLightEnabled() {
+	default boolean ryoamicLights$isDynamicLightEnabled() {
 		return LambDynLights.get().config.getDynamicLightsMode().isEnabled() && LambDynLights.get().containsLightSource(this);
 	}
 
@@ -67,7 +67,7 @@ public interface DynamicLightSource {
 	 * @param enabled {@code true} if the dynamic light is enabled, else {@code false}
 	 */
 	@ApiStatus.Internal
-	default void setDynamicLightEnabled(boolean enabled) {
+	default void ryoamicLights$setDynamicLightEnabled(boolean enabled) {
 		this.ryoamicLights$resetDynamicLight();
 		if (enabled)
 			LambDynLights.get().addLightSource(this);

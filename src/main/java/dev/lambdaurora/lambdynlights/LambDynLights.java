@@ -29,6 +29,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModList;
@@ -86,7 +87,7 @@ public class LambDynLights {
 		DynamicLightHandlers.registerDefaultHandlers();
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void renderWorldLastEvent(@NotNull RenderLevelStageEvent event) {
 		if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRIPWIRE_BLOCKS) {
 			MinecraftClient.getInstance().getProfiler().push("dynamic_lighting");
@@ -434,13 +435,13 @@ public class LambDynLights {
 	 * @param lightSource the light source
 	 */
 	public static void updateTracking(@NotNull DynamicLightSource lightSource) {
-		boolean enabled = lightSource.isDynamicLightEnabled();
+		boolean enabled = lightSource.ryoamicLights$isDynamicLightEnabled();
 		int luminance = lightSource.ryoamicLights$getLuminance();
 
 		if (!enabled && luminance > 0) {
-			lightSource.setDynamicLightEnabled(true);
+			lightSource.ryoamicLights$setDynamicLightEnabled(true);
 		} else if (enabled && luminance < 1) {
-			lightSource.setDynamicLightEnabled(false);
+			lightSource.ryoamicLights$setDynamicLightEnabled(false);
 		}
 	}
 
