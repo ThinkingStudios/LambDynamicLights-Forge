@@ -11,12 +11,6 @@ LambDynamicLights unofficial forge port.
 
 A dynamic lights mod for MinecraftForge/NeoForge.
 
-<img alt="java17" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/built-with/java17_vector.svg">
-
-<a href="https://modrinth.com/mod/architectury-api">
-<img alt="architectury-api" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/requires/architectury-api_vector.svg">
-</a>
-
 <img alt="forge" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/forge_vector.svg">
 
 </div></center>
@@ -93,7 +87,7 @@ Light emitted from items depend on the light emitted from their respective block
 
 Using this mod is very simple!
 
-Install it in your mods folder along with [Architectury API](https://modrinth.com/mod/architectury-api), (and [Rubidium](https://modrinth.com/mod/rubidium) if wanted for better performances).
+Install it in your mods folder along with [ObsidianUI](https://modrinth.com/mod/obsidianui), (and [Embeddium](https://modrinth.com/mod/embeddium)/[Rubidium](https://modrinth.com/mod/rubidium) if wanted for better performances).
 
 You will notice nothing at first but if you go into the video options or into the settings screen of the mod via Forge's Mod List, you will notice an option called Dynamic Lights which is by default off, choose the wanted configuration and enjoy!
 You can also configure the mod by editing the file in `config/lambdynlights.toml`.
@@ -112,8 +106,5 @@ Check [this documentation](API.md).
 
 # 📖 Compatibility
 
-- [Rubidium](https://modrinth.com/mod/rubidium) is recommended for better performances.
+- [Embeddium](https://modrinth.com/mod/embeddium)/[Rubidium](https://modrinth.com/mod/rubidium) is recommended for better performances.
 - **OptiFine/OptiForge is obviously incompatible.**
-
-
-**<p style="color: red">Please, when you write the name of this mod, don't add spaces.</p>**
