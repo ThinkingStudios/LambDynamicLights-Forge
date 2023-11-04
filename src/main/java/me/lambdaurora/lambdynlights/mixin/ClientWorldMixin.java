@@ -24,6 +24,6 @@ public class ClientWorldMixin
     private void onFinishRemovingEntity(Entity entity, CallbackInfo ci)
     {
         DynamicLightSource dls = (DynamicLightSource) entity;
-        dls.setDynamicLightEnabled(false);
+        dls.ryoamicLights$setDynamicLightEnabled(false);
     }
 }

@@ -79,7 +79,7 @@ public abstract class BlockEntityMixin implements DynamicLightSource
     @Inject(method = "markRemoved", at = @At("TAIL"))
     private void onRemoved(CallbackInfo ci)
     {
-        this.setDynamicLightEnabled(false);
+        this.ryoamicLights$setDynamicLightEnabled(false);
     }
 
     @Override
@@ -98,7 +98,7 @@ public abstract class BlockEntityMixin implements DynamicLightSource
             this.lambdynlights_luminance = DynamicLightHandlers.getLuminanceFrom((BlockEntity) (Object) this);
             LambDynLights.updateTracking(this);
 
-            if (!this.isDynamicLightEnabled()) {
+            if (!this.ryoamicLights$isDynamicLightEnabled()) {
                 this.lambdynlights_lastLuminance = 0;
             }
         }

@@ -41,7 +41,7 @@ public abstract class AbstractMinecartEntityMixin extends Entity implements Dyna
         // We do not want to update the entity on the server.
         if (this.getEntityWorld().isClient()) {
             if (this.removed) {
-                this.setDynamicLightEnabled(false);
+                this.ryoamicLights$setDynamicLightEnabled(false);
             } else {
                 this.ryoamicLights$dynamicLightTick();
                 LambDynLights.updateTracking(this);

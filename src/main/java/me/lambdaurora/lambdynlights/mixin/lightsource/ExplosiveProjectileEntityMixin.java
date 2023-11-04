@@ -20,8 +20,8 @@ public abstract class ExplosiveProjectileEntityMixin implements DynamicLightSour
     @Override
     public void ryoamicLights$dynamicLightTick()
     {
-        if (!this.isDynamicLightEnabled())
-            this.setDynamicLightEnabled(true);
+        if (!this.ryoamicLights$isDynamicLightEnabled())
+            this.ryoamicLights$setDynamicLightEnabled(true);
     }
 
     @Override
