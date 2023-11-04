@@ -32,7 +32,7 @@ public abstract class AbstractDecorationEntityMixin extends Entity implements Dy
 		// We do not want to update the entity on the server.
 		if (this.getWorld().isClient()) {
 			if (this.isRemoved()) {
-				this.setDynamicLightEnabled(false);
+				this.ryoamicLights$setDynamicLightEnabled(false);
 			} else {
 				if (!LambDynLights.get().config.getEntitiesLightSource().get() || !DynamicLightHandlers.canLightUp(this))
 					this.ryoamicLights$resetDynamicLight();
