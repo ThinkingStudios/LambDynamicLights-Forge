@@ -1,2 +1,2 @@
 ## Changelog
-- Removed `Architectury API` dependencies
+- try fix compatible with include LDL mods

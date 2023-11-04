@@ -51,7 +51,7 @@ public abstract class TntEntityMixin extends Entity implements DynamicLightSourc
 				return;
 
 			if (this.isRemoved()) {
-				this.setDynamicLightEnabled(false);
+				this.ryoamicLights$setDynamicLightEnabled(false);
 			} else {
 				if (!LambDynLights.get().config.getEntitiesLightSource().get() || !DynamicLightHandlers.canLightUp(this))
 					this.ryoamicLights$resetDynamicLight();
