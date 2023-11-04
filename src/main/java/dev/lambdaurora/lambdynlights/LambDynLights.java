@@ -433,13 +433,13 @@ public class LambDynLights {
 	 * @param lightSource the light source
 	 */
 	public static void updateTracking(@NotNull DynamicLightSource lightSource) {
-		boolean enabled = lightSource.isDynamicLightEnabled();
+		boolean enabled = lightSource.ryoamicLights$isDynamicLightEnabled();
 		int luminance = lightSource.ryoamicLights$getLuminance();
 
 		if (!enabled && luminance > 0) {
-			lightSource.setDynamicLightEnabled(true);
+			lightSource.ryoamicLights$setDynamicLightEnabled(true);
 		} else if (enabled && luminance < 1) {
-			lightSource.setDynamicLightEnabled(false);
+			lightSource.ryoamicLights$setDynamicLightEnabled(false);
 		}
 	}
 
