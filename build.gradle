@@ -43,6 +43,9 @@ repositories {
 			includeGroup "maven.modrinth"
 		}
 	}
+	maven {
+		url "https://maven.su5ed.dev/releases"
+	}
 }
 
 dependencies {
@@ -54,6 +57,8 @@ dependencies {
 
 	//modCompileOnly "maven.modrinth:rubidium:0.7.0"
 	modCompileOnly "maven.modrinth:embeddium:${project.embeddium_version}"
+	modCompileOnly "dev.su5ed.sinytra.fabric-api:fabric-api:${project.forgified_fabric_api_version}"
+	modLocalRuntime "dev.architectury:architectury-forge:${project.architectury_version}"
 }
 
 java {

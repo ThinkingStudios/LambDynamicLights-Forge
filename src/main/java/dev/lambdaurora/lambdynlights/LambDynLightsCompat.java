@@ -9,7 +9,9 @@
 
 package dev.lambdaurora.lambdynlights;
 
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
+import org.apache.maven.artifact.versioning.*;
 
 /**
  * Represents a utility class for compatibility.
@@ -44,6 +46,12 @@ public final class LambDynLightsCompat {
 	 * @return {@code true} if Rubidium 0.7.x and above is installed, else {@code false}
 	 */
 	public static boolean isRubidium07XInstalled() {
-		return FMLLoader.getLoadingModList().getModFileById("rubidium").versionString().startsWith("0.7.0");
+        return ModList.get().getModContainerById("rubidium").map(modContainer -> {
+            return modContainer.getModInfo().getVersion().compareTo(new DefaultArtifactVersion("0.7.0")) >= 0;
+        }).orElse(false);
+	}
+
+	public static boolean isForgifiedFabricApiInstalled() {
+		return FMLLoader.getLoadingModList().getModFileById("fabric_api") != null;
 	}
 }

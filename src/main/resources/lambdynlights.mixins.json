@@ -4,14 +4,6 @@
   "plugin": "dev.lambdaurora.lambdynlights.LambDynLightsMixinPlugin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "lightsource.AbstractDecorationEntityMixin",
-    "lightsource.AbstractMinecartEntityMixin",
-    "lightsource.BlockEntityMixin",
-    "lightsource.EntityMixin",
-    "lightsource.ExplosiveProjectileEntityMixin",
-    "lightsource.LivingEntityMixin",
-    "lightsource.PlayerEntityMixin",
-    "lightsource.TntEntityMixin",
     "BlockEntityTypeMixin",
     "ClientWorldMixin",
     "CommonWorldRendererMixin",
@@ -21,11 +13,20 @@
     "MinecraftClientMixin",
     "VideoOptionsScreenMixin",
     "WorldMixin",
+    "lightsource.AbstractDecorationEntityMixin",
+    "lightsource.AbstractMinecartEntityMixin",
+    "lightsource.BlockEntityMixin",
+    "lightsource.EntityMixin",
+    "lightsource.ExplosiveProjectileEntityMixin",
+    "lightsource.LivingEntityMixin",
+    "lightsource.PlayerEntityMixin",
+    "lightsource.TntEntityMixin",
     "ltr.LilTaterBlockEntityMixin",
     "ltr.LilTaterBlocksMixin",
     "sodium.ArrayLightDataCacheMixin",
     "sodium.FlatLightPipelineMixin",
-    "sodium.LightDataAccessMixin"
+    "sodium.LightDataAccessMixin",
+    "fabric.AoCalculatorMixin"
   ],
   "injectors": {
     "defaultRequire": 1
