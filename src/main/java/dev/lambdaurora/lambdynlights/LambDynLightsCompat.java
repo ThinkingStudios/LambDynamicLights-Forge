@@ -51,6 +51,11 @@ public final class LambDynLightsCompat {
         }).orElse(false);
 	}
 
+	/**
+	 * Returns whether Forgified Fabric API is installed.
+	 *
+	 * @return {@code true} if Forgified Fabric API is installed, else {@code false}
+	 */
 	public static boolean isForgifiedFabricApiInstalled() {
 		return FMLLoader.getLoadingModList().getModFileById("fabric_api") != null;
 	}
