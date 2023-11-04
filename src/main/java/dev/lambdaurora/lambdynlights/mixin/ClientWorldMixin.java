@@ -29,7 +29,7 @@ public abstract class ClientWorldMixin {
 		var entity = this.getEntityLookup().get(entityId);
 		if (entity != null) {
 			var dls = (DynamicLightSource) entity;
-			dls.setDynamicLightEnabled(false);
+			dls.ryoamicLights$setDynamicLightEnabled(false);
 		}
 	}
 }

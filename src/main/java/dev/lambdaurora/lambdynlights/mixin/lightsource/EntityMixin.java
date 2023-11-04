@@ -79,7 +79,7 @@ public abstract class EntityMixin implements DynamicLightSource {
 		// We do not want to update the entity on the server.
 		if (this.world.isClient()) {
 			if (this.isRemoved()) {
-				this.setDynamicLightEnabled(false);
+				this.ryoamicLights$setDynamicLightEnabled(false);
 			} else {
 				this.ryoamicLights$dynamicLightTick();
 				if ((!LambDynLights.get().config.getEntitiesLightSource().get() && this.getType() != EntityType.PLAYER)
@@ -93,7 +93,7 @@ public abstract class EntityMixin implements DynamicLightSource {
 	@Inject(method = "remove", at = @At("TAIL"))
 	public void onRemove(CallbackInfo ci) {
 		if (this.world.isClient())
-			this.setDynamicLightEnabled(false);
+			this.ryoamicLights$setDynamicLightEnabled(false);
 	}
 
 	@Override
