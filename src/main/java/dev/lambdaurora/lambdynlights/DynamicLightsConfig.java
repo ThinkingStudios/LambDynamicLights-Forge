@@ -14,10 +14,10 @@ import dev.lambdaurora.lambdynlights.config.BooleanSettingEntry;
 import dev.lambdaurora.lambdynlights.config.SettingEntry;
 import dev.lambdaurora.spruceui.option.SpruceCyclingOption;
 import dev.lambdaurora.spruceui.option.SpruceOption;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraftforge.fml.loading.FMLPaths;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
@@ -38,7 +38,7 @@ public class DynamicLightsConfig {
 	private static final ExplosiveLightingMode DEFAULT_CREEPER_LIGHTING_MODE = ExplosiveLightingMode.SIMPLE;
 	private static final ExplosiveLightingMode DEFAULT_TNT_LIGHTING_MODE = ExplosiveLightingMode.OFF;
 
-	public static final Path CONFIG_FILE_PATH = FabricLoader.getInstance().getConfigDir().resolve("lambdynlights.toml");
+	public static final Path CONFIG_FILE_PATH = FMLPaths.CONFIGDIR.get().resolve("lambdynlights.toml");
 	protected final FileConfig config;
 	private final LambDynLights mod;
 	private DynamicLightsMode dynamicLightsMode;
@@ -61,7 +61,8 @@ public class DynamicLightsConfig {
 	public DynamicLightsConfig(@NotNull LambDynLights mod) {
 		this.mod = mod;
 
-		this.config = FileConfig.builder(CONFIG_FILE_PATH).concurrent().defaultResource("/lambdynlights.toml").autosave().build();
+		//this.config = FileConfig.builder(CONFIG_FILE_PATH).concurrent().defaultResource("/lambdynlights.toml").autosave().build();
+		this.config = FileConfig.builder(CONFIG_FILE_PATH).concurrent().autosave().build();
 		this.entitiesLightSource = new BooleanSettingEntry("light_sources.entities", DEFAULT_ENTITIES_LIGHT_SOURCE, this.config,
 				Text.translatable("lambdynlights.tooltip.entities"))
 				.withOnSet(value -> {

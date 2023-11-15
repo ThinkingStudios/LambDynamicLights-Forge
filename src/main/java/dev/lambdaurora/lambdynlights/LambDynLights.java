@@ -13,13 +13,8 @@ import dev.lambdaurora.lambdynlights.accessor.WorldRendererAccessor;
 import dev.lambdaurora.lambdynlights.api.DynamicLightHandlers;
 import dev.lambdaurora.lambdynlights.api.DynamicLightsInitializer;
 import dev.lambdaurora.lambdynlights.api.item.ItemLightSources;
+import dev.lambdaurora.lambdynlights.gui.SettingsScreen;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.LightmapTextureManager;
@@ -35,6 +30,16 @@ import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.client.ConfigScreenHandler;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.IExtensionPoint;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.loading.FMLLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -52,8 +57,9 @@ import java.util.function.Predicate;
  * @version 2.3.2
  * @since 1.0.0
  */
-public class LambDynLights implements ClientModInitializer {
-	public static final String NAMESPACE = "lambdynlights";
+@Mod(LambDynLights.NAMESPACE)
+public class LambDynLights {
+	public static final String NAMESPACE = "ryoamiclights";
 	private static final double MAX_RADIUS = 7.75;
 	private static final double MAX_RADIUS_SQUARED = MAX_RADIUS * MAX_RADIUS;
 	private static LambDynLights INSTANCE;
@@ -64,35 +70,32 @@ public class LambDynLights implements ClientModInitializer {
 	private long lastUpdate = System.currentTimeMillis();
 	private int lastUpdateCount = 0;
 
-	@Override
+	public LambDynLights() {
+		ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> IExtensionPoint.DisplayTest.IGNORESERVERONLY, (a, b) -> true));
+		if (FMLLoader.getDist().isClient()) {
+			this.onInitializeClient();
+			MinecraftForge.EVENT_BUS.addListener(this::renderWorldLastEvent);
+		}
+	}
+
 	public void onInitializeClient() {
 		INSTANCE = this;
 		this.log("Initializing LambDynamicLights...");
 
 		this.config.load();
 
-		FabricLoader.getInstance().getEntrypointContainers("dynamiclights", DynamicLightsInitializer.class)
-				.stream().map(EntrypointContainer::getEntrypoint)
-				.forEach(DynamicLightsInitializer::onInitializeDynamicLights);
-
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
-			@Override
-			public Identifier getFabricId() {
-				return new Identifier(NAMESPACE, "dynamiclights_resources");
-			}
-
-			@Override
-			public void reload(ResourceManager manager) {
-				ItemLightSources.load(manager);
-			}
-		});
-
-		WorldRenderEvents.START.register(context -> {
-			MinecraftClient.getInstance().getProfiler().swap("dynamic_lighting");
-			this.updateAll(context.worldRenderer());
-		});
+		ItemLightSources.load(MinecraftClient.getInstance().getResourceManager());
+		ModList.get().getModContainerById(NAMESPACE).orElseThrow(RuntimeException::new).registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((client, screen) -> new SettingsScreen(screen)));
 
 		DynamicLightHandlers.registerDefaultHandlers();
+	}
+
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public void renderWorldLastEvent(@NotNull RenderLevelStageEvent event) {
+		if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRIPWIRE_BLOCKS) {
+			MinecraftClient.getInstance().getProfiler().push("dynamic_lighting");
+			get().updateAll(event.getLevelRenderer());
+		}
 	}
 
 	/**
