@@ -27,35 +27,35 @@ public interface DynamicLightSource {
 	 *
 	 * @return the X coordinate
 	 */
-	double getDynamicLightX();
+	double ryoamicLights$getDynamicLightX();
 
 	/**
 	 * Returns the dynamic light source Y coordinate.
 	 *
 	 * @return the Y coordinate
 	 */
-	double getDynamicLightY();
+	double ryoamicLights$getDynamicLightY();
 
 	/**
 	 * Returns the dynamic light source Z coordinate.
 	 *
 	 * @return the Z coordinate
 	 */
-	double getDynamicLightZ();
+	double ryoamicLights$getDynamicLightZ();
 
 	/**
 	 * Returns the dynamic light source world.
 	 *
 	 * @return the world instance
 	 */
-	World getDynamicLightWorld();
+	World ryoamicLights$getDynamicLightWorld();
 
 	/**
 	 * Returns whether the dynamic light is enabled or not.
 	 *
 	 * @return {@code true} if the dynamic light is enabled, else {@code false}
 	 */
-	default boolean isDynamicLightEnabled() {
+	default boolean ryoamicLights$isDynamicLightEnabled() {
 		return LambDynLights.get().config.getDynamicLightsMode().isEnabled() && LambDynLights.get().containsLightSource(this);
 	}
 
@@ -67,15 +67,15 @@ public interface DynamicLightSource {
 	 * @param enabled {@code true} if the dynamic light is enabled, else {@code false}
 	 */
 	@ApiStatus.Internal
-	default void setDynamicLightEnabled(boolean enabled) {
-		this.resetDynamicLight();
+	default void ryoamicLights$setDynamicLightEnabled(boolean enabled) {
+		this.ryoamicLights$resetDynamicLight();
 		if (enabled)
 			LambDynLights.get().addLightSource(this);
 		else
 			LambDynLights.get().removeLightSource(this);
 	}
 
-	void resetDynamicLight();
+	void ryoamicLights$resetDynamicLight();
 
 	/**
 	 * Returns the luminance of the light source.
@@ -83,21 +83,21 @@ public interface DynamicLightSource {
 	 *
 	 * @return the luminance of the light source
 	 */
-	int getLuminance();
+	int ryoamicLights$getLuminance();
 
 	/**
 	 * Executed at each tick.
 	 */
-	void dynamicLightTick();
+	void ryoamicLights$dynamicLightTick();
 
 	/**
 	 * Returns whether this dynamic light source should update.
 	 *
 	 * @return {@code true} if this dynamic light source should update, else {@code false}
 	 */
-	boolean shouldUpdateDynamicLight();
+	boolean ryoamicLights$shouldUpdateDynamicLight();
 
-	boolean lambdynlights$updateDynamicLight(@NotNull WorldRenderer renderer);
+	boolean ryoamicLights$updateDynamicLight(@NotNull WorldRenderer renderer);
 
-	void lambdynlights$scheduleTrackedChunksRebuild(@NotNull WorldRenderer renderer);
+	void ryoamicLights$scheduleTrackedChunksRebuild(@NotNull WorldRenderer renderer);
 }

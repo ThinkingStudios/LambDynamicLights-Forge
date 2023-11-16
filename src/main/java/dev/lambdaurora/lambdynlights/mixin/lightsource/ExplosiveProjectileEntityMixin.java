@@ -25,13 +25,13 @@ public abstract class ExplosiveProjectileEntityMixin extends Entity implements D
 	}
 
 	@Override
-	public void dynamicLightTick() {
-		if (!this.isDynamicLightEnabled())
-			this.setDynamicLightEnabled(true);
+	public void ryoamicLights$dynamicLightTick() {
+		if (!this.ryoamicLights$isDynamicLightEnabled())
+			this.ryoamicLights$setDynamicLightEnabled(true);
 	}
 
 	@Override
-	public int getLuminance() {
+	public int ryoamicLights$getLuminance() {
 		if (LambDynLights.get().config.getEntitiesLightSource().get() && DynamicLightHandlers.canLightUp(this))
 			return 14;
 		return 0;

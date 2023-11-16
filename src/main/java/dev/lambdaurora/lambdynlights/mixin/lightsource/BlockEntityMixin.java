@@ -53,37 +53,37 @@ public abstract class BlockEntityMixin implements DynamicLightSource {
 	private final LongOpenHashSet lambdynlights$trackedLitChunkPos = new LongOpenHashSet();
 
 	@Override
-	public double getDynamicLightX() {
+	public double ryoamicLights$getDynamicLightX() {
 		return this.pos.getX() + 0.5;
 	}
 
 	@Override
-	public double getDynamicLightY() {
+	public double ryoamicLights$getDynamicLightY() {
 		return this.pos.getY() + 0.5;
 	}
 
 	@Override
-	public double getDynamicLightZ() {
+	public double ryoamicLights$getDynamicLightZ() {
 		return this.pos.getZ() + 0.5;
 	}
 
 	@Override
-	public World getDynamicLightWorld() {
+	public World ryoamicLights$getDynamicLightWorld() {
 		return this.world;
 	}
 
 	@Inject(method = "markRemoved", at = @At("TAIL"))
 	private void onRemoved(CallbackInfo ci) {
-		this.setDynamicLightEnabled(false);
+		this.ryoamicLights$setDynamicLightEnabled(false);
 	}
 
 	@Override
-	public void resetDynamicLight() {
+	public void ryoamicLights$resetDynamicLight() {
 		this.lastLuminance = 0;
 	}
 
 	@Override
-	public void dynamicLightTick() {
+	public void ryoamicLights$dynamicLightTick() {
 		// We do not want to update the entity on the server.
 		if (this.world == null || !this.world.isClient())
 			return;
@@ -91,19 +91,19 @@ public abstract class BlockEntityMixin implements DynamicLightSource {
 			this.luminance = DynamicLightHandlers.getLuminanceFrom((BlockEntity) (Object) this);
 			LambDynLights.updateTracking(this);
 
-			if (!this.isDynamicLightEnabled()) {
+			if (!this.ryoamicLights$isDynamicLightEnabled()) {
 				this.lastLuminance = 0;
 			}
 		}
 	}
 
 	@Override
-	public int getLuminance() {
+	public int ryoamicLights$getLuminance() {
 		return this.luminance;
 	}
 
 	@Override
-	public boolean shouldUpdateDynamicLight() {
+	public boolean ryoamicLights$shouldUpdateDynamicLight() {
 		var mode = LambDynLights.get().config.getDynamicLightsMode();
 		if (!mode.isEnabled())
 			return false;
@@ -119,11 +119,11 @@ public abstract class BlockEntityMixin implements DynamicLightSource {
 	}
 
 	@Override
-	public boolean lambdynlights$updateDynamicLight(@NotNull WorldRenderer renderer) {
-		if (!this.shouldUpdateDynamicLight())
+	public boolean ryoamicLights$updateDynamicLight(@NotNull WorldRenderer renderer) {
+		if (!this.ryoamicLights$shouldUpdateDynamicLight())
 			return false;
 
-		int luminance = this.getLuminance();
+		int luminance = this.ryoamicLights$getLuminance();
 
 		if (luminance != this.lastLuminance) {
 			this.lastLuminance = luminance;
@@ -155,14 +155,14 @@ public abstract class BlockEntityMixin implements DynamicLightSource {
 			}
 
 			// Schedules the rebuild of chunks.
-			this.lambdynlights$scheduleTrackedChunksRebuild(renderer);
+			this.ryoamicLights$scheduleTrackedChunksRebuild(renderer);
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	public void lambdynlights$scheduleTrackedChunksRebuild(@NotNull WorldRenderer renderer) {
+	public void ryoamicLights$scheduleTrackedChunksRebuild(@NotNull WorldRenderer renderer) {
 		if (this.world == MinecraftClient.getInstance().world)
 			for (long pos : this.lambdynlights$trackedLitChunkPos) {
 				LambDynLights.scheduleChunkRebuild(renderer, pos);
