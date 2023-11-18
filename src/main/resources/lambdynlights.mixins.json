@@ -18,7 +18,15 @@
     "sodium.ArrayLightDataCacheMixin",
     "sodium.FlatLightPipelineMixin",
     "sodium.LightDataAccessMixin",
-    "fabric.AoCalculatorMixin"
+    "fabric.AoCalculatorMixin",
+    "lightsource.AbstractDecorationEntityMixin",
+    "lightsource.AbstractMinecartEntityMixin",
+    "lightsource.BlockEntityMixin",
+    "lightsource.EntityMixin",
+    "lightsource.ExplosiveProjectileEntityMixin",
+    "lightsource.LivingEntityMixin",
+    "lightsource.PlayerEntityMixin",
+    "lightsource.TntEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
