@@ -8,8 +8,8 @@ plugins {
 }
 
 group = project.maven_group
-version = "lexforge-${project.mod_version}+${project.minecraft_version}"
-base.archivesName = project.archives_base_name
+version = "${project.mod_version}+${project.minecraft_version}"
+base.archivesName = "${project.archives_base_name}-lexforge"
 
 // This field defines the Java version your mod target.
 def targetJavaVersion = 17
@@ -73,8 +73,6 @@ dependencies {
 	modImplementation "maven.modrinth:obsidianui:${project.spruceui_version}"
 
 	modCompileOnly "maven.modrinth:embeddium:${project.embeddium_version}"
-
-	modLocalRuntime "dev.architectury:architectury-forge:${project.architectury_version}"
 }
 
 java {
@@ -93,7 +91,7 @@ tasks.withType(JavaCompile).configureEach {
 processResources {
 	inputs.property 'version', project.version
 
-	filesMatching('fabric.mod.json') {
+	filesMatching('META-INF/mods.toml') {
 		expand 'version': project.version
 	}
 }
@@ -108,7 +106,7 @@ modrinth {
 	token = System.getenv("MODRINTH_TOKEN")
 
 	projectId = "${project.modrinth_id}"
-	versionNumber = "${project.version}"
+	versionNumber = "lexforge-${project.version}"
 	versionType = "alpha"
 	changelog = file("CHANGELOG.md").getText('UTF-8')
 	uploadFile = remapJar
@@ -125,7 +123,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
 	disableVersionDetection()
 
 	def mainFile = upload(project.curseforge_id, remapJar)
-	mainFile.displayName = "${project.version}"
+	mainFile.displayName = "lexforge-${project.version}"
 	mainFile.releaseType = "alpha"
 	mainFile.changelog = file("CHANGELOG.md")
 	mainFile.changelogType = "markdown"
