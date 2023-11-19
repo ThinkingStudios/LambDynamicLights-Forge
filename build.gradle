@@ -9,7 +9,7 @@ plugins {
 
 group = project.maven_group
 version = "${project.mod_version}+${project.minecraft_version}"
-base.archivesName = project.archives_base_name
+base.archivesName = "${project.archives_base_name}-neoforge"
 
 // This field defines the Java version your mod target.
 def targetJavaVersion = 17
