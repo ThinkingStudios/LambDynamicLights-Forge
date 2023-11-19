@@ -17,7 +17,7 @@ Adds dynamic lights to the game.
 '''
 
 [[mixins]]
-config = "spruceui.mixins.json"
+config = "lambdynlights.mixins.json"
 
 [[dependencies.ryoamiclights]]
 modId = "neoforge"
