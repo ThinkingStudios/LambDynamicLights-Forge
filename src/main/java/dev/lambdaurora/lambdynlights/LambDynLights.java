@@ -11,15 +11,9 @@ package dev.lambdaurora.lambdynlights;
 
 import dev.lambdaurora.lambdynlights.accessor.WorldRendererAccessor;
 import dev.lambdaurora.lambdynlights.api.DynamicLightHandlers;
-import dev.lambdaurora.lambdynlights.api.DynamicLightsInitializer;
 import dev.lambdaurora.lambdynlights.api.item.ItemLightSources;
+import dev.lambdaurora.lambdynlights.gui.SettingsScreen;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.LightmapTextureManager;
@@ -31,10 +25,22 @@ import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.resource.ResourceManager;
-import net.minecraft.resource.ResourceType;
-import net.minecraft.util.Identifier;
+import net.minecraft.resource.SynchronousResourceReloader;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.IExtensionPoint;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.fml.loading.FMLLoader;
+import net.neoforged.neoforge.client.ConfigScreenHandler;
+import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.network.NetworkConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -52,7 +58,8 @@ import java.util.function.Predicate;
  * @version 2.3.2
  * @since 1.0.0
  */
-public class LambDynLights implements ClientModInitializer {
+@Mod(LambDynLights.NAMESPACE)
+public class LambDynLights {
 	public static final String NAMESPACE = "lambdynlights";
 	private static final double MAX_RADIUS = 7.75;
 	private static final double MAX_RADIUS_SQUARED = MAX_RADIUS * MAX_RADIUS;
@@ -64,32 +71,29 @@ public class LambDynLights implements ClientModInitializer {
 	private long lastUpdate = System.currentTimeMillis();
 	private int lastUpdateCount = 0;
 
-	@Override
+	public LambDynLights() {
+		ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> NetworkConstants.IGNORESERVERONLY, (a, b) -> true));
+		if (FMLLoader.getDist().isClient()) {
+			this.onInitializeClient();
+		}
+	}
+
 	public void onInitializeClient() {
 		INSTANCE = this;
 		this.log("Initializing LambDynamicLights...");
 
 		this.config.load();
 
-		FabricLoader.getInstance().getEntrypointContainers("dynamiclights", DynamicLightsInitializer.class)
-				.stream().map(EntrypointContainer::getEntrypoint)
-				.forEach(DynamicLightsInitializer::onInitializeDynamicLights);
+		ItemLightSources.load(MinecraftClient.getInstance().getResourceManager());
+		ModList.get().getModContainerById(NAMESPACE).orElseThrow(RuntimeException::new).registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((client, screen) -> new SettingsScreen(screen)));
 
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
-			@Override
-			public Identifier getFabricId() {
-				return new Identifier(NAMESPACE, "dynamiclights_resources");
+		NeoForge.EVENT_BUS.addListener(EventPriority.HIGHEST, RegisterClientReloadListenersEvent.class, event -> event.registerReloadListener((SynchronousResourceReloader) ItemLightSources::load));
+
+		NeoForge.EVENT_BUS.addListener(EventPriority.HIGHEST, RenderLevelStageEvent.class, event -> {
+			if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRIPWIRE_BLOCKS) {
+				MinecraftClient.getInstance().getProfiler().swap("dynamic_lighting");
+				get().updateAll(event.getLevelRenderer());
 			}
-
-			@Override
-			public void reload(ResourceManager manager) {
-				ItemLightSources.load(manager);
-			}
-		});
-
-		WorldRenderEvents.START.register(context -> {
-			MinecraftClient.getInstance().getProfiler().swap("dynamic_lighting");
-			this.updateAll(context.worldRenderer());
 		});
 
 		DynamicLightHandlers.registerDefaultHandlers();
@@ -111,7 +115,7 @@ public class LambDynLights implements ClientModInitializer {
 
 			this.lightSourcesLock.readLock().lock();
 			for (var lightSource : this.dynamicLightSources) {
-				if (lightSource.lambdynlights$updateDynamicLight(renderer)) this.lastUpdateCount++;
+				if (lightSource.ryoamicLights$updateDynamicLight(renderer)) this.lastUpdateCount++;
 			}
 			this.lightSourcesLock.readLock().unlock();
 		}
@@ -146,7 +150,7 @@ public class LambDynLights implements ClientModInitializer {
 	 */
 	public int getLightmapWithDynamicLight(@NotNull Entity entity, int lightmap) {
 		int posLightLevel = (int) this.getDynamicLightLevel(entity.getBlockPos());
-		int entityLuminance = ((DynamicLightSource) entity).getLuminance();
+		int entityLuminance = ((DynamicLightSource) entity).ryoamicLights$getLuminance();
 
 		return this.getLightmapWithDynamicLight(Math.max(posLightLevel, entityLuminance), lightmap);
 	}
@@ -201,12 +205,12 @@ public class LambDynLights implements ClientModInitializer {
 	 * @return the dynamic light level at the specified position
 	 */
 	public static double maxDynamicLightLevel(@NotNull BlockPos pos, @NotNull DynamicLightSource lightSource, double currentLightLevel) {
-		int luminance = lightSource.getLuminance();
+		int luminance = lightSource.ryoamicLights$getLuminance();
 		if (luminance > 0) {
 			// Can't use Entity#squaredDistanceTo because of eye Y coordinate.
-			double dx = pos.getX() - lightSource.getDynamicLightX() + 0.5;
-			double dy = pos.getY() - lightSource.getDynamicLightY() + 0.5;
-			double dz = pos.getZ() - lightSource.getDynamicLightZ() + 0.5;
+			double dx = pos.getX() - lightSource.ryoamicLights$getDynamicLightX() + 0.5;
+			double dy = pos.getY() - lightSource.ryoamicLights$getDynamicLightY() + 0.5;
+			double dz = pos.getZ() - lightSource.ryoamicLights$getDynamicLightZ() + 0.5;
 
 			double distanceSquared = dx * dx + dy * dy + dz * dz;
 			// 7.75 because else we would have to update more chunks and that's not a good idea.
@@ -228,7 +232,7 @@ public class LambDynLights implements ClientModInitializer {
 	 * @param lightSource the light source to add
 	 */
 	public void addLightSource(@NotNull DynamicLightSource lightSource) {
-		if (!lightSource.getDynamicLightWorld().isClient())
+		if (!lightSource.ryoamicLights$getDynamicLightWorld().isClient())
 			return;
 		if (!this.config.getDynamicLightsMode().isEnabled())
 			return;
@@ -246,7 +250,7 @@ public class LambDynLights implements ClientModInitializer {
 	 * @return {@code true} if the light source is tracked, else {@code false}
 	 */
 	public boolean containsLightSource(@NotNull DynamicLightSource lightSource) {
-		if (!lightSource.getDynamicLightWorld().isClient())
+		if (!lightSource.ryoamicLights$getDynamicLightWorld().isClient())
 			return false;
 
 		boolean result;
@@ -286,7 +290,7 @@ public class LambDynLights implements ClientModInitializer {
 			if (it.equals(lightSource)) {
 				dynamicLightSources.remove();
 				if (MinecraftClient.getInstance().worldRenderer != null)
-					lightSource.lambdynlights$scheduleTrackedChunksRebuild(MinecraftClient.getInstance().worldRenderer);
+					lightSource.ryoamicLights$scheduleTrackedChunksRebuild(MinecraftClient.getInstance().worldRenderer);
 				break;
 			}
 		}
@@ -306,9 +310,9 @@ public class LambDynLights implements ClientModInitializer {
 			it = dynamicLightSources.next();
 			dynamicLightSources.remove();
 			if (MinecraftClient.getInstance().worldRenderer != null) {
-				if (it.getLuminance() > 0)
-					it.resetDynamicLight();
-				it.lambdynlights$scheduleTrackedChunksRebuild(MinecraftClient.getInstance().worldRenderer);
+				if (it.ryoamicLights$getLuminance() > 0)
+					it.ryoamicLights$resetDynamicLight();
+				it.ryoamicLights$scheduleTrackedChunksRebuild(MinecraftClient.getInstance().worldRenderer);
 			}
 		}
 
@@ -330,9 +334,9 @@ public class LambDynLights implements ClientModInitializer {
 			if (filter.test(it)) {
 				dynamicLightSources.remove();
 				if (MinecraftClient.getInstance().worldRenderer != null) {
-					if (it.getLuminance() > 0)
-						it.resetDynamicLight();
-					it.lambdynlights$scheduleTrackedChunksRebuild(MinecraftClient.getInstance().worldRenderer);
+					if (it.ryoamicLights$getLuminance() > 0)
+						it.ryoamicLights$resetDynamicLight();
+					it.ryoamicLights$scheduleTrackedChunksRebuild(MinecraftClient.getInstance().worldRenderer);
 				}
 				break;
 			}
@@ -436,7 +440,7 @@ public class LambDynLights implements ClientModInitializer {
 	 */
 	public static void updateTracking(@NotNull DynamicLightSource lightSource) {
 		boolean enabled = lightSource.isDynamicLightEnabled();
-		int luminance = lightSource.getLuminance();
+		int luminance = lightSource.ryoamicLights$getLuminance();
 
 		if (!enabled && luminance > 0) {
 			lightSource.setDynamicLightEnabled(true);

@@ -1,0 +1,38 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="MIT"
+
+[[mods]]
+modId="ryoamiclights"
+version="${version}"
+displayName="RyoamicLights"
+displayURL="https://github.com/ThinkingStudios/LambDynamicLights-Forge"
+logoFile= "icon.png"
+credits="LambdAurora"
+authors="TexTrue, TexTrueStudio"
+description='''
+LambDynamicLights unofficial forge port.
+
+Adds dynamic lights to the game.
+'''
+
+[[dependencies.ryoamiclights]]
+modId = "neoforge"
+mandatory = true
+versionRange = "[20,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ryoamiclights]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20.2,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ryoamiclights]]
+modId = "obsidianui"
+mandatory = true
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"

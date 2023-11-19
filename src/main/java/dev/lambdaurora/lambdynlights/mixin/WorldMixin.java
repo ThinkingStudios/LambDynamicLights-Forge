@@ -43,7 +43,7 @@ public abstract class WorldMixin {
 		if (this.isClient() && LambDynLights.get().config.getBlockEntitiesLightSource().get()) {
 			var blockEntity = this.getBlockEntity(blockEntityTickInvoker.getPos());
 			if (blockEntity != null)
-				((DynamicLightSource) blockEntity).dynamicLightTick();
+				((DynamicLightSource) blockEntity).ryoamicLights$dynamicLightTick();
 		}
 	}
 }

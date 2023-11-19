@@ -9,9 +9,7 @@
 
 package dev.lambdaurora.lambdynlights;
 
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.Version;
-import net.fabricmc.loader.api.VersionParsingException;
+import net.neoforged.fml.loading.FMLLoader;
 
 /**
  * Represents a utility class for compatibility.
@@ -27,7 +25,7 @@ public final class LambDynLightsCompat {
 	 * @return {@code true} if Canvas is installed, else {@code false}
 	 */
 	public static boolean isCanvasInstalled() {
-		return FabricLoader.getInstance().isModLoaded("canvas");
+		return FMLLoader.getLoadingModList().getModFileById("canvas") != null;
 	}
 
 	/**
@@ -37,26 +35,24 @@ public final class LambDynLightsCompat {
 	 */
 	public static boolean isLilTaterReloadedInstalled() {
 		// Don't even think about it Yog.
-		return FabricLoader.getInstance().isModLoaded("ltr");
+		return FMLLoader.getLoadingModList().getModFileById("ltr") != null;
 	}
 
 	/**
-	 * Returns whether Sodium 0.1.0 is installed.
+	 * Returns whether Rubidium 0.7.x and above is installed.
 	 *
-	 * @return {@code true} if Sodium 0.1.0 is installed, else {@code false}
+	 * @return {@code true} if Rubidium 0.7.x and above is installed, else {@code false}
 	 */
-	public static boolean isSodium010Installed() {
-		return FabricLoader.getInstance().getModContainer("sodium").map(mod -> mod.getMetadata().getVersion().getFriendlyString().startsWith("0.1.0"))
-				.orElse(false);
+	public static boolean isRubidium07XInstalled() {
+		return FMLLoader.getLoadingModList().getModFileById("rubidium").versionString().startsWith("0.7.0");
 	}
 
-	public static boolean isSodium05XInstalled() {
-		return FabricLoader.getInstance().getModContainer("sodium").map(mod -> {
-			try {
-				return mod.getMetadata().getVersion().compareTo(Version.parse("0.5.0")) >= 0;
-			} catch (VersionParsingException e) {
-				throw new RuntimeException(e);
-			}
-		}).orElse(false);
+	/**
+	 * Returns whether Forgified Fabric API is installed.
+	 *
+	 * @return {@code true} if Forgified Fabric API is installed, else {@code false}
+	 */
+	public static boolean isForgifiedFabricApiInstalled() {
+		return FMLLoader.getLoadingModList().getModFileById("fabric_api") != null;
 	}
 }
