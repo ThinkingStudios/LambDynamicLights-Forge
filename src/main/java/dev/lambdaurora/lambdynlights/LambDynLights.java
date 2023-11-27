@@ -24,9 +24,11 @@ import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.resource.SynchronousResourceReloader;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.ConfigScreenHandler;
+import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -71,7 +73,6 @@ public class LambDynLights {
 		ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> NetworkConstants.IGNORESERVERONLY, (a, b) -> true));
 		if (FMLLoader.getDist().isClient()) {
 			this.onInitializeClient();
-			MinecraftForge.EVENT_BUS.addListener(this::renderWorldLastEvent);
 		}
 	}
 
@@ -81,7 +82,8 @@ public class LambDynLights {
 
 		this.config.load();
 
-		ItemLightSources.load(MinecraftClient.getInstance().getResourceManager());
+		MinecraftForge.EVENT_BUS.addListener(this::renderWorldLastEvent);
+		MinecraftForge.EVENT_BUS.addListener(this::registerClientReloadListenersEvent);
 		ModList.get().getModContainerById(NAMESPACE).orElseThrow(RuntimeException::new).registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((client, screen) -> new SettingsScreen(screen)));
 
 		DynamicLightHandlers.registerDefaultHandlers();
@@ -93,6 +95,11 @@ public class LambDynLights {
 			MinecraftClient.getInstance().getProfiler().push("dynamic_lighting");
 			get().updateAll(event.getLevelRenderer());
 		}
+	}
+
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public void registerClientReloadListenersEvent(@NotNull RegisterClientReloadListenersEvent event) {
+		event.registerReloadListener((SynchronousResourceReloader) ItemLightSources::load);
 	}
 
 	/**
