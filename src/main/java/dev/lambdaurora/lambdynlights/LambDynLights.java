@@ -24,6 +24,8 @@ import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.resource.ReloadableResourceManager;
+import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.SynchronousResourceReloader;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -82,8 +84,14 @@ public class LambDynLights {
 
 		this.config.load();
 
+		DynamicLightsResourceReloader resourceReloader = new DynamicLightsResourceReloader();
+		ResourceManager resourceManager = MinecraftClient.getInstance().getResourceManager();
+		if (resourceManager instanceof ReloadableResourceManager) {
+			ReloadableResourceManager reloadableResourceManager = (ReloadableResourceManager) resourceManager;
+			reloadableResourceManager.registerReloader(resourceReloader);
+		}
+
 		MinecraftForge.EVENT_BUS.addListener(this::renderWorldLastEvent);
-		MinecraftForge.EVENT_BUS.addListener(this::registerClientReloadListenersEvent);
 		ModList.get().getModContainerById(NAMESPACE).orElseThrow(RuntimeException::new).registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((client, screen) -> new SettingsScreen(screen)));
 
 		DynamicLightHandlers.registerDefaultHandlers();
@@ -95,11 +103,6 @@ public class LambDynLights {
 			MinecraftClient.getInstance().getProfiler().push("dynamic_lighting");
 			get().updateAll(event.getLevelRenderer());
 		}
-	}
-
-	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public void registerClientReloadListenersEvent(@NotNull RegisterClientReloadListenersEvent event) {
-		event.registerReloadListener((SynchronousResourceReloader) ItemLightSources::load);
 	}
 
 	/**
