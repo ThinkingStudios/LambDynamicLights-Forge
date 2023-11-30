@@ -86,8 +86,7 @@ public class LambDynLights {
 
 		DynamicLightsResourceReloader resourceReloader = new DynamicLightsResourceReloader();
 		ResourceManager resourceManager = MinecraftClient.getInstance().getResourceManager();
-		if (resourceManager instanceof ReloadableResourceManager) {
-			ReloadableResourceManager reloadableResourceManager = (ReloadableResourceManager) resourceManager;
+		if (resourceManager instanceof ReloadableResourceManager reloadableResourceManager) {
 			reloadableResourceManager.registerReloader(resourceReloader);
 		}
 
