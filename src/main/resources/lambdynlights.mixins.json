@@ -1,5 +1,6 @@
 {
   "required": true,
+  "minVersion": "0.8",
   "package": "dev.lambdaurora.lambdynlights.mixin",
   "plugin": "dev.lambdaurora.lambdynlights.LambDynLightsMixinPlugin",
   "compatibilityLevel": "JAVA_17",

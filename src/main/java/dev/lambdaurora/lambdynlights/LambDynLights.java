@@ -26,6 +26,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.resource.ReloadableResourceManager;
 import net.minecraft.resource.ResourceManager;
+import net.minecraft.resource.SynchronousResourceReloader;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.ConfigScreenHandler;
@@ -76,23 +77,19 @@ public class LambDynLights {
 		ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> NetworkConstants.IGNORESERVERONLY, (a, b) -> true));
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		if (FMLLoader.getDist().isClient()) {
-			modEventBus.addListener(this::onPreLaunch);
 			this.onInitializeClient();
 		}
 	}
 
-	public void onPreLaunch(InterModProcessEvent event) {
-		this.config.load();
-	}
-
 	public void onInitializeClient() {
 		INSTANCE = this;
-		this.log("Initializing LambDynamicLights...");
+		this.log("Initializing RyoamicLights...");
 
-		DynamicLightsResourceReloader resourceReloader = new DynamicLightsResourceReloader();
+		this.config.load();
+
 		ResourceManager resourceManager = MinecraftClient.getInstance().getResourceManager();
 		if (resourceManager instanceof ReloadableResourceManager reloadableResourceManager) {
-			reloadableResourceManager.registerReloader(resourceReloader);
+			reloadableResourceManager.registerReloader((SynchronousResourceReloader) ItemLightSources::load);
 		}
 
 		MinecraftForge.EVENT_BUS.addListener(this::renderWorldLastEvent);
@@ -100,6 +97,7 @@ public class LambDynLights {
 
 		DynamicLightHandlers.registerDefaultHandlers();
 	}
+
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void renderWorldLastEvent(@NotNull RenderLevelStageEvent event) {
