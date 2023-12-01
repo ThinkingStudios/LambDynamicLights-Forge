@@ -26,19 +26,20 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.resource.ReloadableResourceManager;
 import net.minecraft.resource.ResourceManager;
-import net.minecraft.resource.SynchronousResourceReloader;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.ConfigScreenHandler;
-import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.network.NetworkConstants;
 import org.apache.logging.log4j.LogManager;
@@ -73,16 +74,20 @@ public class LambDynLights {
 
 	public LambDynLights() {
 		ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> NetworkConstants.IGNORESERVERONLY, (a, b) -> true));
+		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		if (FMLLoader.getDist().isClient()) {
+			modEventBus.addListener(this::onPreLaunch);
 			this.onInitializeClient();
 		}
+	}
+
+	public void onPreLaunch(InterModProcessEvent event) {
+		this.config.load();
 	}
 
 	public void onInitializeClient() {
 		INSTANCE = this;
 		this.log("Initializing LambDynamicLights...");
-
-		this.config.load();
 
 		DynamicLightsResourceReloader resourceReloader = new DynamicLightsResourceReloader();
 		ResourceManager resourceManager = MinecraftClient.getInstance().getResourceManager();
@@ -99,7 +104,7 @@ public class LambDynLights {
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void renderWorldLastEvent(@NotNull RenderLevelStageEvent event) {
 		if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRIPWIRE_BLOCKS) {
-			MinecraftClient.getInstance().getProfiler().push("dynamic_lighting");
+			MinecraftClient.getInstance().getProfiler().swap("dynamic_lighting");
 			get().updateAll(event.getLevelRenderer());
 		}
 	}
