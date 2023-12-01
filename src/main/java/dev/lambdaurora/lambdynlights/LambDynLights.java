@@ -23,11 +23,14 @@ import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.resource.ReloadableResourceManager;
+import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModList;
@@ -79,16 +82,20 @@ public class LambDynLights {
 
 		this.config.load();
 
-		ItemLightSources.load(MinecraftClient.getInstance().getResourceManager());
+		DynamicLightsResourceReloader resourceReloader = new DynamicLightsResourceReloader();
+		ResourceManager resourceManager = MinecraftClient.getInstance().getResourceManager();
+		if (resourceManager instanceof ReloadableResourceManager reloadableResourceManager) {
+			reloadableResourceManager.registerReloader(resourceReloader);
+		}
 		ModList.get().getModContainerById(NAMESPACE).orElseThrow(RuntimeException::new).registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((client, screen) -> new SettingsScreen(screen)));
 
 		DynamicLightHandlers.registerDefaultHandlers();
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void renderWorldLastEvent(@NotNull RenderLevelStageEvent event) {
 		if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRIPWIRE_BLOCKS) {
-			MinecraftClient.getInstance().getProfiler().push("dynamic_lighting");
+			MinecraftClient.getInstance().getProfiler().swap("dynamic_lighting");
 			get().updateAll(event.getLevelRenderer());
 		}
 	}
