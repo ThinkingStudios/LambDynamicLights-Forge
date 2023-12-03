@@ -10,7 +10,6 @@
 package dev.lambdaurora.lambdynlights.util;
 
 import dev.lambdaurora.lambdynlights.LambDynLights;
-import me.jellysquid.mods.sodium.client.model.light.data.LightDataAccess;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.ApiStatus;
 

@@ -46,9 +46,7 @@ public final class LambDynLightsCompat {
 	 * @return {@code true} if Rubidium 0.7.x and above is installed, else {@code false}
 	 */
 	public static boolean isRubidium07XInstalled() {
-        return ModList.get().getModContainerById("rubidium").map(modContainer -> {
-            return modContainer.getModInfo().getVersion().compareTo(new DefaultArtifactVersion("0.7.0")) >= 0;
-        }).orElse(false);
+        return ModList.get().getModContainerById("rubidium").map(modContainer -> modContainer.getModInfo().getVersion().compareTo(new DefaultArtifactVersion("0.7.0")) >= 0).orElse(false);
 	}
 
 	/**

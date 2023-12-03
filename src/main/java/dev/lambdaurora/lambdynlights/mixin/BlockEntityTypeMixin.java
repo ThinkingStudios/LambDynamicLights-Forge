@@ -15,8 +15,8 @@ import dev.lambdaurora.lambdynlights.api.DynamicLightHandler;
 import dev.lambdaurora.lambdynlights.config.LightSourceSettingEntry;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -42,7 +42,7 @@ public class BlockEntityTypeMixin<T extends BlockEntity> implements DynamicLight
 	public LightSourceSettingEntry lambdynlights$getSetting() {
 		if (this.lambdynlights$setting == null) {
 			var self = (BlockEntityType<?>) (Object) this;
-			var id = Registries.BLOCK_ENTITY_TYPE.getId(self);
+			var id = ForgeRegistries.BLOCK_ENTITY_TYPES.getKey(self);
 			if (id == null) {
 				return null;
 			}
@@ -59,7 +59,7 @@ public class BlockEntityTypeMixin<T extends BlockEntity> implements DynamicLight
 	@Override
 	public Text lambdynlights$getName() {
 		var self = (BlockEntityType<?>) (Object) this;
-		var id = Registries.BLOCK_ENTITY_TYPE.getId(self);
+		var id = ForgeRegistries.BLOCK_ENTITY_TYPES.getKey(self);
 		if (id == null) {
 			return Text.empty();
 		}

@@ -15,8 +15,8 @@ import dev.lambdaurora.lambdynlights.api.DynamicLightHandler;
 import dev.lambdaurora.lambdynlights.config.LightSourceSettingEntry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -46,7 +46,7 @@ public abstract class EntityTypeMixin<T extends Entity> implements DynamicLightH
 	public LightSourceSettingEntry lambdynlights$getSetting() {
 		if (this.lambdynlights$setting == null) {
 			var self = (EntityType<?>) (Object) this;
-			var id = Registries.ENTITY_TYPE.getId(self);
+			var id = ForgeRegistries.ENTITY_TYPES.getKey(self);
 			if (id.getNamespace().equals("minecraft") && id.getPath().equals("pig") && self != EntityType.PIG) {
 				return null;
 			}
