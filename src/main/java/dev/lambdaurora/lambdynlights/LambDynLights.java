@@ -24,6 +24,7 @@ import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.resource.ReloadableResourceManager;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.SynchronousResourceReloader;
 import net.minecraft.util.math.BlockPos;
@@ -84,10 +85,14 @@ public class LambDynLights {
 
 		this.config.load();
 
-		ItemLightSources.load(MinecraftClient.getInstance().getResourceManager());
-		ModList.get().getModContainerById(NAMESPACE).orElseThrow(RuntimeException::new).registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((client, screen) -> new SettingsScreen(screen)));
+		if (MinecraftClient.getInstance() != null) {
+			ResourceManager resourceManager = MinecraftClient.getInstance().getResourceManager();
+			if (resourceManager instanceof ReloadableResourceManager reloadableResourceManager) {
+				reloadableResourceManager.registerReloader((SynchronousResourceReloader) ItemLightSources::load);
+			}
+		}
 
-		NeoForge.EVENT_BUS.addListener(EventPriority.HIGHEST, RegisterClientReloadListenersEvent.class, event -> event.registerReloadListener((SynchronousResourceReloader) ItemLightSources::load));
+		ModList.get().getModContainerById(NAMESPACE).orElseThrow(RuntimeException::new).registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((client, screen) -> new SettingsScreen(screen)));
 
 		NeoForge.EVENT_BUS.addListener(EventPriority.HIGHEST, RenderLevelStageEvent.class, event -> {
 			if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRIPWIRE_BLOCKS) {
