@@ -23,6 +23,9 @@ import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.resource.ReloadableResourceManager;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.resource.SynchronousResourceReloader;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -66,7 +69,7 @@ public class LambDynLights {
         ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
         if (FMLLoader.getDist().isClient()) {
             this.onInitializeClient();
-            MinecraftForge.EVENT_BUS.addListener(this::renderWorldLastEvent);
+
         }
     }
 
@@ -75,7 +78,16 @@ public class LambDynLights {
         this.log("Initializing LambDynamicLights...");
 
         this.config.load();
-        ItemLightSources.load(MinecraftClient.getInstance().getResourceManager());
+
+        if (MinecraftClient.getInstance() != null) {
+            ResourceManager resourceManager = MinecraftClient.getInstance().getResourceManager();
+            if (resourceManager instanceof ReloadableResourceManager) {
+                ReloadableResourceManager reloadableResourceManager = (ReloadableResourceManager) resourceManager;
+                reloadableResourceManager.registerReloader((SynchronousResourceReloader) ItemLightSources::load);
+            }
+        }
+
+        MinecraftForge.EVENT_BUS.addListener(this::renderWorldLastEvent);
         ModList.get().getModContainerById(MODID).orElseThrow(RuntimeException::new).registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, () -> ((minecraftClient, screen) -> new SettingsScreen(screen)));
 
         DynamicLightHandlers.registerDefaultHandlers();

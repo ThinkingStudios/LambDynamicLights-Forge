@@ -53,8 +53,7 @@ public class DynamicLightsConfig {
     public DynamicLightsConfig(@NotNull LambDynLights mod) {
         this.mod = mod;
 
-        //this.config = FileConfig.builder(CONFIG_FILE_PATH).concurrent().defaultResource("/lambdynlights.toml").autosave().build();
-        this.config = FileConfig.builder(CONFIG_FILE_PATH).concurrent().autosave().build();
+        this.config = FileConfig.builder(CONFIG_FILE_PATH).concurrent()/*.defaultResource("/lambdynlights.toml")*/.autosave().build();
     }
 
     /**
