@@ -33,13 +33,11 @@ import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.network.NetworkConstants;
 import org.apache.logging.log4j.LogManager;
@@ -74,7 +72,6 @@ public class LambDynLights {
 
 	public LambDynLights() {
 		ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> NetworkConstants.IGNORESERVERONLY, (a, b) -> true));
-		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		if (FMLLoader.getDist().isClient()) {
 			this.onInitializeClient();
 		}
@@ -86,9 +83,11 @@ public class LambDynLights {
 
 		this.config.load();
 
-		ResourceManager resourceManager = MinecraftClient.getInstance().getResourceManager();
-		if (resourceManager instanceof ReloadableResourceManager reloadableResourceManager) {
-			reloadableResourceManager.registerReloader((SynchronousResourceReloader) ItemLightSources::load);
+		if (MinecraftClient.getInstance() != null) {
+			ResourceManager resourceManager = MinecraftClient.getInstance().getResourceManager();
+			if (resourceManager instanceof ReloadableResourceManager reloadableResourceManager) {
+				reloadableResourceManager.registerReloader((SynchronousResourceReloader) ItemLightSources::load);
+			}
 		}
 
 		MinecraftForge.EVENT_BUS.addListener(this::renderWorldLastEvent);
