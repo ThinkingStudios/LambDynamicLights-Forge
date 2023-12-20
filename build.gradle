@@ -100,7 +100,7 @@ modrinth {
 	token = System.getenv("MODRINTH_TOKEN")
 
 	projectId = "${project.modrinth_id}"
-	versionNumber = "neoforge-${project.version}"
+	versionNumber = "${project.version}"
 	versionType = "alpha"
 	changelog = file("CHANGELOG.md").getText('UTF-8')
 	uploadFile = remapJar
@@ -114,7 +114,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
 	disableVersionDetection()
 
 	def mainFile = upload(project.curseforge_id, remapJar)
-	mainFile.displayName = "neoforge-${project.version}"
+	mainFile.displayName = "${project.version}"
 	mainFile.releaseType = "alpha"
 	mainFile.changelog = file("CHANGELOG.md")
 	mainFile.changelogType = "markdown"
