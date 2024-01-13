@@ -92,7 +92,7 @@ unifiedPublishing {
         displayName = "[NeoForge] $rootProject.version"
         releaseType = "alpha"
         changelog = file("CHANGELOG.md").getText('UTF-8')
-        gameVersions = ["1.20.3", "1.20.4"]
+        gameVersions = ["1.20.2"]
         gameLoaders = ["neoforge"]
 
         mainPublication remapJar

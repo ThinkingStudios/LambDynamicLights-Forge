@@ -24,21 +24,21 @@ config = "ryoamiclights.common.mixins.json"
 
 [[dependencies.ryoamiclights]]
 modId = "neoforge"
-type = "required"
+mandatory = true
 versionRange = "[20,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ryoamiclights]]
 modId = "minecraft"
-type = "required"
-versionRange = "[1.20.3,)"
+mandatory = true
+versionRange = "[1.20.2,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ryoamiclights]]
 modId = "obsidianui"
-type = "required"
+mandatory = true
 versionRange = "*"
 ordering = "NONE"
 side = "BOTH"
