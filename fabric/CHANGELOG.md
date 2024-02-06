@@ -1,2 +1,2 @@
 ## Changelog
-- try fix with dataGen (#12)
+- port to 1.20.1 architectury
