@@ -8,7 +8,7 @@
  * see the LICENSE file.
  */
 
-package org.thinkingstudio.ryoamiclights.neoforge;
+package org.thinkingstudio.ryoamiclights.forge;
 
 import org.thinkingstudio.ryoamiclights.RyoamicLightsCompat;
 import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
@@ -20,10 +20,10 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import java.util.List;
 import java.util.Set;
 
-public class RyoamicLightsNeoForgeMixinPlugin implements IMixinConfigPlugin {
+public class RyoamicLightsForgeMixinPlugin implements IMixinConfigPlugin {
     private final Object2BooleanMap<String> conditionalMixins = new Object2BooleanOpenHashMap<>();
 
-    public RyoamicLightsNeoForgeMixinPlugin() {
+    public RyoamicLightsForgeMixinPlugin() {
         boolean ltrInstalled = RyoamicLightsCompat.isLilTaterReloadedInstalled();
         this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.neoforge.mixin.ltr.LilTaterBlocksMixin", ltrInstalled);
         this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.neoforge.mixin.ltr.LilTaterBlockEntityMixin", ltrInstalled);

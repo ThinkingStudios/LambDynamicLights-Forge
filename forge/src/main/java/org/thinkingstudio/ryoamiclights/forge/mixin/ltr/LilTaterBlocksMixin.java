@@ -8,7 +8,7 @@
  * see the LICENSE file.
  */
 
-package org.thinkingstudio.ryoamiclights.neoforge.mixin.ltr;
+package org.thinkingstudio.ryoamiclights.forge.mixin.ltr;
 
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;

@@ -14,12 +14,11 @@ import com.mojang.datafixers.util.Unit;
 import com.mojang.serialization.Codec;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.gui.widget.button.ButtonWidget;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.Option;
 import net.minecraft.text.Text;
-import org.thinkingstudio.ryoamiclights.gui.SettingsScreen;
 
 import java.util.Optional;
 import java.util.function.Consumer;

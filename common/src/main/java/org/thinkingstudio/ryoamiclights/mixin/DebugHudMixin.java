@@ -11,7 +11,7 @@
 package org.thinkingstudio.ryoamiclights.mixin;
 
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
-import net.minecraft.client.gui.hud.debug.DebugHud;
+import net.minecraft.client.gui.hud.DebugHud;
 import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

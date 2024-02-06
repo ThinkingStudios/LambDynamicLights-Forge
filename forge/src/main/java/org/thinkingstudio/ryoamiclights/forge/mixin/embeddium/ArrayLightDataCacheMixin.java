@@ -8,7 +8,7 @@
  * see the LICENSE file.
  */
 
-package org.thinkingstudio.ryoamiclights.neoforge.mixin.embeddium;
+package org.thinkingstudio.ryoamiclights.forge.mixin.embeddium;
 
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
 import org.thinkingstudio.ryoamiclights.util.SodiumDynamicLightHandler;

@@ -8,7 +8,7 @@
  * see the LICENSE file.
  */
 
-package org.thinkingstudio.ryoamiclights.neoforge.mixin.fabricapi;
+package org.thinkingstudio.ryoamiclights.forge.mixin.fabricapi;
 
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
 import net.minecraft.block.BlockState;

@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[1,)"
+loaderVersion="[40,)"
 license="MIT"
 
 [[mods]]
@@ -16,29 +16,23 @@ LambDynamicLights unofficial architectury port.
 Adds dynamic lights to the game.
 '''
 
-[[mixins]]
-config = "ryoamiclights.neoforge.mixins.json"
-
-[[mixins]]
-config = "ryoamiclights.common.mixins.json"
-
 [[dependencies.ryoamiclights]]
-modId = "neoforge"
-type = "required"
-versionRange = "[20,)"
+modId = "forge"
+mandatory = true
+versionRange = "[40,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ryoamiclights]]
 modId = "minecraft"
-type = "required"
-versionRange = "[1.20.3,)"
+mandatory = true
+versionRange = "[1.20,1.20.1]"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ryoamiclights]]
 modId = "obsidianui"
-type = "required"
+mandatory = true
 versionRange = "*"
 ordering = "NONE"
 side = "BOTH"
