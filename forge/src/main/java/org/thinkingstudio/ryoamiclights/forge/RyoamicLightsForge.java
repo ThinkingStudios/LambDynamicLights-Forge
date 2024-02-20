@@ -10,9 +10,9 @@
 
 package org.thinkingstudio.ryoamiclights.forge;
 
-import dev.architectury.platform.Platform;
+import me.shedaniel.architectury.platform.Platform;
 import net.minecraft.client.MinecraftClient;
-import net.minecraftforge.client.event.RenderLevelStageEvent;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
 import org.thinkingstudio.ryoamiclights.gui.SettingsScreen;
 
-@Mod(RyoamicLights.NAMESPACE)
+@Mod(RyoamicLights.MODID)
 public class RyoamicLightsForge {
     public RyoamicLightsForge() {
         if (FMLLoader.getDist().isClient()) {
@@ -35,14 +35,12 @@ public class RyoamicLightsForge {
 
         MinecraftForge.EVENT_BUS.addListener(this::renderWorldLastEvent);
 
-        Platform.getMod(RyoamicLights.NAMESPACE).registerConfigurationScreen(SettingsScreen::new);
+        Platform.getMod(RyoamicLights.MODID).registerConfigurationScreen(SettingsScreen::new);
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void renderWorldLastEvent(@NotNull RenderLevelStageEvent event) {
-        if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRIPWIRE_BLOCKS) {
-            MinecraftClient.getInstance().getProfiler().swap("dynamic_lighting");
-            RyoamicLights.get().updateAll(event.getLevelRenderer());
-        }
+    public void renderWorldLastEvent(@NotNull RenderWorldLastEvent event) {
+        MinecraftClient.getInstance().getProfiler().swap("dynamic_lighting");
+        RyoamicLights.get().updateAll(event.getContext());
     }
 }

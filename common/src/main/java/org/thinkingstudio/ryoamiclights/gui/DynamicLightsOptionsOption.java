@@ -1,8 +1,7 @@
 /*
- * Copyright © 2020~2024 LambdAurora <email@lambdaurora.dev>
- * Copyright © 2024 ThinkingStudio
+ * Copyright © 2020 LambdAurora <aurora42lambda@gmail.com>
  *
- * This file is part of RyoamicLights.
+ * This file is part of LambDynamicLights.
  *
  * Licensed under the MIT license. For more information,
  * see the LICENSE file.
@@ -20,19 +19,19 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
 public final class DynamicLightsOptionsOption extends Option {
-	private static final String KEY = "ryoamiclights.menu.title";
-	private final Text text;
+    private static final String KEY = "ryoamiclights.menu.title";
+    private final Text text;
 
-	private final Screen parent;
+    private final Screen parent;
 
-	public DynamicLightsOptionsOption(Screen parent) {
-		super(KEY);
-		this.text = new TranslatableText(KEY);
-		this.parent = parent;
-	}
+    public DynamicLightsOptionsOption(Screen parent) {
+        super(KEY);
+        this.text = new TranslatableText(KEY);
+        this.parent = parent;
+    }
 
-	@Override
-	public ClickableWidget createButton(GameOptions options, int x, int y, int width) {
-		return new ButtonWidget(x, y, width, 20, this.text, btn -> MinecraftClient.getInstance().setScreen(new SettingsScreen(this.parent)));
-	}
+    @Override
+    public ClickableWidget createButton(GameOptions options, int x, int y, int width) {
+        return new ButtonWidget(x, y, width, 20, this.text, btn -> MinecraftClient.getInstance().openScreen(new SettingsScreen(this.parent)));
+    }
 }

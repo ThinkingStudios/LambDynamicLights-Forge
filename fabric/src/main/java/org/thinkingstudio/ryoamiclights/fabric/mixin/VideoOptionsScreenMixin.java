@@ -13,21 +13,24 @@ package org.thinkingstudio.ryoamiclights.fabric.mixin;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.option.GameOptionsScreen;
 import net.minecraft.client.gui.screen.option.VideoOptionsScreen;
+import net.minecraft.client.gui.widget.ButtonListWidget;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.Option;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.thinkingstudio.obsidianui.Tooltip;
 import org.thinkingstudio.ryoamiclights.gui.DynamicLightsOptionsOption;
 
 @Mixin(VideoOptionsScreen.class)
 public class VideoOptionsScreenMixin extends GameOptionsScreen {
+	@Shadow
+	private ButtonListWidget list;
 	@Unique
 	private Option ryoamiclights$option;
 
@@ -40,19 +43,9 @@ public class VideoOptionsScreenMixin extends GameOptionsScreen {
 		this.ryoamiclights$option = new DynamicLightsOptionsOption(this);
 	}
 
-	@ModifyArg(
-			method = "init",
-			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/client/gui/widget/ButtonListWidget;addAll([Lnet/minecraft/client/option/Option;)V"
-			),
-			index = 0
-	)
-	private Option[] addOptionButton(Option[] old) {
-		Option[] options = new Option[old.length + 1];
-		System.arraycopy(old, 0, options, 0, old.length);
-		options[options.length - 1] = this.ryoamiclights$option;
-		return options;
+	@Inject(method = "init", at = @At("TAIL"))
+	private void onInit(CallbackInfo ci) {
+		this.list.addSingleOptionEntry(this.ryoamiclights$option);
 	}
 
 	@Inject(method = "render", at = @At("TAIL"))

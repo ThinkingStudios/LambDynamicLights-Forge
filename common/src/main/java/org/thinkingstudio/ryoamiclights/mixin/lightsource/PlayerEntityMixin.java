@@ -1,8 +1,7 @@
 /*
- * Copyright © 2020~2024 LambdAurora <email@lambdaurora.dev>
- * Copyright © 2024 ThinkingStudio
+ * Copyright © 2020 LambdAurora <aurora42lambda@gmail.com>
  *
- * This file is part of RyoamicLights.
+ * This file is part of LambDynamicLights.
  *
  * Licensed under the MIT license. For more information,
  * see the LICENSE file.
@@ -12,56 +11,61 @@ package org.thinkingstudio.ryoamiclights.mixin.lightsource;
 
 import org.thinkingstudio.ryoamiclights.DynamicLightSource;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
-import org.thinkingstudio.ryoamiclights.api.DynamicLightHandlers;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin extends LivingEntity implements DynamicLightSource {
-	@Shadow
-	public abstract boolean isSpectator();
+public abstract class PlayerEntityMixin extends LivingEntity implements DynamicLightSource
+{
+    @Shadow
+    public abstract boolean isSpectator();
 
-	@Unique
-	protected int ryoamiclights$luminance;
-	@Unique
-	private World ryoamiclights$lastWorld;
+    @Unique
+    private int   ryoamiclights_luminance;
+    @Unique
+    private World ryoamiclights_lastWorld;
 
-	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
-		super(entityType, world);
-	}
+    protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world)
+    {
+        super(entityType, world);
+    }
 
-	@Override
-	public void ryoamicLights$dynamicLightTick() {
-		if (!DynamicLightHandlers.canLightUp(this)) {
-			this.ryoamiclights$luminance = 0;
-			return;
-		}
+    @Override
+    public void ryoamicLights$dynamicLightTick()
+    {
+        if (this.isOnFire() || this.isGlowing()) {
+            this.ryoamiclights_luminance = 15;
+        } else {
+            int luminance = 0;
+            BlockPos eyePos = new BlockPos(this.getX(), this.getEyeY(), this.getZ());
+            boolean submergedInFluid = !this.world.getFluidState(eyePos).isEmpty();
+            for (ItemStack equipped : this.getItemsEquipped()) {
+                if (!equipped.isEmpty())
+                    luminance = Math.max(luminance, RyoamicLights.getLuminanceFromItemStack(equipped, submergedInFluid));
+            }
 
-		if (this.isOnFire() || this.isGlowing()) {
-			this.ryoamiclights$luminance = 15;
-		} else {
-			this.ryoamiclights$luminance = Math.max(
-					DynamicLightHandlers.getLuminanceFrom(this),
-					RyoamicLights.getLivingEntityLuminanceFromItems(this)
-			);
-		}
+            this.ryoamiclights_luminance = luminance;
+        }
 
-		if (this.isSpectator())
-			this.ryoamiclights$luminance = 0;
+        if (this.isSpectator())
+            this.ryoamiclights_luminance = 0;
 
-		if (this.ryoamiclights$lastWorld != this.getWorld()) {
-			this.ryoamiclights$lastWorld = this.getWorld();
-			this.ryoamiclights$luminance = 0;
-		}
-	}
+        if (this.ryoamiclights_lastWorld != this.getEntityWorld()) {
+            this.ryoamiclights_lastWorld = this.getEntityWorld();
+            this.ryoamiclights_luminance = 0;
+        }
+    }
 
-	@Override
-	public int ryoamicLights$getLuminance() {
-		return this.ryoamiclights$luminance;
-	}
+    @Override
+    public int ryoamicLights$getLuminance()
+    {
+        return this.ryoamiclights_luminance;
+    }
 }

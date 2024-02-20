@@ -36,8 +36,8 @@ public class LilTaterBlocksMixin {
 	private static void onInit(CallbackInfo ci) {
 		DynamicLightHandlers.registerDynamicLightHandler(getLilTaterBlockEntity(), entity -> {
 			int luminance = 0;
-			if (!((LilTaterBlockEntityAccessor) entity).ryoamiclights$isEmpty()) {
-				for (ItemStack item : ((LilTaterBlockEntityAccessor) entity).ryoamiclights$getItems()) {
+			if (!((LilTaterBlockEntityAccessor) entity).ryoamiclights_isEmpty()) {
+				for (ItemStack item : ((LilTaterBlockEntityAccessor) entity).ryoamiclights_getItems()) {
 					luminance = Math.max(luminance, RyoamicLights.getLuminanceFromItemStack(item, !entity.getCachedState().getFluidState().isEmpty()));
 				}
 			}

@@ -21,7 +21,7 @@ configurations {
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
-    modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
+    modApi "me.shedaniel:architectury-fabric:${rootProject.architectury_version}"
     modCompileOnly("com.terraformersmc:modmenu:${rootProject.mod_menu_version}") { transitive false }
     modImplementation("maven.modrinth:obsidianui:${project.obsidianui_version}-fabric")
 
@@ -91,7 +91,7 @@ unifiedPublishing {
         displayName = "[Fabric] $rootProject.version"
         releaseType = "alpha"
         changelog = file("CHANGELOG.md").getText('UTF-8')
-        gameVersions = ["1.18", "1.18.1", "1.18.2"]
+        gameVersions = ["1.16.4", "1.16.5"]
         gameLoaders = ["fabric"]
 
         mainPublication remapJar

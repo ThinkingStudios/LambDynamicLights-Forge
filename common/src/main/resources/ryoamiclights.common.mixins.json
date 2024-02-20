@@ -3,12 +3,10 @@
   "package": "org.thinkingstudio.ryoamiclights.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "BlockEntityTypeMixin",
     "ClientWorldMixin",
     "CommonWorldRendererMixin",
     "DebugHudMixin",
     "EntityRendererMixin",
-    "EntityTypeMixin",
     "MinecraftClientMixin",
     "WorldMixin",
     "lightsource.AbstractDecorationEntityMixin",

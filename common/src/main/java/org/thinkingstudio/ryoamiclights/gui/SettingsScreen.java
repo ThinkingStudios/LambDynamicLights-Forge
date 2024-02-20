@@ -1,8 +1,7 @@
 /*
- * Copyright © 2020~2024 LambdAurora <email@lambdaurora.dev>
- * Copyright © 2024 ThinkingStudio
+ * Copyright © 2020 LambdAurora <aurora42lambda@gmail.com>
  *
- * This file is part of RyoamicLights.
+ * This file is part of LambDynamicLights.
  *
  * Licensed under the MIT license. For more information,
  * see the LICENSE file.
@@ -10,193 +9,116 @@
 
 package org.thinkingstudio.ryoamiclights.gui;
 
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.registry.Registry;
-import org.thinkingstudio.obsidianui.Position;
-import org.thinkingstudio.obsidianui.SpruceTexts;
-import org.thinkingstudio.obsidianui.background.Background;
-import org.thinkingstudio.obsidianui.background.DirtTexturedBackground;
-import org.thinkingstudio.obsidianui.option.SpruceCyclingOption;
-import org.thinkingstudio.obsidianui.option.SpruceOption;
-import org.thinkingstudio.obsidianui.option.SpruceSeparatorOption;
-import org.thinkingstudio.obsidianui.option.SpruceSimpleActionOption;
-import org.thinkingstudio.obsidianui.screen.SpruceScreen;
-import org.thinkingstudio.obsidianui.util.RenderUtil;
-import org.thinkingstudio.obsidianui.widget.SpruceButtonWidget;
-import org.thinkingstudio.obsidianui.widget.SpruceLabelWidget;
-import org.thinkingstudio.obsidianui.widget.container.SpruceContainerWidget;
-import org.thinkingstudio.obsidianui.widget.container.SpruceOptionListWidget;
-import org.thinkingstudio.obsidianui.widget.container.tabbed.SpruceTabbedWidget;
 import org.thinkingstudio.ryoamiclights.DynamicLightsConfig;
 import org.thinkingstudio.ryoamiclights.ExplosiveLightingMode;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
 import org.thinkingstudio.ryoamiclights.RyoamicLightsCompat;
-import org.thinkingstudio.ryoamiclights.accessor.DynamicLightHandlerHolder;
+import org.thinkingstudio.obsidianui.Position;
+import org.thinkingstudio.obsidianui.option.*;
+import org.thinkingstudio.obsidianui.screen.SpruceScreen;
+import org.thinkingstudio.obsidianui.widget.SpruceButtonWidget;
+import org.thinkingstudio.obsidianui.widget.container.SpruceOptionListWidget;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-
-import net.minecraft.util.Formatting;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.TranslatableText;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
- * Represents the settings screen of RyoamicLights.
+ * Represents the settings screen of LambDynamicLights.
  *
  * @author LambdAurora
- * @version 2.2.0
+ * @version 1.3.4
  * @since 1.0.0
  */
 public class SettingsScreen extends SpruceScreen {
-	private static final Background INNER_BACKGROUND = new InnerBackground();
-	private static final String DYNAMIC_LIGHT_SOURCES_KEY = "ryoamiclights.menu.light_sources";
-	private final DynamicLightsConfig config;
-	private final Screen parent;
-	private final SpruceOption entitiesOption;
-	private final SpruceOption selfOption;
-	private final SpruceOption blockEntitiesOption;
-	private final SpruceOption waterSensitiveOption;
-	private final SpruceOption creeperLightingOption;
-	private final SpruceOption tntLightingOption;
-	private final SpruceOption resetOption;
-	private SpruceTabbedWidget tabbedWidget;
+    private final DynamicLightsConfig config;
+    private final Screen parent;
+    private final SpruceOption entitiesOption;
+    private final SpruceOption blockEntitiesOption;
+    private final SpruceOption waterSensitiveOption;
+    private final SpruceOption creeperLightingOption;
+    private final SpruceOption tntLightingOption;
+    private final SpruceOption resetOption;
+    private SpruceOptionListWidget list;
 
-	public SettingsScreen(@Nullable Screen parent) {
-		super(new TranslatableText("ryoamiclights.menu.title"));
-		this.parent = parent;
-		this.config = RyoamicLights.get().config;
+    public SettingsScreen(@Nullable Screen parent) {
+        super(new TranslatableText("ryoamiclights.menu.title"));
+        this.parent = parent;
+        this.config = RyoamicLights.get().config;
 
-		this.entitiesOption = this.config.getEntitiesLightSource().getOption();
-		this.selfOption = this.config.getSelfLightSource().getOption();
-		this.blockEntitiesOption = this.config.getBlockEntitiesLightSource().getOption();
-		this.waterSensitiveOption = this.config.getWaterSensitiveCheck().getOption();
-		this.creeperLightingOption = new SpruceCyclingOption("entity.minecraft.creeper",
-				amount -> this.config.setCreeperLightingMode(this.config.getCreeperLightingMode().next()),
-				option -> option.getDisplayText(this.config.getCreeperLightingMode().getTranslatedText()),
-				new TranslatableText("ryoamiclights.tooltip.creeper_lighting",
-						ExplosiveLightingMode.OFF.getTranslatedText(),
-						ExplosiveLightingMode.SIMPLE.getTranslatedText(),
-						ExplosiveLightingMode.FANCY.getTranslatedText()));
-		this.tntLightingOption = new SpruceCyclingOption("block.minecraft.tnt",
-				amount -> this.config.setTntLightingMode(this.config.getTntLightingMode().next()),
-				option -> option.getDisplayText(this.config.getTntLightingMode().getTranslatedText()),
-				new TranslatableText("ryoamiclights.tooltip.tnt_lighting",
-						ExplosiveLightingMode.OFF.getTranslatedText(),
-						ExplosiveLightingMode.SIMPLE.getTranslatedText(),
-						ExplosiveLightingMode.FANCY.getTranslatedText()));
-		this.resetOption = SpruceSimpleActionOption.reset(btn -> {
-			this.config.reset();
-			MinecraftClient client = MinecraftClient.getInstance();
-			this.init(client, client.getWindow().getScaledWidth(), client.getWindow().getScaledHeight());
-		});
-	}
+        this.entitiesOption = new SpruceBooleanOption("ryoamiclights.option.entities",
+                this.config::hasEntitiesLightSource,
+                this.config::setEntitiesLightSource,
+                new TranslatableText("ryoamiclights.tooltip.entities"), true);
+        this.blockEntitiesOption = new SpruceBooleanOption("ryoamiclights.option.block_entities",
+                this.config::hasBlockEntitiesLightSource,
+                this.config::setBlockEntitiesLightSource,
+                new TranslatableText("ryoamiclights.tooltip.block_entities"), true);
+        this.waterSensitiveOption = new SpruceBooleanOption("ryoamiclights.option.water_sensitive",
+                this.config::hasWaterSensitiveCheck,
+                this.config::setWaterSensitiveCheck,
+                new TranslatableText("ryoamiclights.tooltip.water_sensitive"), true);
+        this.creeperLightingOption = new SpruceCyclingOption("entity.minecraft.creeper",
+                amount -> this.config.setCreeperLightingMode(this.config.getCreeperLightingMode().next()),
+                option -> option.getDisplayText(this.config.getCreeperLightingMode().getTranslatedText()),
+                new TranslatableText("ryoamiclights.tooltip.creeper_lighting",
+                        ExplosiveLightingMode.OFF.getTranslatedText(),
+                        ExplosiveLightingMode.SIMPLE.getTranslatedText(),
+                        ExplosiveLightingMode.FANCY.getTranslatedText()));
+        this.tntLightingOption = new SpruceCyclingOption("block.minecraft.tnt",
+                amount -> this.config.setTntLightingMode(this.config.getTntLightingMode().next()),
+                option -> option.getDisplayText(this.config.getTntLightingMode().getTranslatedText()),
+                new TranslatableText("ryoamiclights.tooltip.tnt_lighting",
+                        ExplosiveLightingMode.OFF.getTranslatedText(),
+                        ExplosiveLightingMode.SIMPLE.getTranslatedText(),
+                        ExplosiveLightingMode.FANCY.getTranslatedText()));
+        this.resetOption = SpruceSimpleActionOption.reset(btn -> {
+            this.config.reset();
+            MinecraftClient client = MinecraftClient.getInstance();
+            this.init(client, client.getWindow().getScaledWidth(), client.getWindow().getScaledHeight());
+        });
+    }
 
-	@Override
-	public void removed() {
-		super.removed();
-		this.config.save();
-	}
+    @Override
+    public void removed() {
+        super.removed();
+        this.config.save();
+    }
 
-	private int getTextHeight() {
-		return (5 + this.textRenderer.fontHeight) * 3 + 5;
-	}
+    private int getTextHeight() {
+        return (5 + this.textRenderer.fontHeight) * 3 + 5;
+    }
 
-	@Override
-	protected void init() {
-		super.init();
+    @Override
+    protected void init() {
+        super.init();
 
-		var dynamicLightSources = new TranslatableText(DYNAMIC_LIGHT_SOURCES_KEY);
+        this.list = new SpruceOptionListWidget(Position.of(this, 0, 43), this.width, this.height - 43 - 29 - this.getTextHeight());
+        this.list.addSingleOptionEntry(this.config.dynamicLightsModeOption);
+        this.list.addSingleOptionEntry(new SpruceSeparatorOption("ryoamiclights.menu.light_sources", true, null));
+        this.list.addOptionEntry(this.entitiesOption, this.blockEntitiesOption);
+        this.list.addOptionEntry(this.waterSensitiveOption, null);
+        this.list.addOptionEntry(this.creeperLightingOption, this.tntLightingOption);
+        this.addChild(list);
 
-		this.tabbedWidget = new SpruceTabbedWidget(Position.origin(), this.width, this.height, null, Math.max(100, this.width / 8), 0);
-		this.tabbedWidget.getList().setBackground(DirtTexturedBackground.DARKENED);
-		this.tabbedWidget.addTabEntry(new TranslatableText("ryoamiclights.menu.tabs.general"), null,
-				this.tabContainerBuilder(this::buildGeneralTab));
-		this.tabbedWidget.addSeparatorEntry(null);
-		this.tabbedWidget.addTabEntry(new LiteralText("").append(dynamicLightSources).append(": ").append(this.entitiesOption.getPrefix()),
-				null, this.tabContainerBuilder(this::buildEntitiesTab));
-		this.tabbedWidget.addTabEntry(new LiteralText("").append(dynamicLightSources).append(": ").append(this.blockEntitiesOption.getPrefix()),
-				null, this.tabContainerBuilder(this::buildBlockEntitiesTab));
-		this.addSelectableChild(this.tabbedWidget);
-	}
+        this.addChild(this.resetOption.createWidget(Position.of(this, this.width / 2 - 155, this.height - 29), 150));
+        this.addChild(new SpruceButtonWidget(Position.of(this, this.width / 2 - 155 + 160, this.height - 29), 150, 20, new TranslatableText("gui.done"),
+                (btn) -> this.client.openScreen(this.parent)));
+    }
 
-	private SpruceTabbedWidget.ContainerFactory tabContainerBuilder(SpruceTabbedWidget.ContainerFactory innerFactory) {
-		return (width, height) -> this.buildTabContainer(width, height, innerFactory);
-	}
+    @Override
+    public void renderBackground(MatrixStack matrices) {
+        this.renderBackgroundTexture(0);
+    }
 
-	private SpruceContainerWidget buildTabContainer(int width, int height, SpruceTabbedWidget.ContainerFactory factory) {
-		var container = new SpruceContainerWidget(Position.origin(), width, height);
-		var label = new SpruceLabelWidget(Position.of(0, 18), this.title.copy().formatted(Formatting.WHITE), width);
-		label.setCentered(true);
-		container.addChild(label);
-
-		var innerWidget = factory.build(width, height - this.getTextHeight() - 29
-				- (RyoamicLightsCompat.isCanvasInstalled() ? 43 : 0));
-		innerWidget.getPosition().setRelativeY(43);
-		container.addChild(innerWidget);
-
-		container.setBackground((matrices, widget, vOffset, mouseX, mouseY, delta) -> {
-			if (this.client.world != null) {
-				this.fillGradient(matrices, widget.getX(), widget.getY(),
-						widget.getX() + widget.getWidth(), innerWidget.getY(),
-						0xc0101010, 0xd0101010);
-				this.fillGradient(matrices, widget.getX(), innerWidget.getY() + innerWidget.getHeight(),
-						widget.getX() + widget.getWidth(), widget.getY() + widget.getHeight(),
-						0xc0101010, 0xd0101010);
-			} else {
-				var bg = (DirtTexturedBackground) DirtTexturedBackground.NORMAL;
-				RenderUtil.renderBackgroundTexture(widget.getX(), widget.getY(),
-						widget.getWidth(), innerWidget.getY() - widget.getY(),
-						vOffset / 32.f, bg.red(), bg.green(), bg.blue(), bg.alpha());
-				RenderUtil.renderBackgroundTexture(widget.getX(), innerWidget.getY() + innerWidget.getHeight(),
-						widget.getWidth(), widget.getHeight() - (innerWidget.getY() + innerWidget.getHeight()),
-						vOffset / 32.f, bg.red(), bg.green(), bg.blue(), bg.alpha());
-			}
-		});
-
-		if (RyoamicLightsCompat.isCanvasInstalled()) {
-			var firstLine = new SpruceLabelWidget(Position.of(0, height - 29 - (5 + this.textRenderer.fontHeight) * 3),
-                    new TranslatableText("ryoamiclights.menu.canvas.1"), width);
-			firstLine.setCentered(true);
-			container.addChild(firstLine);
-			label = new SpruceLabelWidget(Position.of(0, firstLine.getY() + firstLine.getHeight() + 5),
-					new TranslatableText("ryoamiclights.menu.canvas.2"), width);
-			label.setCentered(true);
-			container.addChild(label);
-		}
-
-		container.addChild(this.resetOption.createWidget(Position.of(this, width / 2 - 155, height - 29), 150));
-		container.addChild(new SpruceButtonWidget(Position.of(this, width / 2 - 155 + 160, height - 29), 150, 20,
-				SpruceTexts.GUI_DONE,
-				btn -> this.client.setScreen(this.parent)));
-
-		return container;
-	}
-
-	private SpruceOptionListWidget buildGeneralTab(int width, int height) {
-		var list = new SpruceOptionListWidget(Position.of(0, 0), width, height);
-		list.setBackground(INNER_BACKGROUND);
-		list.addSingleOptionEntry(this.config.dynamicLightsModeOption);
-		list.addSingleOptionEntry(new SpruceSeparatorOption(DYNAMIC_LIGHT_SOURCES_KEY, true, null));
-		list.addOptionEntry(this.entitiesOption, this.blockEntitiesOption);
-		list.addOptionEntry(this.selfOption, this.waterSensitiveOption);
-		list.addOptionEntry(this.creeperLightingOption, this.tntLightingOption);
-		return list;
-	}
-
-	private LightSourceListWidget buildEntitiesTab(int width, int height) {
-		return this.buildLightSourcesTab(width, height, Registry.ENTITY_TYPE.stream().map(DynamicLightHandlerHolder::cast).collect(Collectors.toList()));
-	}
-
-	private LightSourceListWidget buildBlockEntitiesTab(int width, int height) {
-		return this.buildLightSourcesTab(width, height, Registry.BLOCK_ENTITY_TYPE.stream().map(DynamicLightHandlerHolder::cast).collect(Collectors.toList()));
-	}
-
-	private LightSourceListWidget buildLightSourcesTab(int width, int height, List<DynamicLightHandlerHolder<?>> entries) {
-		var list = new LightSourceListWidget(Position.of(0, 0), width, height);
-		list.setBackground(INNER_BACKGROUND);
-		list.addAll(entries);
-		return list;
-	}
+    @Override
+    public void renderTitle(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        drawCenteredText(matrices, this.textRenderer, this.title, this.width / 2, 18, 16777215);
+        if (RyoamicLightsCompat.isCanvasInstalled()) {
+            drawCenteredText(matrices, this.textRenderer, I18n.translate("ryoamiclights.menu.canvas.1"), this.width / 2, this.height - 29 - (5 + this.textRenderer.fontHeight) * 3, 0xFFFF0000);
+            drawCenteredText(matrices, this.textRenderer, I18n.translate("ryoamiclights.menu.canvas.2"), this.width / 2, this.height - 29 - (5 + this.textRenderer.fontHeight) * 2, 0xFFFF0000);
+        }
+    }
 }

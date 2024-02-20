@@ -1,8 +1,7 @@
 /*
- * Copyright © 2020~2024 LambdAurora <email@lambdaurora.dev>
- * Copyright © 2024 ThinkingStudio
+ * Copyright © 2020 LambdAurora <aurora42lambda@gmail.com>
  *
- * This file is part of RyoamicLights.
+ * This file is part of LambDynamicLights.
  *
  * Licensed under the MIT license. For more information,
  * see the LICENSE file.
@@ -28,24 +27,26 @@ import java.util.List;
  * @since 1.3.2
  */
 @Mixin(DebugHud.class)
-public class DebugHudMixin {
-	@Inject(method = "getLeftText", at = @At("RETURN"))
-	private void onGetLeftText(CallbackInfoReturnable<List<String>> cir) {
-		var list = cir.getReturnValue();
-		var ldl = RyoamicLights.get();
-		var builder = new StringBuilder("Dynamic Light Sources: ");
-		builder.append(ldl.getLightSourcesCount())
-				.append(" (U: ")
-				.append(ldl.getLastUpdateCount());
+public class DebugHudMixin
+{
+    @Inject(method = "getLeftText", at = @At("RETURN"))
+    private void onGetLeftText(CallbackInfoReturnable<List<String>> cir)
+    {
+        List<String> list = cir.getReturnValue();
+        RyoamicLights ldl = RyoamicLights.get();
+        StringBuilder builder = new StringBuilder("Dynamic Light Sources: ");
+        builder.append(ldl.getLightSourcesCount())
+                .append(" (U: ")
+                .append(ldl.getLastUpdateCount());
 
-		if (!ldl.config.getDynamicLightsMode().isEnabled()) {
-			builder.append(" ; ");
-			builder.append(Formatting.RED);
-			builder.append("Disabled");
-			builder.append(Formatting.RESET);
-		}
+        if (!ldl.config.getDynamicLightsMode().isEnabled()) {
+            builder.append(" ; ");
+            builder.append(Formatting.RED);
+            builder.append("Disabled");
+            builder.append(Formatting.RESET);
+        }
 
-		builder.append(')');
-		list.add(builder.toString());
-	}
+        builder.append(')');
+        list.add(builder.toString());
+    }
 }
