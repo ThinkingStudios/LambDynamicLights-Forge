@@ -25,7 +25,7 @@ public final class RyoamicLightsCompat {
      * @return {@code true} if Canvas is installed, else {@code false}
      */
     public static boolean isCanvasInstalled() {
-        return Platform.isModLoaded("canvas");
+        return Platform.getOptionalMod("canvas").isPresent();
     }
 
     /**
@@ -35,6 +35,6 @@ public final class RyoamicLightsCompat {
      */
     public static boolean isLilTaterReloadedInstalled() {
         // Don't even think about it Yog.
-        return Platform.isModLoaded("ltr");
+        return Platform.getOptionalMod("ltr").isPresent();
     }
 }

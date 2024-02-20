@@ -11,17 +11,17 @@
 package org.thinkingstudio.ryoamiclights.fabric;
 
 import org.thinkingstudio.ryoamiclights.RyoamicLightsCompat;
-import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
 import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class RyoamicLightsFabricMixinPlugin  implements IMixinConfigPlugin {
-    private final Object2BooleanMap<String> conditionalMixins = new Object2BooleanOpenHashMap<>();
+    private final Map<String, Boolean> conditionalMixins = new Object2BooleanOpenHashMap<>();
 
     public RyoamicLightsFabricMixinPlugin() {
         boolean ltrInstalled = RyoamicLightsCompat.isLilTaterReloadedInstalled();
