@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[40,)"
+loaderVersion="[35,)"
 license="MIT"
 
 [[mods]]
@@ -19,7 +19,7 @@ Adds dynamic lights to the game.
 [[dependencies.ryoamiclights]]
 modId = "forge"
 mandatory = true
-versionRange = "[40,)"
+versionRange = "[35,)"
 ordering = "NONE"
 side = "BOTH"
 
