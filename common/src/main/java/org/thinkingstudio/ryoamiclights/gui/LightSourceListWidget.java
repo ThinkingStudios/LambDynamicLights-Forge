@@ -11,6 +11,7 @@
 package org.thinkingstudio.ryoamiclights.gui;
 
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.TranslatableText;
 import org.thinkingstudio.obsidianui.Position;
 import org.thinkingstudio.obsidianui.background.Background;
 import org.thinkingstudio.obsidianui.background.EmptyBackground;
@@ -26,7 +27,6 @@ import org.thinkingstudio.obsidianui.widget.container.SpruceParentWidget;
 import org.thinkingstudio.ryoamiclights.accessor.DynamicLightHandlerHolder;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.screen.narration.NarrationPart;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
@@ -84,7 +84,7 @@ public class LightSourceListWidget extends SpruceEntryListWidget<LightSourceList
 						}
 				);
 
-		builder.put(NarrationPart.USAGE, Text.translatable("narration.component_list.usage"));
+		builder.put(NarrationPart.USAGE, new TranslatableText("narration.component_list.usage"));
 	}
 
 	public static class LightSourceEntry extends Entry implements SpruceParentWidget<SpruceWidget>, WithBackground {

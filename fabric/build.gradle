@@ -8,10 +8,6 @@ architectury {
     fabric()
 }
 
-loom {
-    accessWidenerPath = project(":common").loom.accessWidenerPath
-}
-
 project.archivesBaseName = rootProject.archivesBaseName + "-fabric"
 
 configurations {
@@ -95,7 +91,7 @@ unifiedPublishing {
         displayName = "[Fabric] $rootProject.version"
         releaseType = "alpha"
         changelog = file("CHANGELOG.md").getText('UTF-8')
-        gameVersions = ["1.19", "1.19.1", "1.19.2"]
+        gameVersions = ["1.18", "1.18.1", "1.18.2"]
         gameLoaders = ["fabric"]
 
         mainPublication remapJar

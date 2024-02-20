@@ -12,18 +12,17 @@ package org.thinkingstudio.ryoamiclights.api.item;
 
 import com.google.gson.JsonParser;
 import net.minecraft.util.registry.Registry;
+import org.jetbrains.annotations.NotNull;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
-import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents an item light sources manager.
@@ -33,8 +32,9 @@ import java.util.Map;
  * @since 1.3.0
  */
 public final class ItemLightSources {
-	private static final Map<Item, ItemLightSource> ITEM_LIGHT_SOURCES = new Reference2ObjectOpenHashMap<>();
-	private static final Map<Item, ItemLightSource> STATIC_ITEM_LIGHT_SOURCES = new Reference2ObjectOpenHashMap<>();
+	private static final JsonParser JSON_PARSER = new JsonParser();
+	private static final List<ItemLightSource> ITEM_LIGHT_SOURCES = new ArrayList<>();
+	private static final List<ItemLightSource> STATIC_ITEM_LIGHT_SOURCES = new ArrayList<>();
 
 	private ItemLightSources() {
 		throw new UnsupportedOperationException("ItemLightSources only contains static definitions.");
@@ -48,19 +48,19 @@ public final class ItemLightSources {
 	public static void load(ResourceManager resourceManager) {
 		ITEM_LIGHT_SOURCES.clear();
 
-		resourceManager.findResources("dynamiclights/item", path -> path.getPath().endsWith(".json"))
-				.forEach(ItemLightSources::load);
+		resourceManager.findResources("dynamiclights/item", path -> path.endsWith(".json")).forEach(id -> load(resourceManager, id));
 
-		ITEM_LIGHT_SOURCES.putAll(STATIC_ITEM_LIGHT_SOURCES);
+		ITEM_LIGHT_SOURCES.addAll(STATIC_ITEM_LIGHT_SOURCES);
 	}
 
-	private static void load(Identifier resourceId, Resource resource) {
+	private static void load(@NotNull ResourceManager resourceManager, @NotNull Identifier resourceId) {
 		var id = new Identifier(resourceId.getNamespace(), resourceId.getPath().replace(".json", ""));
-		try (var reader = new InputStreamReader(resource.open())) {
-			var json = JsonParser.parseReader(reader).getAsJsonObject();
+		try {
+			var stream = resourceManager.getResource(resourceId).getInputStream();
+			var json = JSON_PARSER.parse(new InputStreamReader(stream)).getAsJsonObject();
 
 			ItemLightSource.fromJson(id, json).ifPresent(data -> {
-				if (!STATIC_ITEM_LIGHT_SOURCES.containsKey(data.item()))
+				if (!STATIC_ITEM_LIGHT_SOURCES.contains(data))
 					register(data);
 			});
 		} catch (IOException | IllegalStateException e) {
@@ -74,15 +74,15 @@ public final class ItemLightSources {
 	 * @param data The item light source data.
 	 */
 	private static void register(ItemLightSource data) {
-		var other = ITEM_LIGHT_SOURCES.get(data.item());
-
-		if (other != null) {
-			RyoamicLights.get().warn("Failed to register item light source \"" + data.id() + "\", duplicates item \""
-					+ Registry.ITEM.getId(data.item()) + "\" found in \"" + other.id() + "\".");
-			return;
+		for (var other : ITEM_LIGHT_SOURCES) {
+			if (other.item() == data.item()) {
+				RyoamicLights.get().warn("Failed to register item light source \"" + data.id() + "\", duplicates item \""
+						+ Registry.ITEM.getId(data.item()) + "\" found in \"" + other.id() + "\".");
+				return;
+			}
 		}
 
-		ITEM_LIGHT_SOURCES.put(data.item(), data);
+		ITEM_LIGHT_SOURCES.add(data);
 	}
 
 	/**
@@ -91,15 +91,15 @@ public final class ItemLightSources {
 	 * @param data the item light source data
 	 */
 	public static void registerItemLightSource(ItemLightSource data) {
-		var other = STATIC_ITEM_LIGHT_SOURCES.get(data.item());
-
-		if (other != null) {
-			RyoamicLights.get().warn("Failed to register item light source \"" + data.id() + "\", duplicates item \""
-					+ Registry.ITEM.getId(data.item()) + "\" found in \"" + other.id() + "\".");
-			return;
+		for (var other : STATIC_ITEM_LIGHT_SOURCES) {
+			if (other.item() == data.item()) {
+				RyoamicLights.get().warn("Failed to register item light source \"" + data.id() + "\", duplicates item \""
+						+ Registry.ITEM.getId(data.item()) + "\" found in \"" + other.id() + "\".");
+				return;
+			}
 		}
 
-		STATIC_ITEM_LIGHT_SOURCES.put(data.item(), data);
+		STATIC_ITEM_LIGHT_SOURCES.add(data);
 	}
 
 	/**
@@ -110,11 +110,12 @@ public final class ItemLightSources {
 	 * @return a luminance value
 	 */
 	public static int getLuminance(ItemStack stack, boolean submergedInWater) {
-		var data = ITEM_LIGHT_SOURCES.get(stack.getItem());
-
-		if (data != null) {
-			return data.getLuminance(stack, submergedInWater);
-		} else if (stack.getItem() instanceof BlockItem blockItem)
+		for (var data : ITEM_LIGHT_SOURCES) {
+			if (data.item() == stack.getItem()) {
+				return data.getLuminance(stack, submergedInWater);
+			}
+		}
+		if (stack.getItem() instanceof BlockItem blockItem)
 			return ItemLightSource.BlockItemLightSource.getLuminance(stack, blockItem.getBlock().getDefaultState());
 		else return 0;
 	}

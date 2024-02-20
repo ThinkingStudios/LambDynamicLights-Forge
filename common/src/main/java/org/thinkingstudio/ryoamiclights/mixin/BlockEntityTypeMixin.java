@@ -10,6 +10,7 @@
 
 package org.thinkingstudio.ryoamiclights.mixin;
 
+import net.minecraft.text.LiteralText;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
 import org.thinkingstudio.ryoamiclights.accessor.DynamicLightHandlerHolder;
 import org.thinkingstudio.ryoamiclights.api.DynamicLightHandler;
@@ -62,8 +63,8 @@ public class BlockEntityTypeMixin<T extends BlockEntity> implements DynamicLight
 		var self = (BlockEntityType<?>) (Object) this;
 		var id = Registry.BLOCK_ENTITY_TYPE.getId(self);
 		if (id == null) {
-			return Text.empty();
+			return LiteralText.EMPTY;
 		}
-		return Text.literal(id.getNamespace() + ':' + id.getPath());
+		return new LiteralText(id.getNamespace() + ':' + id.getPath());
 	}
 }

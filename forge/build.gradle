@@ -9,12 +9,7 @@ architectury {
 }
 
 loom {
-    accessWidenerPath = project(":common").loom.accessWidenerPath
-
     forge {
-        convertAccessWideners = true
-        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
-
         mixinConfigs = [
                 "ryoamiclights.common.mixins.json", "ryoamiclights.forge.mixins.json"
         ]
@@ -97,7 +92,7 @@ unifiedPublishing {
         displayName = "[Forge] $rootProject.version"
         releaseType = "alpha"
         changelog = file("CHANGELOG.md").getText('UTF-8')
-        gameVersions = ["1.19", "1.19.1", "1.19.2"]
+        gameVersions = ["1.18", "1.18.1", "1.18.2"]
         gameLoaders = ["forge"]
 
         mainPublication remapJar

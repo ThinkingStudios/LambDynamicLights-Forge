@@ -29,7 +29,7 @@ import org.thinkingstudio.ryoamiclights.gui.DynamicLightsOptionsOption;
 @Mixin(VideoOptionsScreen.class)
 public class VideoOptionsScreenMixin extends GameOptionsScreen {
 	@Unique
-	private Option<?> ryoamiclights$option;
+	private Option ryoamiclights$option;
 
 	public VideoOptionsScreenMixin(Screen parent, GameOptions gameOptions, Text title) {
 		super(parent, gameOptions, title);
@@ -37,19 +37,19 @@ public class VideoOptionsScreenMixin extends GameOptionsScreen {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void onConstruct(Screen parent, GameOptions gameOptions, CallbackInfo ci) {
-		this.ryoamiclights$option = DynamicLightsOptionsOption.getOption(this);
+		this.ryoamiclights$option = new DynamicLightsOptionsOption(this);
 	}
 
 	@ModifyArg(
 			method = "init",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/gui/widget/ButtonListWidget;addEntries([Lnet/minecraft/client/option/Option;)V"
+					target = "Lnet/minecraft/client/gui/widget/ButtonListWidget;addAll([Lnet/minecraft/client/option/Option;)V"
 			),
 			index = 0
 	)
-	private Option<?>[] addOptionButton(Option<?>[] old) {
-		var options = new Option<?>[old.length + 1];
+	private Option[] addOptionButton(Option[] old) {
+		Option[] options = new Option[old.length + 1];
 		System.arraycopy(old, 0, options, 0, old.length);
 		options[options.length - 1] = this.ryoamiclights$option;
 		return options;

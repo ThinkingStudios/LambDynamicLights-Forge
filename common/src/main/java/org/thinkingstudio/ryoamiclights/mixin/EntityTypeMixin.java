@@ -10,6 +10,7 @@
 
 package org.thinkingstudio.ryoamiclights.mixin;
 
+import net.minecraft.text.TranslatableText;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
 import org.thinkingstudio.ryoamiclights.accessor.DynamicLightHandlerHolder;
 import org.thinkingstudio.ryoamiclights.api.DynamicLightHandler;
@@ -65,7 +66,7 @@ public abstract class EntityTypeMixin<T extends Entity> implements DynamicLightH
 	public Text ryoamiclights$getName() {
 		var name = this.getName();
 		if (name == null) {
-			return Text.translatable("ryoamiclights.dummy");
+			return new TranslatableText("ryoamiclights.dummy");
 		}
 		return name;
 	}

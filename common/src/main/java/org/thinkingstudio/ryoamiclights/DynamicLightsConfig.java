@@ -12,13 +12,14 @@ package org.thinkingstudio.ryoamiclights;
 
 import com.electronwill.nightconfig.core.file.FileConfig;
 import dev.architectury.platform.Platform;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import org.thinkingstudio.obsidianui.option.SpruceCyclingOption;
 import org.thinkingstudio.obsidianui.option.SpruceOption;
 import org.thinkingstudio.ryoamiclights.config.BooleanSettingEntry;
 import org.thinkingstudio.ryoamiclights.config.SettingEntry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
@@ -53,35 +54,35 @@ public class DynamicLightsConfig {
 	public final SpruceOption dynamicLightsModeOption = new SpruceCyclingOption("ryoamiclights.option.mode",
 			amount -> this.setDynamicLightsMode(this.dynamicLightsMode.next()),
 			option -> option.getDisplayText(this.dynamicLightsMode.getTranslatedText()),
-			Text.translatable("ryoamiclights.tooltip.mode.1")
-					.append(Text.literal("\n"))
-					.append(Text.translatable("ryoamiclights.tooltip.mode.2", DynamicLightsMode.FASTEST.getTranslatedText(), DynamicLightsMode.FAST.getTranslatedText()))
-					.append(Text.literal("\n"))
-					.append(Text.translatable("ryoamiclights.tooltip.mode.3", DynamicLightsMode.FANCY.getTranslatedText())));
+			new TranslatableText("ryoamiclights.tooltip.mode.1")
+					.append(new LiteralText("\n"))
+					.append(new TranslatableText("ryoamiclights.tooltip.mode.2", DynamicLightsMode.FASTEST.getTranslatedText(), DynamicLightsMode.FAST.getTranslatedText()))
+					.append(new LiteralText("\n"))
+					.append(new TranslatableText("ryoamiclights.tooltip.mode.3", DynamicLightsMode.FANCY.getTranslatedText())));
 
 	public DynamicLightsConfig(@NotNull RyoamicLights mod) {
 		this.mod = mod;
 
 		this.config = FileConfig.builder(CONFIG_FILE_PATH).concurrent()/*.defaultResource("/ryoamiclights.toml")*/.autosave().build();
 		this.entitiesLightSource = new BooleanSettingEntry("light_sources.entities", DEFAULT_ENTITIES_LIGHT_SOURCE, this.config,
-				Text.translatable("ryoamiclights.tooltip.entities"))
+				new TranslatableText("ryoamiclights.tooltip.entities"))
 				.withOnSet(value -> {
 					if (!value) this.mod.removeEntitiesLightSource();
 				});
 		this.selfLightSource = new BooleanSettingEntry("light_sources.self", DEFAULT_SELF_LIGHT_SOURCE, this.config,
-				Text.translatable("ryoamiclights.tooltip.self_light_source"))
+				new TranslatableText("ryoamiclights.tooltip.self_light_source"))
 				.withOnSet(value -> {
 					if (!value) this.mod.removeLightSources(source ->
 							source instanceof ClientPlayerEntity && source == MinecraftClient.getInstance().player
 					);
 				});
 		this.blockEntitiesLightSource = new BooleanSettingEntry("light_sources.block_entities", DEFAULT_BLOCK_ENTITIES_LIGHT_SOURCE, this.config,
-				Text.translatable("ryoamiclights.tooltip.block_entities"))
+				new TranslatableText("ryoamiclights.tooltip.block_entities"))
 				.withOnSet(value -> {
 					if (!value) this.mod.removeBlockEntitiesLightSource();
 				});
 		this.waterSensitiveCheck = new BooleanSettingEntry("light_sources.water_sensitive_check", DEFAULT_WATER_SENSITIVE_CHECK, this.config,
-				Text.translatable("ryoamiclights.tooltip.water_sensitive"));
+				new TranslatableText("ryoamiclights.tooltip.water_sensitive"));
 	}
 
 	/**

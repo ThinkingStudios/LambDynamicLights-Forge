@@ -10,6 +10,8 @@
 
 package org.thinkingstudio.ryoamiclights.gui;
 
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.registry.Registry;
 import org.thinkingstudio.obsidianui.Position;
 import org.thinkingstudio.obsidianui.SpruceTexts;
@@ -34,7 +36,6 @@ import org.thinkingstudio.ryoamiclights.accessor.DynamicLightHandlerHolder;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 
-import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.jetbrains.annotations.Nullable;
 
@@ -63,7 +64,7 @@ public class SettingsScreen extends SpruceScreen {
 	private SpruceTabbedWidget tabbedWidget;
 
 	public SettingsScreen(@Nullable Screen parent) {
-		super(Text.translatable("ryoamiclights.menu.title"));
+		super(new TranslatableText("ryoamiclights.menu.title"));
 		this.parent = parent;
 		this.config = RyoamicLights.get().config;
 
@@ -74,14 +75,14 @@ public class SettingsScreen extends SpruceScreen {
 		this.creeperLightingOption = new SpruceCyclingOption("entity.minecraft.creeper",
 				amount -> this.config.setCreeperLightingMode(this.config.getCreeperLightingMode().next()),
 				option -> option.getDisplayText(this.config.getCreeperLightingMode().getTranslatedText()),
-				Text.translatable("ryoamiclights.tooltip.creeper_lighting",
+				new TranslatableText("ryoamiclights.tooltip.creeper_lighting",
 						ExplosiveLightingMode.OFF.getTranslatedText(),
 						ExplosiveLightingMode.SIMPLE.getTranslatedText(),
 						ExplosiveLightingMode.FANCY.getTranslatedText()));
 		this.tntLightingOption = new SpruceCyclingOption("block.minecraft.tnt",
 				amount -> this.config.setTntLightingMode(this.config.getTntLightingMode().next()),
 				option -> option.getDisplayText(this.config.getTntLightingMode().getTranslatedText()),
-				Text.translatable("ryoamiclights.tooltip.tnt_lighting",
+				new TranslatableText("ryoamiclights.tooltip.tnt_lighting",
 						ExplosiveLightingMode.OFF.getTranslatedText(),
 						ExplosiveLightingMode.SIMPLE.getTranslatedText(),
 						ExplosiveLightingMode.FANCY.getTranslatedText()));
@@ -106,16 +107,16 @@ public class SettingsScreen extends SpruceScreen {
 	protected void init() {
 		super.init();
 
-		var dynamicLightSources = Text.translatable(DYNAMIC_LIGHT_SOURCES_KEY);
+		var dynamicLightSources = new TranslatableText(DYNAMIC_LIGHT_SOURCES_KEY);
 
 		this.tabbedWidget = new SpruceTabbedWidget(Position.origin(), this.width, this.height, null, Math.max(100, this.width / 8), 0);
 		this.tabbedWidget.getList().setBackground(DirtTexturedBackground.DARKENED);
-		this.tabbedWidget.addTabEntry(Text.translatable("ryoamiclights.menu.tabs.general"), null,
+		this.tabbedWidget.addTabEntry(new TranslatableText("ryoamiclights.menu.tabs.general"), null,
 				this.tabContainerBuilder(this::buildGeneralTab));
 		this.tabbedWidget.addSeparatorEntry(null);
-		this.tabbedWidget.addTabEntry(Text.empty().append(dynamicLightSources).append(": ").append(this.entitiesOption.getPrefix()),
+		this.tabbedWidget.addTabEntry(new LiteralText("").append(dynamicLightSources).append(": ").append(this.entitiesOption.getPrefix()),
 				null, this.tabContainerBuilder(this::buildEntitiesTab));
-		this.tabbedWidget.addTabEntry(Text.empty().append(dynamicLightSources).append(": ").append(this.blockEntitiesOption.getPrefix()),
+		this.tabbedWidget.addTabEntry(new LiteralText("").append(dynamicLightSources).append(": ").append(this.blockEntitiesOption.getPrefix()),
 				null, this.tabContainerBuilder(this::buildBlockEntitiesTab));
 		this.addSelectableChild(this.tabbedWidget);
 	}
@@ -156,11 +157,11 @@ public class SettingsScreen extends SpruceScreen {
 
 		if (RyoamicLightsCompat.isCanvasInstalled()) {
 			var firstLine = new SpruceLabelWidget(Position.of(0, height - 29 - (5 + this.textRenderer.fontHeight) * 3),
-					Text.translatable("ryoamiclights.menu.canvas.1"), width);
+                    new TranslatableText("ryoamiclights.menu.canvas.1"), width);
 			firstLine.setCentered(true);
 			container.addChild(firstLine);
 			label = new SpruceLabelWidget(Position.of(0, firstLine.getY() + firstLine.getHeight() + 5),
-					Text.translatable("ryoamiclights.menu.canvas.2"), width);
+					new TranslatableText("ryoamiclights.menu.canvas.2"), width);
 			label.setCentered(true);
 			container.addChild(label);
 		}
