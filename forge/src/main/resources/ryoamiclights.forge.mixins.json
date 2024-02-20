@@ -2,7 +2,7 @@
   "required": true,
   "package": "org.thinkingstudio.ryoamiclights.forge.mixin",
   "plugin": "org.thinkingstudio.ryoamiclights.forge.RyoamicLightsForgeMixinPlugin",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_8",
   "client": [
     "ltr.LilTaterBlockEntityMixin",
     "ltr.LilTaterBlocksMixin"
