@@ -10,12 +10,10 @@
 
 package org.thinkingstudio.ryoamiclights;
 
-import dev.architectury.platform.Platform;
 import dev.architectury.registry.ReloadListenerRegistry;
 import org.thinkingstudio.ryoamiclights.accessor.WorldRendererAccessor;
 import org.thinkingstudio.ryoamiclights.api.DynamicLightHandlers;
 import org.thinkingstudio.ryoamiclights.api.item.ItemLightSources;
-import org.thinkingstudio.ryoamiclights.gui.SettingsScreen;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
@@ -428,7 +426,7 @@ public class RyoamicLights {
 			return false;
 		}
 
-		var eyePos = BlockPos.create(entity.getX(), entity.getEyeY(), entity.getZ());
+		var eyePos = new BlockPos(entity.getX(), entity.getEyeY(), entity.getZ());
 		return !entity.getWorld().getFluidState(eyePos).isEmpty();
 	}
 
