@@ -22,10 +22,10 @@ import org.thinkingstudio.ryoamiclights.util.LilTaterBlockEntityAccessor;
 @Mixin(targets = "mods.ltr.entities.LilTaterBlockEntity")
 public abstract class LilTaterBlockEntityMixin implements Inventory, LilTaterBlockEntityAccessor {
 	@Override
-	public boolean ryoamiclights$isEmpty() {
+	public boolean ryoamiclights_isEmpty() {
 		return this.isEmpty();
 	}
 
 	@Accessor(value = "items", remap = false)
-	public abstract DefaultedList<ItemStack> ryoamiclights$getItems();
+	public abstract DefaultedList<ItemStack> ryoamiclights_getItems();
 }
