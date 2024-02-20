@@ -10,6 +10,7 @@
 
 package org.thinkingstudio.ryoamiclights.gui;
 
+import net.minecraft.util.registry.Registry;
 import org.thinkingstudio.obsidianui.Position;
 import org.thinkingstudio.obsidianui.SpruceTexts;
 import org.thinkingstudio.obsidianui.background.Background;
@@ -32,7 +33,7 @@ import org.thinkingstudio.ryoamiclights.RyoamicLightsCompat;
 import org.thinkingstudio.ryoamiclights.accessor.DynamicLightHandlerHolder;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.registry.Registries;
+
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.jetbrains.annotations.Nullable;
@@ -134,12 +135,12 @@ public class SettingsScreen extends SpruceScreen {
 		innerWidget.getPosition().setRelativeY(43);
 		container.addChild(innerWidget);
 
-		container.setBackground((graphics, widget, vOffset, mouseX, mouseY, delta) -> {
+		container.setBackground((matrices, widget, vOffset, mouseX, mouseY, delta) -> {
 			if (this.client.world != null) {
-				graphics.fillGradient(widget.getX(), widget.getY(),
+				this.fillGradient(matrices, widget.getX(), widget.getY(),
 						widget.getX() + widget.getWidth(), innerWidget.getY(),
 						0xc0101010, 0xd0101010);
-				graphics.fillGradient(widget.getX(), innerWidget.getY() + innerWidget.getHeight(),
+				this.fillGradient(matrices, widget.getX(), innerWidget.getY() + innerWidget.getHeight(),
 						widget.getX() + widget.getWidth(), widget.getY() + widget.getHeight(),
 						0xc0101010, 0xd0101010);
 			} else {
@@ -184,11 +185,11 @@ public class SettingsScreen extends SpruceScreen {
 	}
 
 	private LightSourceListWidget buildEntitiesTab(int width, int height) {
-		return this.buildLightSourcesTab(width, height, Registries.ENTITY_TYPE.stream().map(DynamicLightHandlerHolder::cast).collect(Collectors.toList()));
+		return this.buildLightSourcesTab(width, height, Registry.ENTITY_TYPE.stream().map(DynamicLightHandlerHolder::cast).collect(Collectors.toList()));
 	}
 
 	private LightSourceListWidget buildBlockEntitiesTab(int width, int height) {
-		return this.buildLightSourcesTab(width, height, Registries.BLOCK_ENTITY_TYPE.stream().map(DynamicLightHandlerHolder::cast).collect(Collectors.toList()));
+		return this.buildLightSourcesTab(width, height, Registry.BLOCK_ENTITY_TYPE.stream().map(DynamicLightHandlerHolder::cast).collect(Collectors.toList()));
 	}
 
 	private LightSourceListWidget buildLightSourcesTab(int width, int height, List<DynamicLightHandlerHolder<?>> entries) {

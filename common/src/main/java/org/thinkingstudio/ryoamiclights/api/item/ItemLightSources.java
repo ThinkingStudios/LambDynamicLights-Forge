@@ -11,12 +11,12 @@
 package org.thinkingstudio.ryoamiclights.api.item;
 
 import com.google.gson.JsonParser;
+import net.minecraft.util.registry.Registry;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
@@ -78,7 +78,7 @@ public final class ItemLightSources {
 
 		if (other != null) {
 			RyoamicLights.get().warn("Failed to register item light source \"" + data.id() + "\", duplicates item \""
-					+ Registries.ITEM.getId(data.item()) + "\" found in \"" + other.id() + "\".");
+					+ Registry.ITEM.getId(data.item()) + "\" found in \"" + other.id() + "\".");
 			return;
 		}
 
@@ -95,7 +95,7 @@ public final class ItemLightSources {
 
 		if (other != null) {
 			RyoamicLights.get().warn("Failed to register item light source \"" + data.id() + "\", duplicates item \""
-					+ Registries.ITEM.getId(data.item()) + "\" found in \"" + other.id() + "\".");
+					+ Registry.ITEM.getId(data.item()) + "\" found in \"" + other.id() + "\".");
 			return;
 		}
 

@@ -10,6 +10,7 @@
 
 package org.thinkingstudio.ryoamiclights.gui;
 
+import net.minecraft.client.util.math.MatrixStack;
 import org.thinkingstudio.obsidianui.Position;
 import org.thinkingstudio.obsidianui.background.Background;
 import org.thinkingstudio.obsidianui.background.EmptyBackground;
@@ -23,7 +24,6 @@ import org.thinkingstudio.obsidianui.widget.WithBackground;
 import org.thinkingstudio.obsidianui.widget.container.SpruceEntryListWidget;
 import org.thinkingstudio.obsidianui.widget.container.SpruceParentWidget;
 import org.thinkingstudio.ryoamiclights.accessor.DynamicLightHandlerHolder;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.screen.narration.NarrationPart;
 import net.minecraft.text.Text;
@@ -204,12 +204,14 @@ public class LightSourceListWidget extends SpruceEntryListWidget<LightSourceList
 
 		/* Rendering */
 
-		protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
-			this.forEach(widget -> widget.render(graphics, mouseX, mouseY, delta));
+		@Override
+		protected void renderWidget(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+			this.forEach(widget -> widget.render(matrices, mouseX, mouseY, delta));
 		}
 
-		protected void renderBackground(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
-			this.background.render(graphics, this, 0, mouseX, mouseY, delta);
+		@Override
+		protected void renderBackground(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+			this.background.render(matrices, this, 0, mouseX, mouseY, delta);
 		}
 
 		/* Narration */

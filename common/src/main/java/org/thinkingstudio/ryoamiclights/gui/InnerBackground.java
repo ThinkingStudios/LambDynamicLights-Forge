@@ -11,21 +11,22 @@
 package org.thinkingstudio.ryoamiclights.gui;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.util.math.MatrixStack;
 import org.thinkingstudio.obsidianui.background.Background;
 import org.thinkingstudio.obsidianui.background.DirtTexturedBackground;
 import org.thinkingstudio.obsidianui.widget.SpruceWidget;
 
-public class InnerBackground implements Background {
+public class InnerBackground extends DrawableHelper implements Background {
 
 	@Override
-	public void render(GuiGraphics graphics, SpruceWidget widget, int vOffset, int mouseX, int mouseY, float delta) {
+	public void render(MatrixStack matrices, SpruceWidget widget, int vOffset, int mouseX, int mouseY, float delta) {
 		if (MinecraftClient.getInstance().world != null) {
-			graphics.fillGradient(widget.getX(), widget.getY(),
+			this.fillGradient(matrices, widget.getX(), widget.getY(),
 					widget.getX() + widget.getWidth(), widget.getY() + widget.getHeight(),
 					0xc0060606, 0xd0060606);
 		} else {
-			DirtTexturedBackground.DARKENED.render(graphics, widget, vOffset, mouseX, mouseY, delta);
+			DirtTexturedBackground.DARKENED.render(matrices, widget, vOffset, mouseX, mouseY, delta);
 		}
 	}
 }

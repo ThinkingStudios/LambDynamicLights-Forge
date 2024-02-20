@@ -21,7 +21,6 @@ import net.minecraft.client.option.Option;
 import net.minecraft.text.Text;
 
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 public final class DynamicLightsOptionsOption {
@@ -40,9 +39,10 @@ public final class DynamicLightsOptionsOption {
 
 		@Override
 		public Function<Option<Unit>, ClickableWidget> getButtonCreator(Option.TooltipSupplier<Unit> tooltipSupplier, GameOptions options,
-				int x, int y, int width, Consumer<Unit> changeCallback) {
-			return option -> ButtonWidget.builder(Text.translatable(KEY), button -> MinecraftClient.getInstance()
-					.setScreen(new SettingsScreen(this.parent))).positionAndSize(x, y, width, 20).build();
+																		int x, int y, int width) {
+			return option -> new ButtonWidget(x, y, width, 20, Text.translatable(KEY),
+					btn -> MinecraftClient.getInstance().setScreen(new SettingsScreen(this.parent))
+			);
 		}
 
 		@Override

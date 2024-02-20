@@ -16,7 +16,7 @@ import org.thinkingstudio.ryoamiclights.api.DynamicLightHandler;
 import org.thinkingstudio.ryoamiclights.config.LightSourceSettingEntry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.registry.Registries;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -47,7 +47,7 @@ public abstract class EntityTypeMixin<T extends Entity> implements DynamicLightH
 	public LightSourceSettingEntry ryoamiclights$getSetting() {
 		if (this.ryoamiclights$setting == null) {
 			var self = (EntityType<?>) (Object) this;
-			var id = Registries.ENTITY_TYPE.getId(self);
+			var id = Registry.ENTITY_TYPE.getId(self);
 			if (id.getNamespace().equals("minecraft") && id.getPath().equals("pig") && self != EntityType.PIG) {
 				return null;
 			}

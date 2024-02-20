@@ -16,7 +16,7 @@ import org.thinkingstudio.ryoamiclights.api.DynamicLightHandler;
 import org.thinkingstudio.ryoamiclights.config.LightSourceSettingEntry;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.registry.Registries;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -43,7 +43,7 @@ public class BlockEntityTypeMixin<T extends BlockEntity> implements DynamicLight
 	public LightSourceSettingEntry ryoamiclights$getSetting() {
 		if (this.ryoamiclights$setting == null) {
 			var self = (BlockEntityType<?>) (Object) this;
-			var id = Registries.BLOCK_ENTITY_TYPE.getId(self);
+			var id = Registry.BLOCK_ENTITY_TYPE.getId(self);
 			if (id == null) {
 				return null;
 			}
@@ -60,7 +60,7 @@ public class BlockEntityTypeMixin<T extends BlockEntity> implements DynamicLight
 	@Override
 	public Text ryoamiclights$getName() {
 		var self = (BlockEntityType<?>) (Object) this;
-		var id = Registries.BLOCK_ENTITY_TYPE.getId(self);
+		var id = Registry.BLOCK_ENTITY_TYPE.getId(self);
 		if (id == null) {
 			return Text.empty();
 		}

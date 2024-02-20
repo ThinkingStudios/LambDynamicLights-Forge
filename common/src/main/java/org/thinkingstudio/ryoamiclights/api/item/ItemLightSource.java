@@ -11,6 +11,7 @@
 package org.thinkingstudio.ryoamiclights.api.item;
 
 import com.google.gson.JsonObject;
+import net.minecraft.util.registry.Registry;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -18,7 +19,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
@@ -97,7 +97,7 @@ public abstract class ItemLightSource {
 		}
 
 		var affectId = new Identifier(json.get("item").getAsString());
-		var item = Registries.ITEM.get(affectId);
+		var item = Registry.ITEM.get(affectId);
 
 		if (item == Items.AIR)
 			return Optional.empty();
@@ -118,7 +118,7 @@ public abstract class ItemLightSource {
 			} else {
 				var blockId = Identifier.tryParse(luminanceStr);
 				if (blockId != null) {
-					var block = Registries.BLOCK.get(blockId);
+					var block = Registry.BLOCK.get(blockId);
 					if (block != Blocks.AIR)
 						return Optional.of(new BlockItemLightSource(id, item, block.getDefaultState(), waterSensitive));
 				}
