@@ -97,8 +97,8 @@ unifiedPublishing {
         displayName = "[Forge] $rootProject.version"
         releaseType = "alpha"
         changelog = file("CHANGELOG.md").getText('UTF-8')
-        gameVersions = ["1.20", "1.20.1"]
-        gameLoaders = ["forge", "neoforge"]
+        gameVersions = ["1.19", "1.19.1", "1.19.2"]
+        gameLoaders = ["forge"]
 
         mainPublication remapJar
         secondaryPublications.builtBy(sourcesJar)

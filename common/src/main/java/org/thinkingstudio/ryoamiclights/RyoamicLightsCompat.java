@@ -38,41 +38,4 @@ public final class RyoamicLightsCompat {
 		// Don't even think about it Yog.
 		return Platform.isModLoaded("ltr");
 	}
-
-	/**
-	 * Returns whether Embeddium is installed.
-	 *
-	 * @return {@code true} if Embeddium is installed, else {@code false}
-	 */
-	public static boolean isEmbeddiumInstalled() {
-		return Platform.isModLoaded("embeddium");
-	}
-
-	/**
-	 * Returns whether Sodium is installed.
-	 *
-	 * @return {@code true} if Sodium is installed, else {@code false}
-	 */
-	public static boolean isSodiumInstalled() {
-		return Platform.isModLoaded("sodium");
-	}
-
-
-	/**
-	 * Returns whether Forgified Fabric API is installed.
-	 *
-	 * @return {@code true} if Forgified Fabric API is installed, else {@code false}
-	 */
-	public static boolean isForgifiedFabricApiInstalled() {
-		return Platform.isModLoaded("fabric_api");
-	}
-
-	/**
-	 * Returns whether Fabric API is installed.
-	 *
-	 * @return {@code true} if Fabric API is installed, else {@code false}
-	 */
-	public static boolean isFabricApiInstalled() {
-		return Platform.isModLoaded("fabric-api");
-	}
 }

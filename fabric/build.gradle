@@ -95,7 +95,7 @@ unifiedPublishing {
         displayName = "[Fabric] $rootProject.version"
         releaseType = "alpha"
         changelog = file("CHANGELOG.md").getText('UTF-8')
-        gameVersions = ["1.20", "1.20.1"]
+        gameVersions = ["1.19", "1.19.1", "1.19.2"]
         gameLoaders = ["fabric"]
 
         mainPublication remapJar

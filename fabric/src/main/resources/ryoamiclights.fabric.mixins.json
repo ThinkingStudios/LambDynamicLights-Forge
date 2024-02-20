@@ -5,12 +5,8 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "VideoOptionsScreenMixin",
-    "fabricapi.AoCalculatorMixin",
     "ltr.LilTaterBlockEntityMixin",
-    "ltr.LilTaterBlocksMixin",
-    "sodium.ArrayLightDataCacheMixin",
-    "sodium.FlatLightPipelineMixin",
-    "sodium.LightDataAccessMixin"
+    "ltr.LilTaterBlocksMixin"
   ],
   "injectors": {
     "defaultRequire": 1

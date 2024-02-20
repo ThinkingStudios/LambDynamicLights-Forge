@@ -1,2 +1,2 @@
 ## Changelog
-- port to 1.20.1 architectury
+- port to 1.19.2 architectury

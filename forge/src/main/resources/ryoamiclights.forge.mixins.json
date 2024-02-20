@@ -4,10 +4,6 @@
   "plugin": "org.thinkingstudio.ryoamiclights.forge.RyoamicLightsForgeMixinPlugin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "embeddium.ArrayLightDataCacheMixin",
-    "embeddium.FlatLightPipelineMixin",
-    "embeddium.LightDataAccessMixin",
-    "fabricapi.AoCalculatorMixin",
     "ltr.LilTaterBlockEntityMixin",
     "ltr.LilTaterBlocksMixin"
   ],

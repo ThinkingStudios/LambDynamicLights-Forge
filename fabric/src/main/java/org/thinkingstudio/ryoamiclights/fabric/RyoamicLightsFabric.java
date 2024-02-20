@@ -10,7 +10,6 @@
 
 package org.thinkingstudio.ryoamiclights.fabric;
 
-import dev.architectury.platform.Platform;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
