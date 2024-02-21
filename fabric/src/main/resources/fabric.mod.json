@@ -12,7 +12,7 @@
   },
   "license": "MIT",
   "icon": "icon.png",
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "client": [
       "org.thinkingstudio.ryoamiclights.fabric.RyoamicLightsFabric"
