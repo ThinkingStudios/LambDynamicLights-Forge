@@ -22,6 +22,7 @@ import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.network.NetworkConstants;
 import org.jetbrains.annotations.NotNull;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
+import org.thinkingstudio.ryoamiclights.forge.api.DynamicLightsInitializerEvent;
 import org.thinkingstudio.ryoamiclights.gui.SettingsScreen;
 
 @Mod(RyoamicLights.NAMESPACE)
@@ -36,6 +37,7 @@ public class RyoamicLightsForge {
         new RyoamicLights().clientInit();
         ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> NetworkConstants.IGNORESERVERONLY, (a, b) -> true));
         MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGHEST, this::renderWorldLastEvent);
+        MinecraftForge.EVENT_BUS.post(new DynamicLightsInitializerEvent());
         Platform.getMod(RyoamicLights.NAMESPACE).registerConfigurationScreen(SettingsScreen::new);
     }
 
