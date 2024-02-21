@@ -27,7 +27,7 @@
   ],
   "depends": {
     "fabric-api": "*",
-    "minecraft": "1.18~1.18.2",
+    "minecraft": "1.18.x",
     "architectury": "*",
     "obsidianui": "*"
   }
