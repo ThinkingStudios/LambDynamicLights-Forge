@@ -12,7 +12,7 @@
   },
   "license": "MIT",
   "icon": "icon.png",
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "client": [
       "org.thinkingstudio.ryoamiclights.fabric.RyoamicLightsFabric"
@@ -27,7 +27,7 @@
   ],
   "depends": {
     "fabric-api": "*",
-    "minecraft": "1.20~1.20.1",
+    "minecraft": "1.20.x",
     "architectury": "*",
     "obsidianui": "*"
   }

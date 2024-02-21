@@ -15,7 +15,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.loading.FMLLoader;
 import org.jetbrains.annotations.NotNull;
@@ -32,13 +31,10 @@ public class RyoamicLightsForge {
 
     public void onInitializeClient() {
         new RyoamicLights().clientInit();
-
-        MinecraftForge.EVENT_BUS.addListener(this::renderWorldLastEvent);
-
+        MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGHEST, this::renderWorldLastEvent);
         Platform.getMod(RyoamicLights.NAMESPACE).registerConfigurationScreen(SettingsScreen::new);
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void renderWorldLastEvent(@NotNull RenderLevelStageEvent event) {
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRIPWIRE_BLOCKS) {
             MinecraftClient.getInstance().getProfiler().swap("dynamic_lighting");
