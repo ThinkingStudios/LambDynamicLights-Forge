@@ -64,7 +64,7 @@ public class RyoamicLights {
 
 		this.config.load();
 
-		if (!RyoamicLightsExpectPlatform.isDevEnvironment()) {
+		if (!RyoamicLightsCompat.isDevEnvironment()) {
 			ReloadListenerRegistry.register(ResourceType.CLIENT_RESOURCES, (SynchronousResourceReloader) ItemLightSources::load);
 		}
 

@@ -10,7 +10,7 @@
 
 package org.thinkingstudio.ryoamiclights;
 
-import dev.architectury.platform.Platform;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 
 /**
  * Represents a utility class for compatibility.
@@ -25,8 +25,9 @@ public final class RyoamicLightsCompat {
 	 *
 	 * @return {@code true} if Canvas is installed, else {@code false}
 	 */
+	@ExpectPlatform
 	public static boolean isCanvasInstalled() {
-		return Platform.isModLoaded("canvas");
+		throw new AssertionError();
 	}
 
 	/**
@@ -34,8 +35,13 @@ public final class RyoamicLightsCompat {
 	 *
 	 * @return {@code true} if LTR is installed, else {@code false}
 	 */
+	@ExpectPlatform
 	public static boolean isLilTaterReloadedInstalled() {
-		// Don't even think about it Yog.
-		return Platform.isModLoaded("ltr");
+		throw new AssertionError();
+	}
+
+	@ExpectPlatform
+	public static boolean isDevEnvironment() {
+		throw new AssertionError();
 	}
 }
