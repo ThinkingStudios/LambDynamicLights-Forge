@@ -53,7 +53,7 @@ public class RyoamicLights {
 
         this.config.load();
 
-        if (!RyoamicLightsExpectPlatform.isDevEnvironment()) {
+        if (!RyoamicLightsCompat.isDevEnvironment()) {
             ReloadListeners.registerReloadListener(ResourceType.CLIENT_RESOURCES, (SynchronousResourceReloader) org.thinkingstudio.ryoamiclights.api.item.ItemLightSources::load);
         }
 
