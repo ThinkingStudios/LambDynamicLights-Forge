@@ -10,12 +10,10 @@
 
 package org.thinkingstudio.ryoamiclights;
 
-import dev.architectury.platform.Platform;
 import dev.architectury.registry.ReloadListenerRegistry;
 import org.thinkingstudio.ryoamiclights.accessor.WorldRendererAccessor;
 import org.thinkingstudio.ryoamiclights.api.DynamicLightHandlers;
 import org.thinkingstudio.ryoamiclights.api.item.ItemLightSources;
-import org.thinkingstudio.ryoamiclights.gui.SettingsScreen;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
@@ -66,7 +64,7 @@ public class RyoamicLights {
 
 		this.config.load();
 
-		if (!RyoamicLightsExpectPlatform.isDevEnvironment()) {
+		if (!RyoamicLightsCompat.isDevEnvironment()) {
 			ReloadListenerRegistry.register(ResourceType.CLIENT_RESOURCES, (SynchronousResourceReloader) ItemLightSources::load);
 		}
 

@@ -10,7 +10,7 @@
 
 package org.thinkingstudio.ryoamiclights;
 
-import dev.architectury.platform.Platform;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 
 /**
  * Represents a utility class for compatibility.
@@ -25,8 +25,9 @@ public final class RyoamicLightsCompat {
 	 *
 	 * @return {@code true} if Canvas is installed, else {@code false}
 	 */
+	@ExpectPlatform
 	public static boolean isCanvasInstalled() {
-		return Platform.isModLoaded("canvas");
+		throw new AssertionError();
 	}
 
 	/**
@@ -34,45 +35,33 @@ public final class RyoamicLightsCompat {
 	 *
 	 * @return {@code true} if LTR is installed, else {@code false}
 	 */
+	@ExpectPlatform
 	public static boolean isLilTaterReloadedInstalled() {
-		// Don't even think about it Yog.
-		return Platform.isModLoaded("ltr");
+		throw new AssertionError();
 	}
 
 	/**
-	 * Returns whether Embeddium is installed.
+	 * Returns whether Sodium(Fabric) or Embeddium(Forge/NeoForge) is installed.
 	 *
-	 * @return {@code true} if Embeddium is installed, else {@code false}
+	 * @return {@code true} if Sodium(Fabric) or Embeddium(Forge/NeoForge) is installed, else {@code false}
 	 */
-	public static boolean isEmbeddiumInstalled() {
-		return Platform.isModLoaded("embeddium");
-	}
-
-	/**
-	 * Returns whether Sodium is installed.
-	 *
-	 * @return {@code true} if Sodium is installed, else {@code false}
-	 */
+	@ExpectPlatform
 	public static boolean isSodiumInstalled() {
-		return Platform.isModLoaded("sodium");
-	}
-
-
-	/**
-	 * Returns whether Forgified Fabric API is installed.
-	 *
-	 * @return {@code true} if Forgified Fabric API is installed, else {@code false}
-	 */
-	public static boolean isForgifiedFabricApiInstalled() {
-		return Platform.isModLoaded("fabric_api");
+		throw new AssertionError();
 	}
 
 	/**
-	 * Returns whether Fabric API is installed.
+	 * Returns whether Fabric API or Forgified Fabric API is installed.
 	 *
-	 * @return {@code true} if Fabric API is installed, else {@code false}
+	 * @return {@code true} if Fabric API or Forgified Fabric API is installed, else {@code false}
 	 */
+	@ExpectPlatform
 	public static boolean isFabricApiInstalled() {
-		return Platform.isModLoaded("fabric-api");
+		throw new AssertionError();
+	}
+
+	@ExpectPlatform
+	public static boolean isDevEnvironment() {
+		throw new AssertionError();
 	}
 }

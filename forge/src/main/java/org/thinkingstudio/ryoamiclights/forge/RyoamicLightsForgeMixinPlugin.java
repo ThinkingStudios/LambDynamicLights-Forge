@@ -28,12 +28,12 @@ public class RyoamicLightsForgeMixinPlugin implements IMixinConfigPlugin {
         this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.neoforge.mixin.ltr.LilTaterBlocksMixin", ltrInstalled);
         this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.neoforge.mixin.ltr.LilTaterBlockEntityMixin", ltrInstalled);
 
-        boolean embeddiumInstalled = RyoamicLightsCompat.isEmbeddiumInstalled();
+        boolean embeddiumInstalled = RyoamicLightsCompat.isSodiumInstalled();
         this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.neoforge.mixin.embeddium.ArrayLightDataCacheMixin", embeddiumInstalled);
         this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.neoforge.mixin.embeddium.FlatLightPipelineMixin", embeddiumInstalled);
         this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.neoforge.mixin.embeddium.LightDataAccessMixin", embeddiumInstalled);
 
-        boolean forgifiedFabricApiInstalled = RyoamicLightsCompat.isForgifiedFabricApiInstalled();
+        boolean forgifiedFabricApiInstalled = RyoamicLightsCompat.isFabricApiInstalled();
         this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.neoforge.mixin.fabricapi.AoCalculatorMixin", forgifiedFabricApiInstalled);
     }
 
