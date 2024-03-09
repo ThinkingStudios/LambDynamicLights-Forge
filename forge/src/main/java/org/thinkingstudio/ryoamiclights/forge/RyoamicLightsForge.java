@@ -10,8 +10,8 @@
 
 package org.thinkingstudio.ryoamiclights.forge;
 
-import dev.architectury.platform.Platform;
 import net.minecraft.client.MinecraftClient;
+import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -34,11 +34,11 @@ public class RyoamicLightsForge {
     }
 
     public void onInitializeClient() {
-        new RyoamicLights().clientInit();
+        RyoamicLights.get().clientInit();
         ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> NetworkConstants.IGNORESERVERONLY, (a, b) -> true));
+        ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((client, screen) -> new SettingsScreen(screen)));
         MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGHEST, this::renderWorldLastEvent);
         MinecraftForge.EVENT_BUS.post(new DynamicLightsInitializerEvent());
-        Platform.getMod(RyoamicLights.NAMESPACE).registerConfigurationScreen(SettingsScreen::new);
     }
 
     public void renderWorldLastEvent(@NotNull RenderLevelStageEvent event) {

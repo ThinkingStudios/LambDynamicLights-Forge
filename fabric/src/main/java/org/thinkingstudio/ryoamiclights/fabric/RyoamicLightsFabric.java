@@ -10,7 +10,6 @@
 
 package org.thinkingstudio.ryoamiclights.fabric;
 
-import dev.architectury.platform.Platform;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
@@ -22,7 +21,7 @@ import org.thinkingstudio.ryoamiclights.fabric.api.DynamicLightsInitializer;
 public class RyoamicLightsFabric implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        new RyoamicLights().clientInit();
+        RyoamicLights.get().clientInit();
 
         FabricLoader.getInstance().getEntrypointContainers("dynamiclights", DynamicLightsInitializer.class)
                 .stream().map(EntrypointContainer::getEntrypoint)

@@ -59,7 +59,6 @@ public class RyoamicLights {
 	private int lastUpdateCount = 0;
 
 	public void clientInit() {
-		INSTANCE = this;
 		this.log("Initializing RyoamicLights...");
 
 		this.config.load();
@@ -459,6 +458,9 @@ public class RyoamicLights {
 	 * @return the mod instance
 	 */
 	public static RyoamicLights get() {
+        if (INSTANCE == null) {
+            INSTANCE = new RyoamicLights();
+        }
 		return INSTANCE;
 	}
 }

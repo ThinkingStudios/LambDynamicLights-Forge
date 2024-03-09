@@ -1,2 +1,3 @@
 ## Changelog
-- port to 1.20.1 architectury
+- fix crash when open VideoOptionsScreen
+- rewrite main class get instance method
