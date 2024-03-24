@@ -1,6 +1,5 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "8.1.1"
-    id "me.shedaniel.unified-publishing"
+    id "com.github.johnrengelman.shadow" version "8.+"
 }
 
 architectury {
@@ -90,39 +89,29 @@ publishing {
     }
 }
 
-unifiedPublishing {
-    project {
-        displayName = "[Fabric] $rootProject.version"
-        releaseType = "alpha"
-        changelog = file("CHANGELOG.md").getText('UTF-8')
-        gameVersions = ["1.20", "1.20.1"]
-        gameLoaders = ["fabric"]
+publisher {
+    apiKeys {
+        modrinth System.getenv("MODRINTH_TOKEN")
+        curseforge System.getenv("CURSE_TOKEN")
+    }
 
-        mainPublication remapJar
-        secondaryPublications.builtBy(sourcesJar)
+    setCurseID("${rootProject.curseforge_id}")
+    setModrinthID("${rootProject.modrinth_id}")
+    setVersionType("beta")
+    setChangelog(file("CHANGELOG.md").getText("UTF-8"))
+    setVersion("${rootProject.version}-fabric")
+    setDisplayName("[Fabric] ${rootProject.version}")
+    setGameVersions("1.20", "1.20.1")
+    setLoaders("fabric")
+    setCurseEnvironment("client")
+    setArtifact(remapJar)
+    addAdditionalFile(sourcesJar)
 
-        relations {
-            depends {
-                curseforge = "architectury-api"
-                modrinth = "architectury-api"
-            }
-        }
+    modrinthDepends {
+        required "obsidianui"
+    }
 
-        var CURSEFORGE_TOKEN = project.findProperty("CURSEFORGE_TOKEN") ?: System.getenv("CURSEFORGE_TOKEN")
-        if (CURSEFORGE_TOKEN != null) {
-            curseforge {
-                token = CURSEFORGE_TOKEN
-                id = rootProject.curseforge_id
-            }
-        }
-
-        var MODRINTH_TOKEN = project.findProperty("MODRINTH_TOKEN") ?: System.getenv("MODRINTH_TOKEN")
-        if (MODRINTH_TOKEN != null) {
-            modrinth {
-                token = MODRINTH_TOKEN
-                id = rootProject.modrinth_id
-                version = "$rootProject.version-fabric"
-            }
-        }
+    curseDepends {
+        required "obsidianui"
     }
 }
