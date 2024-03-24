@@ -33,8 +33,7 @@ configurations {
 
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.forge_version}"
-    modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
-    modImplementation("maven.modrinth:obsidianui:${project.obsidianui_version}-forge")
+    modImplementation "maven.modrinth:obsidianui:${rootProject.obsidianui_version}-forge"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }

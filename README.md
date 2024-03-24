@@ -80,7 +80,7 @@ Light emitted from items depend on the light emitted from their respective block
 
 Using this mod is very simple!
 
-Install it in your mods folder along with [ObsidianUI](https://modrinth.com/mod/obsidianui), (and [Sodium (Fabric/Quilt)](https://modrinth.com/mod/sodium)/[Embeddium (Forge/NeoForge)](https://modrinth.com/mod/embeddium) if wanted for better performances).
+Install it in your mods folder along with [ObsidianUI](https://modrinth.com/mod/obsidianui), (and [Sodium (Fabric/Quilt)](https://modrinth.com/mod/sodium)/[Embeddium (Fabric/Forge/NeoForge)](https://modrinth.com/mod/embeddium) if wanted for better performances).
 
 You will notice nothing at first but if you go into the video options or into the settings screen of the mod via Forge's Mod List, you will notice an option called Dynamic Lights which is by default off, choose the wanted configuration and enjoy!
 You can also configure the mod by editing the file in `config/ryoamiclights.toml`.
@@ -95,9 +95,10 @@ Check [this documentation](HOW_DOES_IT_WORK.md).
 
 ## 📖 Is there an API? How to use it as a developer?
 
-Check [this documentation](API.md).
+Check [this documentation](https://github.com/ThinkingStudios/RyoamicLights/wiki/API).
 
 # 📖 Compatibility
 
-- [Sodium (Fabric/Quilt)](https://modrinth.com/mod/sodium)/[Embeddium (Forge/NeoForge)](https://modrinth.com/mod/embeddium) is recommended for better performances.
+- [Sodium (Fabric/Quilt)](https://modrinth.com/mod/sodium)/[Embeddium (Fabric/Forge/NeoForge)](https://modrinth.com/mod/embeddium) is recommended for better performances.
 - **OptiFine/OptiForge/OptiFabric is obviously incompatible.**
+- [Incompatible list](https://github.com/ThinkingStudios/RyoamicLights/issues/6)

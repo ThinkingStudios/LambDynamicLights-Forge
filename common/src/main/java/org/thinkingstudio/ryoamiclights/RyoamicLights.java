@@ -10,7 +10,6 @@
 
 package org.thinkingstudio.ryoamiclights;
 
-import dev.architectury.registry.ReloadListenerRegistry;
 import org.thinkingstudio.ryoamiclights.accessor.WorldRendererAccessor;
 import org.thinkingstudio.ryoamiclights.api.DynamicLightHandlers;
 import org.thinkingstudio.ryoamiclights.api.item.ItemLightSources;
@@ -25,8 +24,6 @@ import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.resource.ResourceType;
-import net.minecraft.resource.SynchronousResourceReloader;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import org.apache.logging.log4j.LogManager;
@@ -62,10 +59,6 @@ public class RyoamicLights {
 		this.log("Initializing RyoamicLights...");
 
 		this.config.load();
-
-		if (!RyoamicLightsCompat.isDevEnvironment()) {
-			ReloadListenerRegistry.register(ResourceType.CLIENT_RESOURCES, (SynchronousResourceReloader) ItemLightSources::load);
-		}
 
 		DynamicLightHandlers.registerDefaultHandlers();
 	}

@@ -1,3 +1,3 @@
 ## Changelog
-- fix crash when open VideoOptionsScreen
-- rewrite main class get instance method
+- remove the mixin for embeddium (only forge)
+- remove architectury dependency

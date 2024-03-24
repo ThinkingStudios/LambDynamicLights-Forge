@@ -25,16 +25,16 @@ public class RyoamicLightsForgeMixinPlugin implements IMixinConfigPlugin {
 
     public RyoamicLightsForgeMixinPlugin() {
         boolean ltrInstalled = RyoamicLightsCompat.isLilTaterReloadedInstalled();
-        this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.neoforge.mixin.ltr.LilTaterBlocksMixin", ltrInstalled);
-        this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.neoforge.mixin.ltr.LilTaterBlockEntityMixin", ltrInstalled);
+        this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.forge.mixin.ltr.LilTaterBlocksMixin", ltrInstalled);
+        this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.forge.mixin.ltr.LilTaterBlockEntityMixin", ltrInstalled);
 
-        boolean embeddiumInstalled = RyoamicLightsCompat.isSodiumInstalled();
-        this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.neoforge.mixin.embeddium.ArrayLightDataCacheMixin", embeddiumInstalled);
-        this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.neoforge.mixin.embeddium.FlatLightPipelineMixin", embeddiumInstalled);
-        this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.neoforge.mixin.embeddium.LightDataAccessMixin", embeddiumInstalled);
+        //boolean embeddiumInstalled = RyoamicLightsCompat.isSodiumInstalled();
+        //this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.neoforge.mixin.embeddium.ArrayLightDataCacheMixin", embeddiumInstalled);
+        //this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.neoforge.mixin.embeddium.FlatLightPipelineMixin", embeddiumInstalled);
+        //this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.neoforge.mixin.embeddium.LightDataAccessMixin", embeddiumInstalled);
 
         boolean forgifiedFabricApiInstalled = RyoamicLightsCompat.isFabricApiInstalled();
-        this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.neoforge.mixin.fabricapi.AoCalculatorMixin", forgifiedFabricApiInstalled);
+        this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.forge.mixin.fabricapi.AoCalculatorMixin", forgifiedFabricApiInstalled);
     }
 
     @Override
