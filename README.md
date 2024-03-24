@@ -45,31 +45,31 @@ Searching other mods to replace OptiFine?
 
 Dropped items which already emit light as a block, will also dynamically emit light!
 
-![Torch](https://media.forgecdn.net/attachments/301/21/2020-07-04_22.png)
+![Torch](images/drop_item_light.png)
 
 ### Held items emit light
 
 Light is emitted when entities hold light emitting items.
 
-![Fox holding lantern](https://media.forgecdn.net/attachments/301/22/2020-07-04_22.png)
+![Fox holding lantern](images/held_item_light.png)
 
 ### Fire! Fire! Fire!
 
 Any entity on fire will emit light!
 
-![Skeleton on fire!](https://media.forgecdn.net/attachments/301/23/2020-07-04_22.png)
+![Skeleton on fire!](images/entity_fire_light.png)
 
 ### Spectral arrows
 
 Spectral arrows will emit a very weak light!
 
-![Spectral arrows](https://media.forgecdn.net/attachments/301/25/2020-07-04_22.png)
+![Spectral arrows](images/spectral_arrows_light.png)
 
 ### Different luminance!
 
 Light emitted from items depend on the light emitted from their respective blocks!
 
-![light levels](https://media.forgecdn.net/attachments/301/26/2020-07-04_22.png)
+![light levels](images/different_luminance.png)
 
 ### Configuration GUI
 
@@ -91,7 +91,7 @@ Just do `./gradlew build` and everything should build just fine!
 
 ## 📖 How does it work internally?
 
-Check [this documentation](HOW_DOES_IT_WORK.md).
+Check [this documentation](https://github.com/LambdAurora/LambDynamicLights/blob/1.20/HOW_DOES_IT_WORK.md).
 
 ## 📖 Is there an API? How to use it as a developer?
 
