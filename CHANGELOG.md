@@ -1,2 +1,3 @@
 ## Changelog
-- port to 1.19.2 architectury
+- remove the mixin for embeddium (only forge)
+- remove architectury dependency

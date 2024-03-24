@@ -45,31 +45,31 @@ Searching other mods to replace OptiFine?
 
 Dropped items which already emit light as a block, will also dynamically emit light!
 
-![Torch](https://media.forgecdn.net/attachments/301/21/2020-07-04_22.png)
+![Torch](images/drop_item_light.png)
 
 ### Held items emit light
 
 Light is emitted when entities hold light emitting items.
 
-![Fox holding lantern](https://media.forgecdn.net/attachments/301/22/2020-07-04_22.png)
+![Fox holding lantern](images/held_item_light.png)
 
 ### Fire! Fire! Fire!
 
 Any entity on fire will emit light!
 
-![Skeleton on fire!](https://media.forgecdn.net/attachments/301/23/2020-07-04_22.png)
+![Skeleton on fire!](images/entity_fire_light.png)
 
 ### Spectral arrows
 
 Spectral arrows will emit a very weak light!
 
-![Spectral arrows](https://media.forgecdn.net/attachments/301/25/2020-07-04_22.png)
+![Spectral arrows](images/spectral_arrows_light.png)
 
 ### Different luminance!
 
 Light emitted from items depend on the light emitted from their respective blocks!
 
-![light levels](https://media.forgecdn.net/attachments/301/26/2020-07-04_22.png)
+![light levels](images/different_luminance.png)
 
 ### Configuration GUI
 
@@ -80,7 +80,7 @@ Light emitted from items depend on the light emitted from their respective block
 
 Using this mod is very simple!
 
-Install it in your mods folder along with [ObsidianUI](https://modrinth.com/mod/obsidianui), (and [Sodium (Fabric/Quilt)](https://modrinth.com/mod/sodium)/[Embeddium (Forge/NeoForge)](https://modrinth.com/mod/embeddium) if wanted for better performances).
+Install it in your mods folder along with [ObsidianUI](https://modrinth.com/mod/obsidianui), (and [Sodium (Fabric/Quilt)](https://modrinth.com/mod/sodium)/[Embeddium (Fabric/Forge/NeoForge)](https://modrinth.com/mod/embeddium) if wanted for better performances).
 
 You will notice nothing at first but if you go into the video options or into the settings screen of the mod via Forge's Mod List, you will notice an option called Dynamic Lights which is by default off, choose the wanted configuration and enjoy!
 You can also configure the mod by editing the file in `config/ryoamiclights.toml`.
@@ -91,13 +91,14 @@ Just do `./gradlew build` and everything should build just fine!
 
 ## 📖 How does it work internally?
 
-Check [this documentation](HOW_DOES_IT_WORK.md).
+Check [this documentation](https://github.com/LambdAurora/LambDynamicLights/blob/1.20/HOW_DOES_IT_WORK.md).
 
 ## 📖 Is there an API? How to use it as a developer?
 
-Check [this documentation](API.md).
+Check [this documentation](https://github.com/ThinkingStudios/RyoamicLights/wiki/API).
 
 # 📖 Compatibility
 
-- [Sodium (Fabric/Quilt)](https://modrinth.com/mod/sodium)/[Embeddium (Forge/NeoForge)](https://modrinth.com/mod/embeddium) is recommended for better performances.
+- [Sodium (Fabric/Quilt)](https://modrinth.com/mod/sodium)/[Embeddium (Fabric/Forge/NeoForge)](https://modrinth.com/mod/embeddium) is recommended for better performances.
 - **OptiFine/OptiForge/OptiFabric is obviously incompatible.**
+- [Incompatible list](https://github.com/ThinkingStudios/RyoamicLights/issues/6)
