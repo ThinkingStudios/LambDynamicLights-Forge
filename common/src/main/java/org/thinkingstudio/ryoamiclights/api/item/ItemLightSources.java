@@ -123,6 +123,10 @@ public final class ItemLightSources
      */
     public static int getLuminance(@NotNull ItemStack stack, boolean submergedInWater)
     {
+        if (RyoamicLights.get().disableDynLight) {
+            return 0;
+        }
+
         for (ItemLightSource data : ITEM_LIGHT_SOURCES) {
             if (data.item == stack.getItem()) {
                 return data.getLuminance(submergedInWater);

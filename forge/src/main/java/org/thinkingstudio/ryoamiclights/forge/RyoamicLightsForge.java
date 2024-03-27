@@ -13,14 +13,13 @@ package org.thinkingstudio.ryoamiclights.forge;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.resource.ReloadableResourceManager;
 import net.minecraft.resource.SynchronousResourceReloader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
@@ -45,7 +44,8 @@ public class RyoamicLightsForge {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         RyoamicLights.get().clientInit();
-        registerClientReloadListener();
+        ((ReloadableResourceManager) MinecraftClient.getInstance().getResourceManager()).registerReloader((SynchronousResourceReloader) ItemLightSources::load);
+        ClientRegistry.registerKeyBinding(RyoamicLights.get().DYN_LIGHT_KEY);
 
         context.registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
         context.registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, () -> ((client, screen) -> new SettingsScreen(screen)));
@@ -57,10 +57,5 @@ public class RyoamicLightsForge {
     public void renderWorldLast(@NotNull RenderWorldLastEvent event) {
         MinecraftClient.getInstance().getProfiler().swap("dynamic_lighting");
         RyoamicLights.get().updateAll(event.getContext());
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private void registerClientReloadListener() {
-        ((ReloadableResourceManager) MinecraftClient.getInstance().getResourceManager()).registerReloader((SynchronousResourceReloader) ItemLightSources::load);
     }
 }
