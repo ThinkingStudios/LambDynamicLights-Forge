@@ -13,7 +13,6 @@ import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import org.thinkingstudio.ryoamiclights.accessor.WorldRendererAccessor;
 import org.thinkingstudio.ryoamiclights.api.DynamicLightHandlers;
 import org.thinkingstudio.ryoamiclights.api.item.ItemLightSources;
-import me.shedaniel.architectury.registry.ReloadListeners;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.LightmapTextureManager;
@@ -23,8 +22,6 @@ import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.resource.ResourceType;
-import net.minecraft.resource.SynchronousResourceReloader;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import org.apache.logging.log4j.LogManager;
@@ -48,14 +45,9 @@ public class RyoamicLights {
     private int lastUpdateCount = 0;
 
 	public void clientInit() {
-		INSTANCE = this;
 		this.log("Initializing RyoamicLights...");
 
         this.config.load();
-
-        if (!RyoamicLightsCompat.isDevEnvironment()) {
-            ReloadListeners.registerReloadListener(ResourceType.CLIENT_RESOURCES, (SynchronousResourceReloader) org.thinkingstudio.ryoamiclights.api.item.ItemLightSources::load);
-        }
 
         DynamicLightHandlers.registerDefaultHandlers();
     }
@@ -395,6 +387,9 @@ public class RyoamicLights {
      * @return the mod instance
      */
     public static RyoamicLights get() {
+        if (INSTANCE == null) {
+            INSTANCE = new RyoamicLights();
+        }
         return INSTANCE;
     }
 }

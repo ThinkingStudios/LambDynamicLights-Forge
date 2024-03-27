@@ -11,6 +11,8 @@ package org.thinkingstudio.ryoamiclights;
 
 import dev.architectury.injectables.annotations.ExpectPlatform;
 
+import java.nio.file.Path;
+
 /**
  * Represents a utility class for compatibility.
  *
@@ -41,7 +43,11 @@ public class RyoamicLightsCompat {
 
     @ExpectPlatform
     public static boolean isDevEnvironment() {
-        // Just throw an error, the content should get replaced at runtime.
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static Path getConfigDir() {
         throw new AssertionError();
     }
 }
