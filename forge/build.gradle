@@ -1,8 +1,3 @@
-plugins {
-    id "com.github.johnrengelman.shadow" version "8.1.1"
-    id "me.shedaniel.unified-publishing"
-}
-
 architectury {
     platformSetupLoomIde()
     forge()
@@ -86,43 +81,29 @@ publishing {
     }
 }
 
-unifiedPublishing {
-    project {
-        displayName = "[Forge] $rootProject.version"
-        releaseType = "alpha"
-        changelog = file("CHANGELOG.md").getText('UTF-8')
-        gameVersions = ["1.18", "1.18.1", "1.18.2"]
-        gameLoaders = ["forge"]
+publisher {
+    apiKeys {
+        modrinth System.getenv("MODRINTH_TOKEN")
+        curseforge System.getenv("CURSE_TOKEN")
+    }
 
-        mainPublication remapJar
-        secondaryPublications.builtBy(sourcesJar)
+    setCurseID("${rootProject.curseforge_id}")
+    setModrinthID("${rootProject.modrinth_id}")
+    setVersionType("beta")
+    setChangelog(file("CHANGELOG.md").getText("UTF-8"))
+    setVersion("${rootProject.version}-fabric")
+    setDisplayName("[Forge] ${rootProject.version}")
+    setGameVersions("1.18", "1.18.1", "1.18.2")
+    setLoaders("forge")
+    setCurseEnvironment("client")
+    setArtifact(remapJar)
+    addAdditionalFile(sourcesJar)
 
-        relations {
-            depends {
-                curseforge = "architectury-api"
-                modrinth = "architectury-api"
-            }
-            depends {
-                curseforge = "obsidianui"
-                modrinth = "obsidianui"
-            }
-        }
+    modrinthDepends {
+        required "obsidianui"
+    }
 
-        var CURSEFORGE_TOKEN = project.findProperty("CURSEFORGE_TOKEN") ?: System.getenv("CURSEFORGE_TOKEN")
-        if (CURSEFORGE_TOKEN != null) {
-            curseforge {
-                token = CURSEFORGE_TOKEN
-                id = rootProject.curseforge_id
-            }
-        }
-
-        var MODRINTH_TOKEN = project.findProperty("MODRINTH_TOKEN") ?: System.getenv("MODRINTH_TOKEN")
-        if (MODRINTH_TOKEN != null) {
-            modrinth {
-                token = MODRINTH_TOKEN
-                id = rootProject.modrinth_id
-                version = "$rootProject.version-forge"
-            }
-        }
+    curseDepends {
+        required "obsidianui"
     }
 }
