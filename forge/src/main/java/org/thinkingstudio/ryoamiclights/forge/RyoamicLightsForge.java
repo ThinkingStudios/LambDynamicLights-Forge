@@ -42,6 +42,7 @@ public class RyoamicLightsForge {
     public void onInitializeClient() {
         ModLoadingContext context = ModLoadingContext.get();
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
 
         RyoamicLights.get().clientInit();
         ((ReloadableResourceManager) MinecraftClient.getInstance().getResourceManager()).registerReloader((SynchronousResourceReloader) ItemLightSources::load);
@@ -49,9 +50,9 @@ public class RyoamicLightsForge {
 
         context.registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
         context.registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, () -> ((client, screen) -> new SettingsScreen(screen)));
-        modEventBus.addListener(EventPriority.HIGHEST, this::renderWorldLast);
 
-        MinecraftForge.EVENT_BUS.post(new DynamicLightsInitializerEvent());
+        forgeEventBus.addListener(EventPriority.HIGHEST, this::renderWorldLast);
+        forgeEventBus.post(new DynamicLightsInitializerEvent());
     }
 
     public void renderWorldLast(@NotNull RenderWorldLastEvent event) {
