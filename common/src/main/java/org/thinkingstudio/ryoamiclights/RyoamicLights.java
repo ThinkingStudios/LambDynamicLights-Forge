@@ -38,7 +38,7 @@ import java.util.function.Predicate;
 
 public class RyoamicLights {
     public static final String MODID = "ryoamiclights";
-    public final KeyBinding DYN_LIGHT_KEY = new KeyBinding("key." + MODID + "dyn_light", InputUtil.UNKNOWN_KEY.getCode(), "key." + MODID + "category");
+    public final KeyBinding DYN_LIGHT_KEY = new KeyBinding("key." + MODID + ".dyn_light", InputUtil.UNKNOWN_KEY.getCode(), "key." + MODID + ".category");
     private static final double MAX_RADIUS = 7.75;
     private static RyoamicLights INSTANCE;
     public final Logger logger = LogManager.getLogger(MODID);
@@ -46,7 +46,6 @@ public class RyoamicLights {
     private final ConcurrentLinkedQueue<DynamicLightSource> dynamicLightSources = new ConcurrentLinkedQueue<>();
     private long lastUpdate = System.currentTimeMillis();
     private int lastUpdateCount = 0;
-    public final boolean disableDynLight = DYN_LIGHT_KEY.wasPressed();
 
 	public void clientInit() {
 		this.log("Initializing RyoamicLights...");

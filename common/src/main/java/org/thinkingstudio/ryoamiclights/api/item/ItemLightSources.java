@@ -123,7 +123,7 @@ public final class ItemLightSources
      */
     public static int getLuminance(@NotNull ItemStack stack, boolean submergedInWater)
     {
-        if (RyoamicLights.get().disableDynLight) {
+        if (RyoamicLights.get().DYN_LIGHT_KEY.isPressed()) {
             return 0;
         }
 
