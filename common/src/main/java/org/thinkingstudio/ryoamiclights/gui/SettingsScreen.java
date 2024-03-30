@@ -26,7 +26,7 @@ import net.minecraft.text.TranslatableText;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Represents the settings screen of LambDynamicLights.
+ * Represents the settings screen of RyoamicLights.
  *
  * @author LambdAurora
  * @version 1.3.4

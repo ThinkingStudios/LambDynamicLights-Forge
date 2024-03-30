@@ -1,0 +1,21 @@
+{
+  "ryoamiclights.menu.light_sources": "Sumber Cahaya Dinamis",
+  "ryoamiclights.menu.title": "Pengaturan RyoamicLights",
+  "ryoamiclights.menu.canvas.1": "Disarankan untuk menonaktifkan pencahayaan dinamis entitas dengan Canvas!",
+  "ryoamiclights.menu.canvas.2": "Pencahayaan dinamis dengan Canvas saat ini membutuhkan kinerja yang berat!",
+  "ryoamiclights.menu.tabs.general": "Umum",
+  "ryoamiclights.option.light_sources.block_entities": "Entitas Blok",
+  "ryoamiclights.option.light_sources.entities": "Entitas",
+  "ryoamiclights.option.light_sources.self": "Sudut pandang orang pertama",
+  "ryoamiclights.option.light_sources.water_sensitive_check": "Pemeriksaan Sensitivitas Air",
+  "ryoamiclights.option.mode": "Cahaya Dinamis",
+  "ryoamiclights.tooltip.block_entities": "Mengaktifkan pencahayaan dinamis blok entitas",
+  "ryoamiclights.tooltip.creeper_lighting": "Mengatur mode pencahayaan dinamis Creeper.\n- %s menonaktifkan pencahayaan dinamis Creeper.\n- %s mengaktifkan pencahayaan konstan.\n- %s mengatur pencahayaan dinamis.",
+  "ryoamiclights.tooltip.entities": "Mengaktifkan pencahayaan dinamis entitas. Catatan: pemain selalu aktif.",
+  "ryoamiclights.tooltip.mode.1": "Mengaktifkan lampu dinamis. Jika diaktifkan, pemain yang memegang obor akan menerangi area tersebut",
+  "ryoamiclights.tooltip.mode.2": "%s dan %s akan sedikit lag tetapi meminimalkan pembaruan ringan.",
+  "ryoamiclights.tooltip.mode.3": "%s adalah pencahayaan dinamis yang mulus.",
+  "ryoamiclights.tooltip.self_light_source": "Mengaktifkan pencahayaan dinamis orang pertama. Sebaiknya nonaktifkan ini jika kamu menggunakan shader yang memiliki pencahayaan dinamis sendiri.",
+  "ryoamiclights.tooltip.tnt_lighting": "Mengatur mode pencahayaan dinamis TNT.\n- %s menonaktifkan pencahayaan dinamis TNT.\n- %s menetapkan luminansi konstan.\n- %s menetapkan pencahayaan dinamis.",
+  "ryoamiclights.tooltip.water_sensitive": "Mengaktifkan pemeriksaan sumber cahaya yang sensitif terhadap air. Ini berarti beberapa item tidak akan memancarkan cahaya ketika terendam di dalam air."
+}

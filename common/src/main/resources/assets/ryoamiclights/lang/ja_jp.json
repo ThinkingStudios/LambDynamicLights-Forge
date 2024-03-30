@@ -1,0 +1,23 @@
+{
+	"modmenu.descriptionTranslation.ryoamiclights": "臨場感ある光源を追加します．",
+
+	"ryoamiclights.menu.light_sources": "臨場感ある光源",
+	"ryoamiclights.menu.title": "RyoamicLights 設定",
+	"ryoamiclights.menu.canvas.1": "Canvasを使用している場合はエンティティの臨場感ある光源をオフにすることを推奨します！",
+	"ryoamiclights.menu.canvas.2": "現在はCanvasと臨場感ある光源の併用によってパフォーマンスが不安定になります！",
+	"ryoamiclights.menu.tabs.general": "一般",
+	"ryoamiclights.option.light_sources.block_entities": "ブロックエンティティ",
+	"ryoamiclights.option.light_sources.entities": "エンティティ",
+	"ryoamiclights.option.light_sources.self": "一人称視点",
+	"ryoamiclights.option.light_sources.water_sensitive_check": "耐水性チェック",
+	"ryoamiclights.option.mode": "臨場感ある光源",
+	"ryoamiclights.tooltip.block_entities": "ブロックエンティティに臨場感ある光源を適用します．",
+	"ryoamiclights.tooltip.creeper_lighting": "クリーパーの発光モードを設定します．\n- %s 臨場感ある光源を適用しません．\n- %s 一定の明るさで発光します．\n- %s 点滅も再現します．",
+	"ryoamiclights.tooltip.entities": "エンティティに臨場感ある光源を適用します．\n注意: プレイヤーには常に適用されます．",
+	"ryoamiclights.tooltip.mode.1": "臨場感ある光源を有効にします．有効にすると，例えば松明を手に持ったプレイヤーの周辺が明るくなります．",
+	"ryoamiclights.tooltip.mode.2": "- %s, %s 見かけのラグを生じますが，更新を最小限に抑えます．",
+	"ryoamiclights.tooltip.mode.3": "- %s 滑らかに描画します．",
+	"ryoamiclights.tooltip.self_light_source": "一人称視点で手持ちのアイテムに臨場感ある光源を適用します．独自にこの光源描写を行うシェーダーを使用している場合は，このオプションをオフにすることを推奨します．",
+	"ryoamiclights.tooltip.tnt_lighting": "TNTの発光モードを設定します．\n- %s 臨場感ある光源を適用しません．\n- %s 一定の明るさで発光します．\n- %s 点滅も再現します．",
+	"ryoamiclights.tooltip.water_sensitive": "光源の耐水性チェックを行います．有効にすると，一部のアイテムは水に浸かっている状態では発光しません．"
+}

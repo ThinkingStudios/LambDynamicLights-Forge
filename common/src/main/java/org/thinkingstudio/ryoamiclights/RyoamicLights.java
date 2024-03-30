@@ -51,7 +51,7 @@ public class RyoamicLights {
     public void clientInit() {
 		this.log("Initializing RyoamicLights...");
         this.config.load();
-        this.keyBinding = new KeyBinding("key." + MODID + ".dyn_light", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN,"key." + MODID + ".category");
+        this.keyBinding = new KeyBinding("ryoamiclights.key.light_switch", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "ryoamiclights.key.category");
 
         DynamicLightHandlers.registerDefaultHandlers();
     }

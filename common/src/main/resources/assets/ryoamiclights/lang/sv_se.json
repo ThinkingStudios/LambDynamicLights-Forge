@@ -1,0 +1,18 @@
+{
+  "ryoamiclights.menu.light_sources": "Dynamiska ljuskällor",
+  "ryoamiclights.menu.title": "RyoamicLights-inställningar",
+  "ryoamiclights.menu.canvas.1": "Att avaktivera entities dynamiska ljus rekommenderas med Canvas!",
+  "ryoamiclights.menu.canvas.2": "Dynamiskt ljus med Canvas är prestandakrävande!",
+  "ryoamiclights.option.light_sources.block_entities": "Blockentities",
+  "ryoamiclights.option.light_sources.entities": "Entities",
+  "ryoamiclights.option.light_sources.water_sensitive_check": "Vattenkänslighetstest",
+  "ryoamiclights.option.mode": "Dynamiskt Ljus",
+  "ryoamiclights.tooltip.block_entities": "Aktiverar blockentitiers dynamiska ljus.",
+  "ryoamiclights.tooltip.creeper_lighting": "Aktiverar Creeperns dynamiska ljusläge.\n- %s avaktiverar Creeperns dynamiska ljus.\n- %s sätter en konstant luminans.\n- %s sätter en dynamisk luminans.",
+  "ryoamiclights.tooltip.entities": "Aktiverar entities dynamiska ljus. Notera: spelare är alltid aktiva.",
+  "ryoamiclights.tooltip.mode.1": "Aktiverar dynamiskt ljus. Om påslaget kommer t.ex. en spelare som håller en fackla lysa upp området.",
+  "ryoamiclights.tooltip.mode.2": "%s och %s kommer att lagga lite bakom men minimerar ljusuppdateringar.",
+  "ryoamiclights.tooltip.mode.3": "%s är jämnt dynamiskt ljus.",
+  "ryoamiclights.tooltip.tnt_lighting": "Sätter TNT:ns dynamiska ljusläge.\n- %s avaktiverar TNT:ns dynamiska ljus.\n- %s sätter en konstant luminans.\n- %s sätter en dynamisk luminans.",
+  "ryoamiclights.tooltip.water_sensitive": "Aktiverar det vattenkänsliga ljuskällstestet. Detta innebär att vissa föremål inte kommer att ge ifrån sig ljus när de är under vatten."
+}

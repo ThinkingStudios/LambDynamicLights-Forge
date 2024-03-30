@@ -123,7 +123,7 @@ public final class ItemLightSources
      */
     public static int getLuminance(@NotNull ItemStack stack, boolean submergedInWater)
     {
-        if (RyoamicLights.get().keyBinding.wasPressed()) {
+        if (RyoamicLights.get().keyBinding.isPressed()) {
             return 0;
         }
 
