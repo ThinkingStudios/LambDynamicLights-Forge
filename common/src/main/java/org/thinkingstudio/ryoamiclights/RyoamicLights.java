@@ -12,6 +12,7 @@ package org.thinkingstudio.ryoamiclights;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import org.lwjgl.glfw.GLFW;
 import org.thinkingstudio.ryoamiclights.accessor.WorldRendererAccessor;
 import org.thinkingstudio.ryoamiclights.api.DynamicLightHandlers;
 import org.thinkingstudio.ryoamiclights.api.item.ItemLightSources;
@@ -38,7 +39,7 @@ import java.util.function.Predicate;
 
 public class RyoamicLights {
     public static final String MODID = "ryoamiclights";
-    public final KeyBinding DYN_LIGHT_KEY = new KeyBinding("key." + MODID + ".dyn_light", InputUtil.UNKNOWN_KEY.getCode(), "key." + MODID + ".category");
+    public KeyBinding keyBinding;
     private static final double MAX_RADIUS = 7.75;
     private static RyoamicLights INSTANCE;
     public final Logger logger = LogManager.getLogger(MODID);
@@ -47,10 +48,10 @@ public class RyoamicLights {
     private long lastUpdate = System.currentTimeMillis();
     private int lastUpdateCount = 0;
 
-	public void clientInit() {
+    public void clientInit() {
 		this.log("Initializing RyoamicLights...");
-
         this.config.load();
+        this.keyBinding = new KeyBinding("key." + MODID + ".dyn_light", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN,"key." + MODID + ".category");
 
         DynamicLightHandlers.registerDefaultHandlers();
     }

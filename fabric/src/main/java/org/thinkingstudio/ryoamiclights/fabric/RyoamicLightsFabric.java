@@ -34,7 +34,7 @@ public class RyoamicLightsFabric implements ClientModInitializer {
                 .stream().map(EntrypointContainer::getEntrypoint)
                 .forEach(DynamicLightsInitializer::onInitializeDynamicLights);
 
-        KeyBindingHelper.registerKeyBinding(RyoamicLights.get().DYN_LIGHT_KEY);
+        KeyBindingHelper.registerKeyBinding(RyoamicLights.get().keyBinding);
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
             @Override
             public Identifier getFabricId() {

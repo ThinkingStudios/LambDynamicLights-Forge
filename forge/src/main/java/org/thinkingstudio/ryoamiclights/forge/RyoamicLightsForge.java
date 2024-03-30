@@ -46,7 +46,7 @@ public class RyoamicLightsForge {
 
         RyoamicLights.get().clientInit();
         ((ReloadableResourceManager) MinecraftClient.getInstance().getResourceManager()).registerReloader((SynchronousResourceReloader) ItemLightSources::load);
-        ClientRegistry.registerKeyBinding(RyoamicLights.get().DYN_LIGHT_KEY);
+        ClientRegistry.registerKeyBinding(RyoamicLights.get().keyBinding);
 
         context.registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
         context.registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, () -> ((client, screen) -> new SettingsScreen(screen)));
