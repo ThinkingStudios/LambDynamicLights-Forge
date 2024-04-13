@@ -49,6 +49,7 @@ public class RyoamicLightsForge {
         context.registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((client, screen) -> new SettingsScreen(screen)));
         modEventBus.addListener(EventPriority.HIGHEST, this::renderWorldLast);
         modEventBus.addListener(EventPriority.HIGHEST, this::registerClientReloadListeners);
+        modEventBus.addListener(EventPriority.HIGHEST, this::registerKeyBindings);
 
         MinecraftForge.EVENT_BUS.post(new DynamicLightsInitializerEvent());
     }
