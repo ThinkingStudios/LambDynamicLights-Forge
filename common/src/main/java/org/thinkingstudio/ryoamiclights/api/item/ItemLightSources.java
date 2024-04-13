@@ -110,6 +110,10 @@ public final class ItemLightSources {
 	 * @return a luminance value
 	 */
 	public static int getLuminance(ItemStack stack, boolean submergedInWater) {
+		if (RyoamicLights.get().keyBinding.wasPressed()) {
+			return 0;
+		}
+
 		for (var data : ITEM_LIGHT_SOURCES) {
 			if (data.item() == stack.getItem()) {
 				return data.getLuminance(stack, submergedInWater);

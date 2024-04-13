@@ -11,6 +11,7 @@
 package org.thinkingstudio.ryoamiclights.fabric;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.fabricmc.loader.api.FabricLoader;
@@ -32,6 +33,8 @@ public class RyoamicLightsFabric implements ClientModInitializer {
         FabricLoader.getInstance().getEntrypointContainers("dynamiclights", DynamicLightsInitializer.class)
                 .stream().map(EntrypointContainer::getEntrypoint)
                 .forEach(DynamicLightsInitializer::onInitializeDynamicLights);
+
+        KeyBindingHelper.registerKeyBinding(RyoamicLights.get().keyBinding);
 
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
             @Override

@@ -12,6 +12,7 @@ package org.thinkingstudio.ryoamiclights.forge;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.resource.SynchronousResourceReloader;
+import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.ConfigGuiHandler;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
@@ -43,6 +44,8 @@ public class RyoamicLightsForge {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         RyoamicLights.get().clientInit();
+
+        ClientRegistry.registerKeyBinding(RyoamicLights.get().keyBinding);
 
         context.registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> NetworkConstants.IGNORESERVERONLY, (a, b) -> true));
         context.registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory.class, () -> new ConfigGuiHandler.ConfigGuiFactory((client, screen) -> new SettingsScreen(screen)));
