@@ -1,4 +1,6 @@
 {
+  "ryoamiclights.key.light_switch": "动态光照开关",
+  "ryoamiclights.key.category": "RyoamicLight",
   "ryoamiclights.menu.light_sources": "动态光照",
   "ryoamiclights.menu.title": "RyoamicLights设置",
   "ryoamiclights.menu.canvas.1": "建议在使用Canvas时禁用实体动态光照！",
