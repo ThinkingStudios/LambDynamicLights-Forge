@@ -11,10 +11,10 @@
 package org.thinkingstudio.ryoamiclights.forge;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.SynchronousResourceReloader;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -62,5 +62,9 @@ public class RyoamicLightsForge {
 
     public void registerClientReloadListeners(RegisterClientReloadListenersEvent event) {
         event.registerReloadListener((SynchronousResourceReloader) ItemLightSources::load);
+    }
+
+    public void registerKeyBinds(RegisterKeyMappingsEvent event) {
+        event.register(RyoamicLights.get().keyBinding);
     }
 }

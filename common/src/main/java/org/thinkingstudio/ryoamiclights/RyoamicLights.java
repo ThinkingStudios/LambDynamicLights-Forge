@@ -10,6 +10,9 @@
 
 package org.thinkingstudio.ryoamiclights;
 
+import com.mojang.blaze3d.platform.InputUtil;
+import net.minecraft.client.option.KeyBind;
+import org.lwjgl.glfw.GLFW;
 import org.thinkingstudio.ryoamiclights.accessor.WorldRendererAccessor;
 import org.thinkingstudio.ryoamiclights.api.DynamicLightHandlers;
 import org.thinkingstudio.ryoamiclights.api.item.ItemLightSources;
@@ -45,6 +48,7 @@ import java.util.function.Predicate;
  */
 public class RyoamicLights {
 	public static final String NAMESPACE = "ryoamiclights";
+	public KeyBind keyBinding;
 	private static final double MAX_RADIUS = 7.75;
 	private static final double MAX_RADIUS_SQUARED = MAX_RADIUS * MAX_RADIUS;
 	private static RyoamicLights INSTANCE;
@@ -57,8 +61,8 @@ public class RyoamicLights {
 
 	public void clientInit() {
 		this.log("Initializing RyoamicLights...");
-
 		this.config.load();
+		this.keyBinding = new KeyBind("key." + NAMESPACE + ".dyn_light", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN,"key." + NAMESPACE + ".category");
 
 		DynamicLightHandlers.registerDefaultHandlers();
 	}

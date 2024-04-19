@@ -112,6 +112,10 @@ public final class ItemLightSources {
 	public static int getLuminance(ItemStack stack, boolean submergedInWater) {
 		var data = ITEM_LIGHT_SOURCES.get(stack.getItem());
 
+		if (RyoamicLights.get().keyBinding.wasPressed()) {
+			return 0;
+		}
+
 		if (data != null) {
 			return data.getLuminance(stack, submergedInWater);
 		} else if (stack.getItem() instanceof BlockItem blockItem)
