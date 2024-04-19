@@ -19,6 +19,7 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.client.ConfigScreenHandler;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
@@ -50,6 +51,9 @@ public class RyoamicLightsNeoForge {
         });
         modEventBus.addListener(EventPriority.HIGHEST, RegisterClientReloadListenersEvent.class, event -> {
             event.registerReloadListener((SynchronousResourceReloader) ItemLightSources::load);
+        });
+        modEventBus.addListener(EventPriority.HIGHEST, RegisterKeyMappingsEvent.class, event -> {
+            event.register(RyoamicLights.get().keyBinding);
         });
 
         NeoForge.EVENT_BUS.post(new DynamicLightsInitializerEvent());
