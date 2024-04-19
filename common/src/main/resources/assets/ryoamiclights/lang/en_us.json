@@ -1,4 +1,6 @@
 {
+  "ryoamiclights.key.light_switch": "Dynamic Light switch",
+  "ryoamiclights.key.category": "RyoamicLights",
   "ryoamiclights.menu.light_sources": "Dynamic Light Sources",
   "ryoamiclights.menu.title": "RyoamicLights Settings",
   "ryoamiclights.menu.canvas.1": "Disabling entities dynamic lighting is recommended with Canvas!",
