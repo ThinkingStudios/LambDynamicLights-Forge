@@ -16,11 +16,9 @@ public class ForgeEventHandler {
 
         forgeEventBus.post(new DynamicLightsInitializerEvent());
 
-        forgeEventBus.addListener(EventPriority.HIGHEST, ForgeEventHandler::renderWorldLast);
-    }
-
-    private static void renderWorldLast(RenderWorldLastEvent event) {
-        MinecraftClient.getInstance().getProfiler().swap("dynamic_lighting");
-        RyoamicLights.get().updateAll(event.getContext());
+        forgeEventBus.<RenderWorldLastEvent>addListener(EventPriority.HIGHEST, event -> {
+            MinecraftClient.getInstance().getProfiler().swap("dynamic_lighting");
+            RyoamicLights.get().updateAll(event.getContext());
+        });
     }
 }
