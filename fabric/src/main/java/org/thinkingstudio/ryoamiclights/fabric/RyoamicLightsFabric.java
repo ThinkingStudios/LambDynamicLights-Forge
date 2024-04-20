@@ -20,8 +20,6 @@ import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
-import net.minecraft.client.MinecraftClient;
 import org.thinkingstudio.ryoamiclights.api.item.ItemLightSources;
 import org.thinkingstudio.ryoamiclights.fabric.api.DynamicLightsInitializer;
 
@@ -48,9 +46,6 @@ public class RyoamicLightsFabric implements ClientModInitializer {
             }
         });
 
-        WorldRenderEvents.START.register(context -> {
-            MinecraftClient.getInstance().getProfiler().swap("dynamic_lighting");
-            RyoamicLights.get().updateAll(context.worldRenderer());
-        });
+        FabricEventHandler.registerEvents();
     }
 }
