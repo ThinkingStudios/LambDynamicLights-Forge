@@ -25,13 +25,10 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew build
-      - name: Upload artifacts (NeoForge)
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Artifact-NeoForge
-          path: ${{ github.workspace }}/neoforge/build/libs
-      - name: Upload artifacts (Fabric)
-        uses: actions/upload-artifact@v4
-        with:
-          name: Artifact-Fabric
-          path: ${{ github.workspace }}/fabric/build/libs
+          name: Artifacts
+          path: |
+            ${{ github.workspace }}/neoforge/build/libs
+            ${{ github.workspace }}/fabric/build/libs
