@@ -1,2 +1,2 @@
 ## Changelog
-- code clean
+- fix lang file

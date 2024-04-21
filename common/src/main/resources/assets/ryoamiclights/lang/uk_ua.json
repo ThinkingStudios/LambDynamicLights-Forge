@@ -3,11 +3,9 @@
   "ryoamiclights.menu.title": "Налаштування RyoamicLights",
   "ryoamiclights.menu.canvas.1": "Рекомендовано відключати динамічне освітлення істот із модом Canvas!",
   "ryoamiclights.menu.canvas.2": "Динамічне освітлення із модом Canvas наразі має низьку продуктивність!",
-  "ryoamiclights.menu.tabs.general": "Загальні",
-  "ryoamiclights.option.light_sources.block_entities": "Блоки-істоти",
-  "ryoamiclights.option.light_sources.entities": "Істоти",
-  "ryoamiclights.option.light_sources.self": "Від першої особи",
-  "ryoamiclights.option.light_sources.water_sensitive_check": "Перевірка чутливості до води",
+  "ryoamiclights.option.block_entities": "Блоки-істоти",
+  "ryoamiclights.option.entities": "Істоти",
+  "ryoamiclights.option.water_sensitive": "Перевірка чутливості до води",
   "ryoamiclights.option.mode": "Динамічне освітлення",
   "ryoamiclights.tooltip.block_entities": "Вмикає динамічне освітлення для блоків-істот.",
   "ryoamiclights.tooltip.creeper_lighting": "Встановлює режим динамічного освітлення для Кріпера.\n- %s вимикає динамічне освітлення для Кріпера.\n- %s встановлює постійне освітлення.\n- %s встановлює динамічне освітлення.",
@@ -15,7 +13,6 @@
   "ryoamiclights.tooltip.mode.1": "Вмикає динамічне освітлення. Для прикладу, якщо увімкнено то гравець, який тримає смолоскип, освітлюватиме область.",
   "ryoamiclights.tooltip.mode.2": "%s і %s будуть трохи відставати, але мінімізує оновлення світла.",
   "ryoamiclights.tooltip.mode.3": "%s це плавне динамічне освітлення.",
-  "ryoamiclights.tooltip.self_light_source": "Вмикає динамічне освітлення від першої особи. Рекомендується вимкнути це, якщо ви використовуєте шейдери, які мають власне динамічне освітлення.",
   "ryoamiclights.tooltip.tnt_lighting": "Встановлює режим динамічного освітлення для динаміту.\n- %s вимикає динамічне освітлення для динаміту.\n- %s встановлює постійне освітлення.\n- %s встановлює динамічне освітлення.",
   "ryoamiclights.tooltip.water_sensitive": "Вмикає перевірку чутливих до води джерел світла. Це означає, що деякі предмети не випромінюватимуть світло під час занурення у воду."
 }
