@@ -1,6 +1,6 @@
 {
   "ryoamiclights.menu.light_sources": "Источники динамического освещения",
-  "ryoamiclights.menu.title": "Настройки LambDynamicLights",
+  "ryoamiclights.menu.title": "Настройки RyoamicLights",
   "ryoamiclights.menu.canvas.1": "При использовании Canvas рекомендуется отключить динамическое освещение сущностей!",
   "ryoamiclights.menu.canvas.2": "На данный момент при использовании Canvas динамическое освещение ресурсозатратно!",
   "ryoamiclights.option.block_entities": "Сущности-блоки",

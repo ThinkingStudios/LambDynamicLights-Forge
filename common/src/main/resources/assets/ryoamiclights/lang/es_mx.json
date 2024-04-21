@@ -1,6 +1,6 @@
 {
   "ryoamiclights.menu.light_sources": "Fuentes de luz dinámica",
-  "ryoamiclights.menu.title": "Configuración de LambDynamicLights",
+  "ryoamiclights.menu.title": "Configuración de RyoamicLights",
   "ryoamiclights.menu.canvas.1": "Se recomienda deshabilitar la iluminación dinámica de las entidades con Canvas!",
   "ryoamiclights.menu.canvas.2": "La iluminación dinámica con Canvas es pesado en rendimiento!",
   "ryoamiclights.option.block_entities": "Entidades de bloque",

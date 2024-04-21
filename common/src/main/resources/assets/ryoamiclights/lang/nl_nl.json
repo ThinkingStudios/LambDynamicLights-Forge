@@ -1,6 +1,6 @@
 {
   "ryoamiclights.menu.light_sources": "Dynamische Licht Bronnen",
-  "ryoamiclights.menu.title": "LambDynamicLights Instellingen",
+  "ryoamiclights.menu.title": "RyoamicLights Instellingen",
   "ryoamiclights.menu.canvas.1": "Dynamische entiteit lichten is niet aanbevolen in gebruik met Canvas!",
   "ryoamiclights.menu.canvas.2": "Dynamische lichtbronnen met Canvas presteert momenteel heel zwaar!",
   "ryoamiclights.option.block_entities": "Blok Entiteiten",

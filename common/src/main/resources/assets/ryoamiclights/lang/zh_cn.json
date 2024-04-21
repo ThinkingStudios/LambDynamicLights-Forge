@@ -2,7 +2,7 @@
   "ryoamiclights.key.light_switch": "动态光照开关",
   "ryoamiclights.key.category": "RyoamicLights",
   "ryoamiclights.menu.light_sources": "动态光照",
-  "ryoamiclights.menu.title": "LambDynamicLights设置",
+  "ryoamiclights.menu.title": "RyoamicLights设置",
   "ryoamiclights.menu.canvas.1": "建议在使用Canvas Mod的时候禁用实体动态光照！",
   "ryoamiclights.menu.canvas.2": "目前动态光照与Canvas Mod同时使用会非常地吃性能！",
   "ryoamiclights.option.block_entities": "方块实体",

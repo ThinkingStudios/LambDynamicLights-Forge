@@ -1,6 +1,6 @@
 {
   "ryoamiclights.menu.light_sources": "Sources de lumière dynamiques",
-  "ryoamiclights.menu.title": "Paramètres de LambDynamicLights",
+  "ryoamiclights.menu.title": "Paramètres de RyoamicLights",
   "ryoamiclights.menu.canvas.1": "La désactivation de l'éclairage dynamique provenant des entités est recommendée avec Canvas !",
   "ryoamiclights.menu.canvas.2": "L'éclairage dynamique avec Canvas est actuellement très demandant en ressources !",
   "ryoamiclights.option.block_entities": "Entités de blocs",

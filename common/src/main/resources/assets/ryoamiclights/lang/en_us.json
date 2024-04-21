@@ -2,7 +2,7 @@
   "ryoamiclights.key.light_switch": "Dynamic Light switch",
   "ryoamiclights.key.category": "RyoamicLights",
   "ryoamiclights.menu.light_sources": "Dynamic Light Sources",
-  "ryoamiclights.menu.title": "LambDynamicLights Settings",
+  "ryoamiclights.menu.title": "RyoamicLights Settings",
   "ryoamiclights.menu.canvas.1": "Disabling entities dynamic lighting is recommended with Canvas!",
   "ryoamiclights.menu.canvas.2": "Dynamic lighting with Canvas is currently performance heavy!",
   "ryoamiclights.option.block_entities": "Block Entities",

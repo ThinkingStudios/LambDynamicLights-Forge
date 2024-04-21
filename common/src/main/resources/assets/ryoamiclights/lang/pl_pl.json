@@ -1,6 +1,6 @@
  {
   "ryoamiclights.menu.light_sources": "Źródła dynamicznego światła",
-  "ryoamiclights.menu.title": "Ustawienia LambDynamicLights",
+  "ryoamiclights.menu.title": "Ustawienia RyoamicLights",
   "ryoamiclights.menu.canvas.1": "Wyłączenie dynamicznego oświetlenia dla bytów jest zalecane w przypadku użycia Canvas! ",
   "ryoamiclights.menu.canvas.2": "Na tą chwilę dynamiczne oświetlenie użyte z Canvasem powoduje spadek wydajności!",
   "ryoamiclights.option.block_entities": "Byty bloków",
