@@ -10,10 +10,6 @@
 
 package org.thinkingstudio.ryoamiclights;
 
-import dev.architectury.injectables.annotations.ExpectPlatform;
-
-import java.nio.file.Path;
-
 /**
  * Represents a utility class for compatibility.
  *
@@ -27,9 +23,8 @@ public final class RyoamicLightsCompat {
 	 *
 	 * @return {@code true} if Canvas is installed, else {@code false}
 	 */
-	@ExpectPlatform
 	public static boolean isCanvasInstalled() {
-		throw new AssertionError();
+		return ModPlatform.isModLoaded("canvas");
 	}
 
 	/**
@@ -37,19 +32,17 @@ public final class RyoamicLightsCompat {
 	 *
 	 * @return {@code true} if LTR is installed, else {@code false}
 	 */
-	@ExpectPlatform
 	public static boolean isLilTaterReloadedInstalled() {
-		throw new AssertionError();
+		return ModPlatform.isModLoaded("ltr");
 	}
 
 	/**
-	 * Returns whether Sodium(Fabric) or Embeddium(Forge/NeoForge) is installed.
+	 * Returns whether Sodium is installed.
 	 *
-	 * @return {@code true} if Sodium(Fabric) or Embeddium(Forge/NeoForge) is installed, else {@code false}
+	 * @return {@code true} if Sodium is installed, else {@code false}
 	 */
-	@ExpectPlatform
 	public static boolean isSodiumInstalled() {
-		throw new AssertionError();
+		return ModPlatform.isModLoaded("sodium") != ModPlatform.isModLoaded("embeddium");
 	}
 
 	/**
@@ -57,18 +50,7 @@ public final class RyoamicLightsCompat {
 	 *
 	 * @return {@code true} if Fabric API or Forgified Fabric API is installed, else {@code false}
 	 */
-	@ExpectPlatform
 	public static boolean isFabricApiInstalled() {
-		throw new AssertionError();
-	}
-
-	@ExpectPlatform
-	public static boolean isDevEnvironment() {
-		throw new AssertionError();
-	}
-
-	@ExpectPlatform
-	public static Path getConfigDir() {
-		throw new AssertionError();
+		return ModPlatform.isModLoaded("fabric-api") | ModPlatform.isModLoaded("fabric_api");
 	}
 }
