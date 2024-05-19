@@ -21,7 +21,7 @@ import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
 import org.thinkingstudio.ryoamiclights.api.item.ItemLightSources;
-import org.thinkingstudio.ryoamiclights.fabric.api.DynamicLightsInitializer;
+import dev.lambdaurora.lambdynlights.api.DynamicLightsInitializer;
 
 public class RyoamicLightsFabric implements ClientModInitializer {
     @Override

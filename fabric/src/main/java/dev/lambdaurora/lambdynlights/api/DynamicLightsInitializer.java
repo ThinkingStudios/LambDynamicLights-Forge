@@ -8,7 +8,7 @@
  * see the LICENSE file.
  */
 
-package org.thinkingstudio.ryoamiclights.fabric.api;
+package dev.lambdaurora.lambdynlights.api;
 
 import org.thinkingstudio.ryoamiclights.api.DynamicLightHandler;
 import org.thinkingstudio.ryoamiclights.api.DynamicLightHandlers;
@@ -18,12 +18,13 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EntityType;
 
 /**
- * Represents the entrypoint for RyoamicLights API.
+ * Represents the entrypoint for LDL API.
  *
  * @author LambdAurora
  * @version 1.3.2
  * @since 1.3.2
  */
+@Deprecated
 public interface DynamicLightsInitializer {
 	/**
 	 * Method called when RyoamicLights is initialized to register custom dynamic light handlers and item light sources.
