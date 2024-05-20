@@ -11,7 +11,7 @@
 package org.thinkingstudio.ryoamiclights.gui;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.DrawContext;
 import org.thinkingstudio.obsidianui.background.Background;
 import org.thinkingstudio.obsidianui.background.DirtTexturedBackground;
 import org.thinkingstudio.obsidianui.widget.SpruceWidget;
@@ -19,7 +19,7 @@ import org.thinkingstudio.obsidianui.widget.SpruceWidget;
 public class InnerBackground implements Background {
 
 	@Override
-	public void render(GuiGraphics graphics, SpruceWidget widget, int vOffset, int mouseX, int mouseY, float delta) {
+	public void render(DrawContext graphics, SpruceWidget widget, int vOffset, int mouseX, int mouseY, float delta) {
 		if (MinecraftClient.getInstance().world != null) {
 			graphics.fillGradient(widget.getX(), widget.getY(),
 					widget.getX() + widget.getWidth(), widget.getY() + widget.getHeight(),
