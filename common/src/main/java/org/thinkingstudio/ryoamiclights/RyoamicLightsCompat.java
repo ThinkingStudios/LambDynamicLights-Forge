@@ -10,10 +10,6 @@
 
 package org.thinkingstudio.ryoamiclights;
 
-import dev.architectury.injectables.annotations.ExpectPlatform;
-
-import java.nio.file.Path;
-
 /**
  * Represents a utility class for compatibility.
  *
@@ -27,9 +23,8 @@ public final class RyoamicLightsCompat {
 	 *
 	 * @return {@code true} if Canvas is installed, else {@code false}
 	 */
-	@ExpectPlatform
 	public static boolean isCanvasInstalled() {
-		throw new AssertionError();
+		return ModPlatform.isModLoaded("canvas");
 	}
 
 	/**
@@ -37,18 +32,7 @@ public final class RyoamicLightsCompat {
 	 *
 	 * @return {@code true} if LTR is installed, else {@code false}
 	 */
-	@ExpectPlatform
 	public static boolean isLilTaterReloadedInstalled() {
-		throw new AssertionError();
-	}
-
-	@ExpectPlatform
-	public static boolean isDevEnvironment() {
-		throw new AssertionError();
-	}
-
-	@ExpectPlatform
-	public static Path getConfigDir() {
-		throw new AssertionError();
+		return ModPlatform.isModLoaded("ltr");
 	}
 }

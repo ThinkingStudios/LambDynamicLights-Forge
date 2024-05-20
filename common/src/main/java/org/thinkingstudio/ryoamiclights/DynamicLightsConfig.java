@@ -38,7 +38,7 @@ public class DynamicLightsConfig {
 	private static final ExplosiveLightingMode DEFAULT_CREEPER_LIGHTING_MODE = ExplosiveLightingMode.SIMPLE;
 	private static final ExplosiveLightingMode DEFAULT_TNT_LIGHTING_MODE = ExplosiveLightingMode.OFF;
 
-	public static final Path CONFIG_FILE_PATH = RyoamicLightsCompat.getConfigDir().resolve("ryoamiclights.toml");
+	public static final Path CONFIG_FILE_PATH = ModPlatform.getConfigDir().resolve("ryoamiclights.toml");
 	protected final FileConfig config;
 	private final RyoamicLights mod;
 	private DynamicLightsMode dynamicLightsMode;

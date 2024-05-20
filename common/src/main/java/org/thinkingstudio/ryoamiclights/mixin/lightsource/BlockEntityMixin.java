@@ -18,6 +18,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.Mutable;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -130,7 +131,7 @@ public abstract class BlockEntityMixin implements DynamicLightSource {
 			this.lastLuminance = luminance;
 
 			if (this.ryoamiclights$trackedLitChunkPos.isEmpty()) {
-				var chunkPos = new BlockPos.Mutable(MathHelper.floorDiv(this.pos.getX(), 16),
+				var chunkPos = new Mutable(MathHelper.floorDiv(this.pos.getX(), 16),
 						MathHelper.floorDiv(this.pos.getY(), 16),
 						MathHelper.floorDiv(this.pos.getZ(), 16));
 
