@@ -12,10 +12,12 @@ package org.thinkingstudio.ryoamiclights.fabric;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
@@ -46,6 +48,9 @@ public class RyoamicLightsFabric implements ClientModInitializer {
             }
         });
 
-        FabricEventHandler.registerEvents();
+        WorldRenderEvents.START.register(context -> {
+            MinecraftClient.getInstance().getProfiler().swap("dynamic_lighting");
+            RyoamicLights.get().updateAll(context.worldRenderer());
+        });
     }
 }

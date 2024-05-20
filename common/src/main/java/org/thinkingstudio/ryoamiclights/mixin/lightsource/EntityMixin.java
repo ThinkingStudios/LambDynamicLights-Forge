@@ -19,6 +19,7 @@ import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos.Mutable;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -172,7 +173,7 @@ public abstract class EntityMixin implements DynamicLightSource {
 
 			if (luminance > 0) {
 				var entityChunkPos = this.getChunkPos();
-				var chunkPos = new BlockPos.Mutable(entityChunkPos.x, ChunkSectionPos.getSectionCoord(this.getEyeY()), entityChunkPos.z);
+				var chunkPos = new Mutable(entityChunkPos.x, ChunkSectionPos.getSectionCoord(this.getEyeY()), entityChunkPos.z);
 
 				RyoamicLights.scheduleChunkRebuild(renderer, chunkPos);
 				RyoamicLights.updateTrackedChunks(chunkPos, this.ryoamiclights$trackedLitChunkPos, newPos);
