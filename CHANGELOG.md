@@ -1,2 +1,3 @@
 ## Changelog
-- re-upload
+- clean code
+- remove entrypoint
