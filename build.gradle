@@ -1,6 +1,7 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "dev.architectury.loom" version "1.5-SNAPSHOT" apply false
+    id "com.github.johnrengelman.shadow" version "8.+" apply false
     id "com.hypherionmc.modutils.modpublisher" version "2.0.+" apply false
 }
 
@@ -10,6 +11,7 @@ architectury {
 
 subprojects {
     apply plugin: "dev.architectury.loom"
+    apply plugin: "com.github.johnrengelman.shadow"
     apply plugin: "com.hypherionmc.modutils.modpublisher"
 
     dependencies {
