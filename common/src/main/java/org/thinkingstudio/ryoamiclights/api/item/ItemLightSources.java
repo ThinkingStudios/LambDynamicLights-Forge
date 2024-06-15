@@ -10,6 +10,7 @@
 
 package org.thinkingstudio.ryoamiclights.api.item;
 
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
@@ -55,7 +56,7 @@ public final class ItemLightSources {
 	}
 
 	private static void load(Identifier resourceId, Resource resource) {
-		var id = new Identifier(resourceId.getNamespace(), resourceId.getPath().replace(".json", ""));
+		var id = Identifier.of(resourceId.getNamespace(), resourceId.getPath().replace(".json", ""));
 		try (var reader = new InputStreamReader(resource.getInputStream())) {
 			var json = JsonParser.parseReader(reader).getAsJsonObject();
 

@@ -11,8 +11,12 @@
 package org.thinkingstudio.ryoamiclights.api.item;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import net.minecraft.component.ComponentMap;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.BlockStateComponent;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
@@ -20,6 +24,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
+import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
@@ -97,7 +102,7 @@ public abstract class ItemLightSource {
 			return Optional.empty();
 		}
 
-		var affectId = new Identifier(json.get("item").getAsString());
+		var affectId = Identifier.of(json.get("item").getAsString());
 		var item = Registries.ITEM.get(affectId);
 
 		if (item == Items.AIR)

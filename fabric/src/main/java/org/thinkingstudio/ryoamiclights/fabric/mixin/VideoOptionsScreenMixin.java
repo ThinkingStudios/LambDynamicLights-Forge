@@ -33,7 +33,7 @@ public class VideoOptionsScreenMixin extends GameOptionsScreen {
 		super(parent, gameOptions, title);
 	}
 
-	@Inject(method = "<init>", at = @At("TAIL"))
+	/*@Inject(method = "<init>", at = @At("TAIL"))
 	private void onConstruct(Screen parent, GameOptions gameOptions, CallbackInfo ci) {
 		this.ryoamiclights$option = DynamicLightsOptionsOption.getOption(this);
 	}
@@ -51,7 +51,7 @@ public class VideoOptionsScreenMixin extends GameOptionsScreen {
 		System.arraycopy(old, 0, options, 0, old.length);
 		options[options.length - 1] = this.ryoamiclights$option;
 		return options;
-	}
+	}*/
 
 //	@Inject(method = "render", at = @At("TAIL"))
 //	private void onRender(GuiGraphics graphics, int mouseX, int mouseY, float delta, CallbackInfo ci) {

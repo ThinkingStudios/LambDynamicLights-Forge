@@ -13,13 +13,14 @@ package org.thinkingstudio.ryoamiclights.gui;
 import org.thinkingstudio.obsidianui.Position;
 import org.thinkingstudio.obsidianui.SpruceTexts;
 import org.thinkingstudio.obsidianui.background.Background;
-import org.thinkingstudio.obsidianui.background.DirtTexturedBackground;
+import org.thinkingstudio.obsidianui.background.TransparentBackground;
 import org.thinkingstudio.obsidianui.option.SpruceCyclingOption;
 import org.thinkingstudio.obsidianui.option.SpruceOption;
 import org.thinkingstudio.obsidianui.option.SpruceSeparatorOption;
 import org.thinkingstudio.obsidianui.option.SpruceSimpleActionOption;
 import org.thinkingstudio.obsidianui.screen.SpruceScreen;
 import org.thinkingstudio.obsidianui.util.RenderUtil;
+import org.thinkingstudio.obsidianui.widget.AbstractSpruceWidget;
 import org.thinkingstudio.obsidianui.widget.SpruceButtonWidget;
 import org.thinkingstudio.obsidianui.widget.SpruceLabelWidget;
 import org.thinkingstudio.obsidianui.widget.container.SpruceContainerWidget;
@@ -33,6 +34,7 @@ import org.thinkingstudio.ryoamiclights.accessor.DynamicLightHandlerHolder;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.registry.Registries;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.jetbrains.annotations.Nullable;
@@ -108,7 +110,7 @@ public class SettingsScreen extends SpruceScreen {
 		var dynamicLightSources = Text.translatable(DYNAMIC_LIGHT_SOURCES_KEY);
 
 		this.tabbedWidget = new SpruceTabbedWidget(Position.origin(), this.width, this.height, null, Math.max(100, this.width / 8), 0);
-		this.tabbedWidget.getList().setBackground(DirtTexturedBackground.DARKENED);
+		this.tabbedWidget.getList().setBackground(TransparentBackground.NORMAL);
 		this.tabbedWidget.addTabEntry(Text.translatable("ryoamiclights.menu.tabs.general"), null,
 				this.tabContainerBuilder(this::buildGeneralTab));
 		this.tabbedWidget.addSeparatorEntry(null);
@@ -143,7 +145,7 @@ public class SettingsScreen extends SpruceScreen {
 						widget.getX() + widget.getWidth(), widget.getY() + widget.getHeight(),
 						0xc0101010, 0xd0101010);
 			} else {
-				var bg = (DirtTexturedBackground) DirtTexturedBackground.NORMAL;
+				var bg = (TransparentBackground) TransparentBackground.NORMAL;
 				RenderUtil.renderDirtBackgroundTexture(widget.getX(), widget.getY(),
 						widget.getWidth(), innerWidget.getY() - widget.getY(),
 						vOffset / 32.f, bg.red(), bg.green(), bg.blue(), bg.alpha());

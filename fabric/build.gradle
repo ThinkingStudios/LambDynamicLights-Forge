@@ -20,7 +20,7 @@ configurations {
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
-    modImplementation "maven.modrinth:obsidianui:${rootProject.obsidianui_version}-fabric"
+    modImplementation files("mods/ObsidianUI-fabric-0.2.5+mc1.21.jar")
 
     modCompileOnly("com.terraformersmc:modmenu:${rootProject.mod_menu_version}") { transitive false }
 
@@ -81,7 +81,9 @@ publishing {
 
     // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
-        // Add repositories to publish to here.
+        flatDir {
+            dirs 'mods'
+        }
     }
 }
 

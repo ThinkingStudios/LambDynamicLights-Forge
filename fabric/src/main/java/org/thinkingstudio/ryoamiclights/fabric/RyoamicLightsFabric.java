@@ -36,7 +36,7 @@ public class RyoamicLightsFabric implements ClientModInitializer {
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
             @Override
             public Identifier getFabricId() {
-                return new Identifier(RyoamicLights.NAMESPACE, "dynamiclights_resources");
+                return Identifier.of(RyoamicLights.NAMESPACE, "dynamiclights_resources");
             }
 
             @Override

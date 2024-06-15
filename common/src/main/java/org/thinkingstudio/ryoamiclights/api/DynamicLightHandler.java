@@ -13,6 +13,7 @@ package org.thinkingstudio.ryoamiclights.api;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.CreeperEntity;
+import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

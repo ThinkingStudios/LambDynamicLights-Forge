@@ -10,7 +10,7 @@ dependencies {
     // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
     // Do NOT use other classes from fabric loader
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-    modImplementation "maven.modrinth:obsidianui:${rootProject.obsidianui_version}-fabric"
+    modImplementation files("mods/ObsidianUI-fabric-0.2.5+mc1.21.jar")
 
     implementation "com.electronwill.night-config:core:3.6.6"
     implementation "com.electronwill.night-config:toml:3.6.6"
@@ -26,6 +26,8 @@ publishing {
 
     // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
-        // Add repositories to publish to here.
+        flatDir {
+            dirs 'mods'
+        }
     }
 }

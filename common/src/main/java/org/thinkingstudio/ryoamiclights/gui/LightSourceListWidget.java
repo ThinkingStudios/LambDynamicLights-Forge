@@ -23,6 +23,7 @@ import org.thinkingstudio.obsidianui.widget.WithBackground;
 import org.thinkingstudio.obsidianui.widget.container.SpruceEntryListWidget;
 import org.thinkingstudio.obsidianui.widget.container.SpruceParentWidget;
 import org.thinkingstudio.ryoamiclights.accessor.DynamicLightHandlerHolder;
+import org.thinkingstudio.ryoamiclights.config.LightSourceSettingEntry;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.screen.narration.NarrationPart;
@@ -31,6 +32,7 @@ import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class LightSourceListWidget extends SpruceEntryListWidget<LightSourceListWidget.LightSourceEntry> {

@@ -11,6 +11,7 @@
 package org.thinkingstudio.ryoamiclights.mixin.lightsource;
 
 import org.thinkingstudio.ryoamiclights.DynamicLightSource;
+import org.thinkingstudio.ryoamiclights.DynamicLightsMode;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
 import org.thinkingstudio.ryoamiclights.api.DynamicLightHandlers;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;

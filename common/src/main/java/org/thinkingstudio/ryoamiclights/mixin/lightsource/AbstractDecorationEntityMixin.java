@@ -28,7 +28,7 @@ public abstract class AbstractDecorationEntityMixin extends Entity implements Dy
 		super(type, world);
 	}
 
-	@Inject(method = "tick", at = @At("TAIL"))
+	/*@Inject(method = "onPlace", at = @At("TAIL"))
 	private void onTick(CallbackInfo ci) {
 		// We do not want to update the entity on the server.
 		if (this.getWorld().isClient()) {
@@ -42,5 +42,5 @@ public abstract class AbstractDecorationEntityMixin extends Entity implements Dy
 				RyoamicLights.updateTracking(this);
 			}
 		}
-	}
+	}*/
 }
