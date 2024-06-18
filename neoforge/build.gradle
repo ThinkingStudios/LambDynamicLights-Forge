@@ -93,7 +93,7 @@ publisher {
     setChangelog(file("CHANGELOG.md").getText("UTF-8"))
     setVersion("${rootProject.version}-neoforge")
     setDisplayName("[NeoForge] ${rootProject.version}")
-    setGameVersions("1.20.5", "1.20.6")
+    setGameVersions("1.21")
     setLoaders("neoforge")
     setCurseEnvironment("client")
     setArtifact(remapJar)

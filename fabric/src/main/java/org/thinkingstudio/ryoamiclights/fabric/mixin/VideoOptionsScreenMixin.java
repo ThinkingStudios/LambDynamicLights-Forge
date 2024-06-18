@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.thinkingstudio.ryoamiclights.gui.DynamicLightsOptionsOption;
 
 @Mixin(VideoOptionsScreen.class)
-public class VideoOptionsScreenMixin extends GameOptionsScreen {
+public abstract class VideoOptionsScreenMixin extends GameOptionsScreen {
 	@Unique
 	private SimpleOption<?> ryoamiclights$option;
 
