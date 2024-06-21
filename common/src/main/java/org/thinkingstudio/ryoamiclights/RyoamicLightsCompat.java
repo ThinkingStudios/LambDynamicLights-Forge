@@ -51,6 +51,6 @@ public final class RyoamicLightsCompat {
 	 * @return {@code true} if Fabric API or Forgified Fabric API is installed, else {@code false}
 	 */
 	public static boolean isFabricApiInstalled() {
-		return ModPlatform.isModLoaded("fabric-api") | ModPlatform.isModLoaded("fabric_api");
+		return ModPlatform.isModLoaded("fabric-api") || ModPlatform.isModLoaded("fabric_api");
 	}
 }

@@ -22,6 +22,8 @@ dependencies {
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
     modImplementation "maven.modrinth:obsidianui:${rootProject.obsidianui_version}-fabric"
 
+    modCompileOnly "maven.modrinth:indium:1.0.31+mc1.20.4"
+
     modCompileOnly("com.terraformersmc:modmenu:${rootProject.mod_menu_version}") { transitive false }
 
     shadowCommon 'com.electronwill.night-config:core:3.6.6'

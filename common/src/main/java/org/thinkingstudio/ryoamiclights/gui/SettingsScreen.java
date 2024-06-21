@@ -13,7 +13,7 @@ package org.thinkingstudio.ryoamiclights.gui;
 import org.thinkingstudio.obsidianui.Position;
 import org.thinkingstudio.obsidianui.SpruceTexts;
 import org.thinkingstudio.obsidianui.background.Background;
-import org.thinkingstudio.obsidianui.background.DirtTexturedBackground;
+import org.thinkingstudio.obsidianui.background.TransparentBackground;
 import org.thinkingstudio.obsidianui.option.SpruceCyclingOption;
 import org.thinkingstudio.obsidianui.option.SpruceOption;
 import org.thinkingstudio.obsidianui.option.SpruceSeparatorOption;
@@ -108,7 +108,7 @@ public class SettingsScreen extends SpruceScreen {
 		var dynamicLightSources = Text.translatable(DYNAMIC_LIGHT_SOURCES_KEY);
 
 		this.tabbedWidget = new SpruceTabbedWidget(Position.origin(), this.width, this.height, null, Math.max(100, this.width / 8), 0);
-		this.tabbedWidget.getList().setBackground(DirtTexturedBackground.DARKENED);
+		this.tabbedWidget.getList().setBackground(TransparentBackground.DARKENED);
 		this.tabbedWidget.addTabEntry(Text.translatable("ryoamiclights.menu.tabs.general"), null,
 				this.tabContainerBuilder(this::buildGeneralTab));
 		this.tabbedWidget.addSeparatorEntry(null);
@@ -143,11 +143,11 @@ public class SettingsScreen extends SpruceScreen {
 						widget.getX() + widget.getWidth(), widget.getY() + widget.getHeight(),
 						0xc0101010, 0xd0101010);
 			} else {
-				var bg = (DirtTexturedBackground) DirtTexturedBackground.NORMAL;
-				RenderUtil.renderDirtBackgroundTexture(widget.getX(), widget.getY(),
+				var bg = (TransparentBackground) TransparentBackground.NORMAL;
+				RenderUtil.renderTransparentBackgroundTexture(widget.getX(), widget.getY(),
 						widget.getWidth(), innerWidget.getY() - widget.getY(),
 						vOffset / 32.f, bg.red(), bg.green(), bg.blue(), bg.alpha());
-				RenderUtil.renderDirtBackgroundTexture(widget.getX(), innerWidget.getY() + innerWidget.getHeight(),
+				RenderUtil.renderTransparentBackgroundTexture(widget.getX(), innerWidget.getY() + innerWidget.getHeight(),
 						widget.getWidth(), widget.getHeight() - (innerWidget.getY() + innerWidget.getHeight()),
 						vOffset / 32.f, bg.red(), bg.green(), bg.blue(), bg.alpha());
 			}

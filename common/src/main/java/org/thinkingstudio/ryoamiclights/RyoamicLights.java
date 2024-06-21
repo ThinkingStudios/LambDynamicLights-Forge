@@ -343,7 +343,7 @@ public class RyoamicLights {
 	 * @param info the message to print
 	 */
 	public void log(String info) {
-		this.logger.info("[RyoamicLights] " + info);
+        this.logger.info("[RyoamicLights] {}", info);
 	}
 
 	/**
@@ -352,7 +352,7 @@ public class RyoamicLights {
 	 * @param info the message to print
 	 */
 	public void warn(String info) {
-		this.logger.warn("[RyoamicLights] " + info);
+        this.logger.warn("[RyoamicLights] {}", info);
 	}
 
 	/**

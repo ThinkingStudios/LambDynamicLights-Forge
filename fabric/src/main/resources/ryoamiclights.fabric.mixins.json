@@ -7,6 +7,7 @@
     "ScreenMixin",
     "VideoOptionsScreenMixin",
     "fabricapi.AoCalculatorMixin",
+    "indium.TerrainRenderContextMixin",
     "ltr.LilTaterBlockEntityMixin",
     "ltr.LilTaterBlocksMixin",
     "sodium.ArrayLightDataCacheMixin",

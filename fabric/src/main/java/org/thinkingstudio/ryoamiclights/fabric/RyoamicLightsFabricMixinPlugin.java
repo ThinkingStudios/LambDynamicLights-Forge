@@ -10,6 +10,7 @@
 
 package org.thinkingstudio.ryoamiclights.fabric;
 
+import net.fabricmc.loader.api.FabricLoader;
 import org.thinkingstudio.ryoamiclights.RyoamicLightsCompat;
 import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
 import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
@@ -35,6 +36,9 @@ public class RyoamicLightsFabricMixinPlugin  implements IMixinConfigPlugin {
 
         boolean fabricApiInstalled = RyoamicLightsCompat.isFabricApiInstalled();
         this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.fabric.mixin.fabricapi.AoCalculatorMixin", fabricApiInstalled);
+
+        boolean indiumInstalled = FabricLoader.getInstance().isModLoaded("indium") != FabricLoader.getInstance().isModLoaded("embeddium");
+        this.conditionalMixins.put("dev.lambdaurora.lambdynlights.mixin.indium.TerrainRenderContextMixin", indiumInstalled);
     }
 
     @Override

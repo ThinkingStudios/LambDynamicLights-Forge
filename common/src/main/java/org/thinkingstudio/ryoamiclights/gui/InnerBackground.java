@@ -13,7 +13,7 @@ package org.thinkingstudio.ryoamiclights.gui;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import org.thinkingstudio.obsidianui.background.Background;
-import org.thinkingstudio.obsidianui.background.DirtTexturedBackground;
+import org.thinkingstudio.obsidianui.background.TransparentBackground;
 import org.thinkingstudio.obsidianui.widget.SpruceWidget;
 
 public class InnerBackground implements Background {
@@ -25,7 +25,7 @@ public class InnerBackground implements Background {
 					widget.getX() + widget.getWidth(), widget.getY() + widget.getHeight(),
 					0xc0060606, 0xd0060606);
 		} else {
-			DirtTexturedBackground.DARKENED.render(graphics, widget, vOffset, mouseX, mouseY, delta);
+			TransparentBackground.DARKENED.render(graphics, widget, vOffset, mouseX, mouseY, delta);
 		}
 	}
 }

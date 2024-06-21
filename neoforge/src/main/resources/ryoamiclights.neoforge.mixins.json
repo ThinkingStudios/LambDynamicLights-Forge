@@ -4,6 +4,8 @@
   "plugin": "org.thinkingstudio.ryoamiclights.neoforge.RyoamicLightsNeoForgeMixinPlugin",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "ScreenMixin",
+    "VideoOptionsScreenMixin",
     "fabricapi.AoCalculatorMixin",
     "ltr.LilTaterBlockEntityMixin",
     "ltr.LilTaterBlocksMixin"
