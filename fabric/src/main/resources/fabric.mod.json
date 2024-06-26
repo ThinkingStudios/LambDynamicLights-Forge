@@ -23,7 +23,8 @@
   },
   "mixins": [
     "ryoamiclights.common.mixins.json",
-    "ryoamiclights.fabric.mixins.json"
+    "ryoamiclights.fabric.mixins.json",
+    "nightconfigfixes.mixins.json"
   ],
   "depends": {
     "fabric-api": "*",

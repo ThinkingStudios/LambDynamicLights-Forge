@@ -20,11 +20,13 @@ configurations {
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
-    modImplementation "maven.modrinth:obsidianui:${rootProject.obsidianui_version}-fabric"
-    modImplementation "maven.modrinth:indium:${project.indium_version}"
+    modApi "maven.modrinth:obsidianui:${rootProject.obsidianui_version}-fabric"
+    modCompileOnly "maven.modrinth:indium:${project.indium_version}"
 
     modCompileOnly("com.terraformersmc:modmenu:${rootProject.mod_menu_version}") { transitive false }
 
+    implementation 'com.electronwill.night-config:core:3.6.6'
+    implementation 'com.electronwill.night-config:toml:3.6.6'
     shadowCommon 'com.electronwill.night-config:core:3.6.6'
     shadowCommon 'com.electronwill.night-config:toml:3.6.6'
 
