@@ -7,31 +7,35 @@ loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
 }
 
-project.archivesBaseName = rootProject.archivesBaseName + "-fabric"
-
 configurations {
-    common
-    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
     developmentFabric.extendsFrom common
+    // Files in this configuration will be bundled into your mod using the Shadow plugin.
+    // Don't use the `shadow` configuration from the plugin itself as it's meant for excluding files.
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
 }
 
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-    modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
-    modApi "maven.modrinth:obsidianui:${rootProject.obsidianui_version}-fabric"
-    modCompileOnly "maven.modrinth:indium:${project.indium_version}"
+    modImplementation("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
+    modApi("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
+    modApi("maven.modrinth:obsidianui:${rootProject.obsidianui_version}-fabric")
+    modCompileOnly("maven.modrinth:indium:${project.indium_version}")
 
     modCompileOnly("com.terraformersmc:modmenu:${rootProject.mod_menu_version}") { transitive false }
 
-    implementation 'com.electronwill.night-config:core:3.6.6'
-    implementation 'com.electronwill.night-config:toml:3.6.6'
-    shadowCommon 'com.electronwill.night-config:core:3.6.6'
-    shadowCommon 'com.electronwill.night-config:toml:3.6.6'
+    shadowBundle("com.electronwill.night-config:core:3.8.0")
+    shadowBundle("com.electronwill.night-config:toml:3.8.0")
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+    shadowBundle(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 }
 
 processResources {
@@ -43,49 +47,15 @@ processResources {
 }
 
 shadowJar {
-    exclude "architectury.common.json"
-
     relocate "com.electronwill.nightconfig", "${rootProject.maven_group}.shadow.nightconfig"
 
-    configurations = [project.configurations.shadowCommon]
+    configurations = [project.configurations.shadowBundle]
     archiveClassifier.set("dev-shadow")
 }
 
 remapJar {
-    injectAccessWidener = true
-    input.set shadowJar.archiveFile
-    dependsOn shadowJar
-    archiveClassifier.set(null)
-}
-
-jar {
-    archiveClassifier.set("dev")
-}
-
-sourcesJar {
-    def commonSources = project(":common").sourcesJar
-    dependsOn commonSources
-    from commonSources.archiveFile.map { zipTree(it) }
-}
-
-components.java {
-    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-        skip()
-    }
-}
-
-publishing {
-    publications {
-        mavenFabric(MavenPublication) {
-            artifactId = rootProject.archives_base_name + "-" + project.name
-            from components.java
-        }
-    }
-
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
-    }
+    injectAccessWidener.set(true)
+    inputFile.set(shadowJar.archiveFile)
 }
 
 publisher {
@@ -100,7 +70,7 @@ publisher {
     setChangelog(file("CHANGELOG.md").getText("UTF-8"))
     setVersion("${rootProject.version}-fabric")
     setDisplayName("[Fabric] ${rootProject.version}")
-    setGameVersions("1.21")
+    setGameVersions("1.21", "1.21.1")
     setLoaders("fabric")
     setCurseEnvironment("client")
     setArtifact(remapJar)

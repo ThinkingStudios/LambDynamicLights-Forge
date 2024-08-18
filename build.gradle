@@ -1,6 +1,6 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.6-SNAPSHOT" apply false
+    id "dev.architectury.loom" version "1.7-SNAPSHOT" apply false
     id "com.github.johnrengelman.shadow" version "8.+" apply false
     id "com.hypherionmc.modutils.modpublisher" version "2.+" apply false
 }
@@ -9,28 +9,21 @@ architectury {
     minecraft = rootProject.minecraft_version
 }
 
+allprojects {
+    version = "${rootProject.mod_version}+mc${rootProject.minecraft_version}"
+    group = rootProject.maven_group
+}
+
 subprojects {
+    apply plugin: "java"
+    apply plugin: "maven-publish"
+    apply plugin: "architectury-plugin"
     apply plugin: "dev.architectury.loom"
     apply plugin: "com.github.johnrengelman.shadow"
     apply plugin: "com.hypherionmc.modutils.modpublisher"
 
-    dependencies {
-        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
-        mappings loom.layered {
-            mappings "net.fabricmc:yarn:${rootProject.yarn_mappings}:v2"
-            mappings "dev.architectury:yarn-mappings-patch-neoforge:${rootProject.mappings_patch}"
-        }
-    }
-}
 
-allprojects {
-    apply plugin: "java"
-    apply plugin: "architectury-plugin"
-    apply plugin: "maven-publish"
-
-    archivesBaseName = rootProject.archives_base_name
-    version = "${rootProject.mod_version}+mc${rootProject.minecraft_version}"
-    group = rootProject.maven_group
+    archivesBaseName = "${rootProject.archives_base_name}-${project.name}"
 
     repositories {
         maven { url = "https://maven.gegy.dev" }
@@ -39,15 +32,48 @@ allprojects {
         maven { url = "https://maven.terraformersmc.com/releases/" }
     }
 
-    tasks.withType(JavaCompile) {
+    dependencies {
+        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+        mappings loom.layered {
+            mappings "net.fabricmc:yarn:${rootProject.yarn_mappings}:v2"
+            mappings "dev.architectury:yarn-mappings-patch-neoforge:${rootProject.mappings_patch}"
+        }
+
+        implementation("com.electronwill.night-config:core:3.8.0")
+        implementation("com.electronwill.night-config:toml:3.8.0")
+    }
+
+    tasks.withType(JavaCompile).configureEach {
         options.encoding = "UTF-8"
         options.release = 21
     }
 
     java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
 
         withSourcesJar()
+    }
+
+    // Configure Maven publishing.
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                artifactId = base.archivesName.get()
+                from components.java
+            }
+        }
+
+        // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+        repositories {
+            // Add repositories to publish to here.
+            // Notice: This block does NOT have the same function as the block in the top level.
+            // The repositories here will be used for publishing your artifact, not for
+            // retrieving dependencies.
+        }
     }
 }

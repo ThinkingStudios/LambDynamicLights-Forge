@@ -42,7 +42,16 @@ public final class RyoamicLightsCompat {
 	 * @return {@code true} if Sodium is installed, else {@code false}
 	 */
 	public static boolean isSodiumInstalled() {
-		return ModPlatform.isModLoaded("sodium") != ModPlatform.isModLoaded("embeddium");
+		return ModPlatform.isModLoaded("sodium");
+	}
+
+	/**
+	 * Returns whether Embeddium is installed.
+	 *
+	 * @return {@code true} if Embeddium is installed, else {@code false}
+	 */
+	public static boolean isEmbeddiumInstalled() {
+		return ModPlatform.isModLoaded("embeddium");
 	}
 
 	/**

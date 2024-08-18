@@ -1,3 +1,2 @@
 ## Changelog
-- update dependencies
-- (Fabric) try fix nightconfig issue
+- update to 1.21.1

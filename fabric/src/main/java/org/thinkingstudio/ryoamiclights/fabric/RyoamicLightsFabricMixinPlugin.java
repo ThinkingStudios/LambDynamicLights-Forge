@@ -28,13 +28,15 @@ public class RyoamicLightsFabricMixinPlugin  implements IMixinConfigPlugin {
         this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.fabric.mixin.ltr.LilTaterBlocksMixin", ltrInstalled);
         this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.fabric.mixin.ltr.LilTaterBlockEntityMixin", ltrInstalled);
 
-        boolean sodiumInstalled = RyoamicLightsCompat.isSodiumInstalled();
-        this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.fabric.mixin.sodium.ArrayLightDataCacheMixin", sodiumInstalled);
-        this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.fabric.mixin.sodium.FlatLightPipelineMixin", sodiumInstalled);
-        this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.fabric.mixin.sodium.LightDataAccessMixin", sodiumInstalled);
+        if (!RyoamicLightsCompat.isEmbeddiumInstalled()) {
+            boolean sodiumInstalled = RyoamicLightsCompat.isSodiumInstalled();
+            this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.fabric.mixin.sodium.ArrayLightDataCacheMixin", sodiumInstalled);
+            this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.fabric.mixin.sodium.FlatLightPipelineMixin", sodiumInstalled);
+            this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.fabric.mixin.sodium.LightDataAccessMixin", sodiumInstalled);
 
-        boolean indiumInstalled = RyoamicLightsCompat.isIndiumInstalled();
-		this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.fabric.mixin.indium.TerrainRenderContextMixin", indiumInstalled);
+            boolean indiumInstalled = RyoamicLightsCompat.isIndiumInstalled();
+            this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.fabric.mixin.indium.TerrainRenderContextMixin", indiumInstalled);
+        }
 
         boolean fabricApiInstalled = RyoamicLightsCompat.isFabricApiInstalled();
         this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.fabric.mixin.fabricapi.AoCalculatorMixin", fabricApiInstalled);

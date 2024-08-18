@@ -8,9 +8,8 @@
  * see the LICENSE file.
  */
 
-package org.thinkingstudio.ryoamiclights.fabric.mixin.sodium;
+package org.thinkingstudio.ryoamiclights.neoforge.mixin.sodium;
 
-import org.thinkingstudio.ryoamiclights.util.SodiumDynamicLightHandler;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.spongepowered.asm.mixin.Dynamic;
@@ -20,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+import org.thinkingstudio.ryoamiclights.util.SodiumDynamicLightHandler;
 
 @Pseudo
 @Mixin(targets = {

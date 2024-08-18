@@ -7,8 +7,9 @@
     "ScreenMixin",
     "VideoOptionsScreenMixin",
     "fabricapi.AoCalculatorMixin",
-    "ltr.LilTaterBlockEntityMixin",
-    "ltr.LilTaterBlocksMixin"
+    "sodium.ArrayLightDataCacheMixin",
+    "sodium.FlatLightPipelineMixin",
+    "sodium.LightDataAccessMixin"
   ],
   "injectors": {
     "defaultRequire": 1

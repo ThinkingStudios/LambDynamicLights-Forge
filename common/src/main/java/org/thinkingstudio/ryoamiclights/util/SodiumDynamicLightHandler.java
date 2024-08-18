@@ -26,7 +26,7 @@ public interface SodiumDynamicLightHandler {
 			return lightmap;
 
 		// Equivalent to world.getBlockState(pos).isOpaqueFullCube(world, pos)
-		if (/*LightDataAccess.unpackFO(word)*/ (word >>> 30 & 1) != 0)
+		if ((word >>> 30 & 1) != 0)
 			return lightmap;
 
 		double dynamic = RyoamicLights.get().getDynamicLightLevel(pos);

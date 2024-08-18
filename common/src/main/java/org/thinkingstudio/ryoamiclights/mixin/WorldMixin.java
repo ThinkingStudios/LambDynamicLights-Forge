@@ -10,11 +10,11 @@
 
 package org.thinkingstudio.ryoamiclights.mixin;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import org.thinkingstudio.ryoamiclights.DynamicLightSource;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.profiler.Profiler;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.BlockEntityTickInvoker;
 import org.jetbrains.annotations.Nullable;
@@ -23,9 +23,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-
-import java.util.Iterator;
 
 @Mixin(World.class)
 public abstract class WorldMixin {
@@ -37,10 +34,13 @@ public abstract class WorldMixin {
 
 	@Inject(
 			method = "tickBlockEntities",
-			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/chunk/BlockEntityTickInvoker;tick()V", shift = At.Shift.BEFORE),
-			locals = LocalCapture.CAPTURE_FAILEXCEPTION
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/world/chunk/BlockEntityTickInvoker;tick()V",
+					shift = At.Shift.BEFORE
+			)
 	)
-	private void onBlockEntityTick(CallbackInfo ci, Profiler profiler, Iterator iterator, boolean isRemoved, BlockEntityTickInvoker blockEntityTickInvoker) {
+	private void onBlockEntityTick(CallbackInfo ci, @Local boolean isRemoved, @Local BlockEntityTickInvoker blockEntityTickInvoker) {
 		if (this.isClient() && RyoamicLights.get().config.getBlockEntitiesLightSource().get() && !isRemoved) {
 			var blockEntity = this.getBlockEntity(blockEntityTickInvoker.getPos());
 			if (blockEntity != null)
