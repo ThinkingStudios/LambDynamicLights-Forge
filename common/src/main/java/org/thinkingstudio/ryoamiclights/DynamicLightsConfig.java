@@ -11,6 +11,7 @@
 package org.thinkingstudio.ryoamiclights;
 
 import com.electronwill.nightconfig.core.file.FileConfig;
+import com.electronwill.nightconfig.core.io.WritingMode;
 import org.thinkingstudio.obsidianui.option.SpruceCyclingOption;
 import org.thinkingstudio.obsidianui.option.SpruceOption;
 import org.thinkingstudio.ryoamiclights.config.BooleanSettingEntry;
@@ -61,7 +62,7 @@ public class DynamicLightsConfig {
 	public DynamicLightsConfig(@NotNull RyoamicLights mod) {
 		this.mod = mod;
 
-		this.config = FileConfig.builder(CONFIG_FILE_PATH).concurrent()/*.defaultResource("/ryoamiclights.toml")*/.autosave().build();
+		this.config = FileConfig.builder(CONFIG_FILE_PATH).autosave().writingMode(WritingMode.REPLACE).build();
 		this.entitiesLightSource = new BooleanSettingEntry("light_sources.entities", DEFAULT_ENTITIES_LIGHT_SOURCE, this.config,
 				Text.translatable("ryoamiclights.tooltip.entities"))
 				.withOnSet(value -> {

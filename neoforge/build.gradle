@@ -62,7 +62,7 @@ publisher {
     setCurseID("${rootProject.curseforge_id}")
     setModrinthID("${rootProject.modrinth_id}")
     setVersionType("alpha")
-    setChangelog(file("CHANGELOG.md").getText("UTF-8"))
+    setChangelog(file("../CHANGELOG.md").getText("UTF-8"))
     setVersion("${rootProject.version}-neoforge")
     setDisplayName("[NeoForge] ${rootProject.version}")
     setGameVersions("1.21", "1.21.1")
