@@ -9,9 +9,8 @@
 
 package dev.lambdaurora.lambdynlights;
 
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.Version;
-import net.fabricmc.loader.api.VersionParsingException;
+import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
+import org.thinkingstudio.ryoamiclights.ModLoader;
 
 /**
  * Represents a utility class for compatibility.
@@ -27,7 +26,7 @@ public final class LambDynLightsCompat {
 	 * @return {@code true} if Canvas is installed, else {@code false}
 	 */
 	public static boolean isCanvasInstalled() {
-		return FabricLoader.getInstance().isModLoaded("canvas");
+		return ModLoader.isModLoaded("canvas");
 	}
 
 	/**
@@ -37,7 +36,7 @@ public final class LambDynLightsCompat {
 	 */
 	public static boolean isLilTaterReloadedInstalled() {
 		// Don't even think about it Yog.
-		return FabricLoader.getInstance().isModLoaded("ltr");
+		return ModLoader.isModLoaded("ltr");
 	}
 
 	/**
@@ -46,17 +45,13 @@ public final class LambDynLightsCompat {
 	 * @return {@code true} if Sodium 0.1.0 is installed, else {@code false}
 	 */
 	public static boolean isSodium010Installed() {
-		return FabricLoader.getInstance().getModContainer("sodium").map(mod -> mod.getMetadata().getVersion().getFriendlyString().startsWith("0.1.0"))
+		return ModLoader.getModContainer("sodium").map(modContainer -> modContainer.getModInfo().getVersion().toString().startsWith("0.1.0"))
 				.orElse(false);
 	}
 
 	public static boolean isSodium05XInstalled() {
-		return FabricLoader.getInstance().getModContainer("sodium").map(mod -> {
-			try {
-				return mod.getMetadata().getVersion().compareTo(Version.parse("0.5.0")) >= 0;
-			} catch (VersionParsingException e) {
-				throw new RuntimeException(e);
-			}
+		return ModLoader.getModContainer("sodium").map(modContainer -> {
+			return modContainer.getModInfo().getVersion().compareTo(new DefaultArtifactVersion("0.5.0")) >= 0;
 		}).orElse(false);
 	}
 }

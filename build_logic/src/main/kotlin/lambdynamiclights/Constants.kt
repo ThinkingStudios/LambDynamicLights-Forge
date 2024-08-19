@@ -3,8 +3,8 @@ package lambdynamiclights
 import org.gradle.accessors.dm.LibrariesForLibs
 
 object Constants {
-	const val GROUP = "dev.lambdaurora"
-	const val NAME = "lambdynamiclights"
+	const val GROUP = "org.thinkingstudio"
+	const val NAME = "ryoamiclights"
 	const val VERSION = "3.0.0-alpha.1"
 	const val JAVA_VERSION = 21
 

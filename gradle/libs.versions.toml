@@ -1,16 +1,12 @@
 [versions]
 minecraft = "1.21"
-fabric-loader = "0.15.11"
-fabric-api = "0.100.4+1.21"
+neoforge = "21.0.167"
 mappings-yalmm = "8"
-mappings-parchment = "2024.07.07"
+mappings-parchment = "2024.07.28"
 
 # Dependencies
 yumi-commons = "1.0.0-alpha.1"
-spruceui = "5.1.0+1.21"
-pridelib = "1.2.1+1.21"
-modmenu = "11.0.1"
-sodium = "mc1.21-0.5.9"
+obsidianui = "0.2.7+mc1.21-neoforge"
 
 # Configuration
 nightconfig = "3.8.1"
@@ -22,15 +18,11 @@ mappingio = "0.6.1"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
-fabric-loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric-loader" }
-fabric-api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric-api" }
+neoforge = { module = "net.neoforged:neoforge", version.ref = "neoforge" }
 
 # Dependencies
 yumi-commons-core = { module = "dev.yumi.commons:yumi-commons-core", version.ref = "yumi-commons" }
-spruceui = { module = "dev.lambdaurora:spruceui", version.ref = "spruceui" }
-pridelib = { module = "io.github.queerbric:pridelib", version.ref = "pridelib" }
-modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
-sodium = { module = "maven.modrinth:sodium", version.ref = "sodium" }
+obsidianui = { module = "maven.modrinth:obsidianui", version.ref = "obsidianui" }
 
 # Configuration
 nightconfig-core = { module = "com.electronwill.night-config:core", version.ref = "nightconfig" }
@@ -38,5 +30,5 @@ nightconfig-toml = { module = "com.electronwill.night-config:toml", version.ref 
 
 # Gradle
 gradle-licenser = { module = "dev.yumi:yumi-gradle-licenser", version.ref = "gradle-licenser" }
-gradle-loom = { module = "net.fabricmc:fabric-loom", version.ref = "gradle-loom" }
+gradle-loom = { module = "dev.architectury:architectury-loom", version.ref = "gradle-loom" }
 mappingio = { module = "net.fabricmc:mapping-io", version.ref = "mappingio" }

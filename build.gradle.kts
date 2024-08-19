@@ -54,24 +54,18 @@ loom {
 	accessWidenerPath = file("src/main/resources/lambdynlights.accesswidener")
 }
 
+repositories {
+	maven { url = uri("https://maven.neoforged.net/releases/") }
+}
+
 dependencies {
 	implementation(project(":api", configuration = "namedElements"))
 	implementation(libs.yumi.commons.core)
 
-	modImplementation(libs.fabric.api)
-
 	implementation(libs.nightconfig.core)
 	implementation(libs.nightconfig.toml)
-	modImplementation(libs.spruceui)
-	include(libs.spruceui)
-	modImplementation(libs.pridelib)
-	include(libs.pridelib)
-
-	modImplementation(libs.modmenu) {
-		this.isTransitive = false
-	}
-
-	modRuntimeOnly(libs.sodium)
+	modImplementation(libs.obsidianui)
+	include(libs.obsidianui)
 
 	shadow(project(":api", configuration = "namedElements"))
 	shadow(libs.yumi.commons.core)

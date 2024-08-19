@@ -11,22 +11,12 @@ package dev.lambdaurora.lambdynlights;
 
 import dev.lambdaurora.lambdynlights.accessor.WorldRendererAccessor;
 import dev.lambdaurora.lambdynlights.api.DynamicLightHandlers;
-import dev.lambdaurora.lambdynlights.api.DynamicLightsInitializer;
 import dev.lambdaurora.lambdynlights.resource.item.ItemLightSources;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.Identifier;
-import net.minecraft.resources.io.ResourceManager;
-import net.minecraft.resources.io.ResourceType;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -39,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.thinkingstudio.ryoamiclights.ModLoader;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -52,7 +43,7 @@ import java.util.function.Predicate;
  * @version 3.0.0
  * @since 1.0.0
  */
-public class LambDynLights implements ClientModInitializer {
+public class LambDynLights {
 	public static final String NAMESPACE = "lambdynlights";
 	private static final Logger LOGGER = LoggerFactory.getLogger("LambDynamicLights");
 	private static final double MAX_RADIUS = 7.75;
@@ -65,33 +56,11 @@ public class LambDynLights implements ClientModInitializer {
 	private long lastUpdate = System.currentTimeMillis();
 	private int lastUpdateCount = 0;
 
-	@Override
 	public void onInitializeClient() {
 		INSTANCE = this;
 		log(LOGGER, "Initializing LambDynamicLights...");
 
 		this.config.load();
-
-		FabricLoader.getInstance().getEntrypointContainers("dynamiclights", DynamicLightsInitializer.class)
-				.stream().map(EntrypointContainer::getEntrypoint)
-				.forEach(DynamicLightsInitializer::onInitializeDynamicLights);
-
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
-			@Override
-			public Identifier getFabricId() {
-				return Identifier.of(NAMESPACE, "dynamiclights_resources");
-			}
-
-			@Override
-			public void reload(ResourceManager manager) {
-				LambDynLights.this.itemLightSources.load(manager);
-			}
-		});
-
-		WorldRenderEvents.START.register(context -> {
-			Minecraft.getInstance().getProfiler().swap("dynamic_lighting");
-			this.updateAll(context.worldRenderer());
-		});
 
 		DynamicLightHandlers.registerDefaultHandlers();
 	}
@@ -372,7 +341,7 @@ public class LambDynLights implements ClientModInitializer {
 	 * @param msg the message to log
 	 */
 	public static void log(Logger logger, String msg) {
-		if (!FabricLoader.getInstance().isDevelopmentEnvironment()) {
+		if (!ModLoader.isDevelopmentEnvironment()) {
 			msg = "[LambDynLights] " + msg;
 		}
 
@@ -386,7 +355,7 @@ public class LambDynLights implements ClientModInitializer {
 	 * @param msg the message to log
 	 */
 	public static void warn(Logger logger, String msg) {
-		if (!FabricLoader.getInstance().isDevelopmentEnvironment()) {
+		if (!ModLoader.isDevelopmentEnvironment()) {
 			msg = "[LambDynLights] " + msg;
 		}
 
@@ -400,7 +369,7 @@ public class LambDynLights implements ClientModInitializer {
 	 * @param msg the message to log
 	 */
 	public static void warn(Logger logger, String msg, Object... args) {
-		if (!FabricLoader.getInstance().isDevelopmentEnvironment()) {
+		if (!ModLoader.isDevelopmentEnvironment()) {
 			msg = "[LambDynLights] " + msg;
 		}
 

@@ -18,7 +18,6 @@ import dev.lambdaurora.lambdynlights.LambDynLights;
 import dev.lambdaurora.lambdynlights.api.item.ItemLightSource;
 import dev.lambdaurora.lambdynlights.api.item.ItemLightSourceManager;
 import dev.yumi.commons.TriState;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.RegistryOps;
@@ -28,6 +27,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.thinkingstudio.ryoamiclights.ModLoader;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -45,7 +45,7 @@ public final class ItemLightSources implements ItemLightSourceManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger("LambDynamicLights|ItemLightSources");
 	private static final String SILENCE_ERROR_KEY = "silence_error";
 	private static final boolean FORCE_LOG_ERRORS = TriState.fromProperty("lambdynamiclights.resource.force_log_errors")
-			.toBooleanOrElse(FabricLoader.getInstance().isDevelopmentEnvironment());
+			.toBooleanOrElse(ModLoader.isDevelopmentEnvironment());
 
 	private final List<LoadedItemLightSource> loadedLightSources = new ArrayList<>();
 	private final List<ItemLightSource> lightSources = new ArrayList<>();

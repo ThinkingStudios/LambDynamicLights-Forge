@@ -9,8 +9,8 @@
 
 package dev.lambdaurora.lambdynlights;
 
-import dev.lambdaurora.spruceui.SpruceTexts;
-import dev.lambdaurora.spruceui.util.Nameable;
+import org.thinkingstudio.obsidianui.SpruceTexts;
+import org.thinkingstudio.obsidianui.util.Nameable;
 import net.minecraft.TextFormatting;
 import net.minecraft.network.chat.Text;
 import org.jetbrains.annotations.NotNull;

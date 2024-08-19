@@ -10,7 +10,7 @@
 package dev.lambdaurora.lambdynlights.mixin;
 
 import dev.lambdaurora.lambdynlights.gui.DynamicLightsOptionsOption;
-import dev.lambdaurora.spruceui.Tooltip;
+import org.thinkingstudio.obsidianui.Tooltip;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;

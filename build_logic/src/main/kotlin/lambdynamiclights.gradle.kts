@@ -3,7 +3,7 @@ import lambdynamiclights.mappings.MojangMappingsSpec
 import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
-	id("fabric-loom")
+	id("dev.architectury.loom")
 	`java-library`
 	id("dev.yumi.gradle.licenser")
 }
@@ -20,6 +20,18 @@ loom {
 	runtimeOnlyLog4j = true
 }
 
+repositories {
+	maven {
+		url = uri("https://maven.parchmentmc.org")
+	}
+	maven {
+		url = uri("https://maven.gegy.dev")
+	}
+	maven {
+		url = uri("https://maven.neoforged.net/releases/")
+	}
+}
+
 dependencies {
 	minecraft(libs.minecraft)
 	@Suppress("UnstableApiUsage")
@@ -28,7 +40,7 @@ dependencies {
 		parchment("org.parchmentmc.data:parchment-${Constants.mcVersion()}:${libs.versions.mappings.parchment.get()}@zip")
 		mappings("dev.lambdaurora:yalmm:${Constants.mcVersion()}+build.${libs.versions.mappings.yalmm.get()}")
 	})
-	modImplementation(libs.fabric.loader)
+	"neoForge"(libs.neoforge)
 }
 
 java {
@@ -52,4 +64,7 @@ tasks.jar {
 
 license {
 	rule(rootProject.file("HEADER"))
+
+	include("src/main/java/dev/lambdaurora/lambdynlights/*.java")
+	exclude("src/main/java/org/thinkingstudio/ryoamiclights/*.java")
 }

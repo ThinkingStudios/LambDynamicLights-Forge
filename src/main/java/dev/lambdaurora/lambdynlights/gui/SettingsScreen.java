@@ -14,21 +14,21 @@ import dev.lambdaurora.lambdynlights.ExplosiveLightingMode;
 import dev.lambdaurora.lambdynlights.LambDynLights;
 import dev.lambdaurora.lambdynlights.LambDynLightsCompat;
 import dev.lambdaurora.lambdynlights.accessor.DynamicLightHandlerHolder;
-import dev.lambdaurora.spruceui.Position;
-import dev.lambdaurora.spruceui.SpruceTexts;
-import dev.lambdaurora.spruceui.background.Background;
-import dev.lambdaurora.spruceui.background.DirtTexturedBackground;
-import dev.lambdaurora.spruceui.option.SpruceCyclingOption;
-import dev.lambdaurora.spruceui.option.SpruceOption;
-import dev.lambdaurora.spruceui.option.SpruceSeparatorOption;
-import dev.lambdaurora.spruceui.option.SpruceSimpleActionOption;
-import dev.lambdaurora.spruceui.screen.SpruceScreen;
-import dev.lambdaurora.spruceui.util.RenderUtil;
-import dev.lambdaurora.spruceui.widget.SpruceButtonWidget;
-import dev.lambdaurora.spruceui.widget.SpruceLabelWidget;
-import dev.lambdaurora.spruceui.widget.container.SpruceContainerWidget;
-import dev.lambdaurora.spruceui.widget.container.SpruceOptionListWidget;
-import dev.lambdaurora.spruceui.widget.container.tabbed.SpruceTabbedWidget;
+import org.thinkingstudio.obsidianui.Position;
+import org.thinkingstudio.obsidianui.SpruceTexts;
+import org.thinkingstudio.obsidianui.background.Background;
+import org.thinkingstudio.obsidianui.background.TransparentBackground;
+import org.thinkingstudio.obsidianui.option.SpruceCyclingOption;
+import org.thinkingstudio.obsidianui.option.SpruceOption;
+import org.thinkingstudio.obsidianui.option.SpruceSeparatorOption;
+import org.thinkingstudio.obsidianui.option.SpruceSimpleActionOption;
+import org.thinkingstudio.obsidianui.screen.SpruceScreen;
+import org.thinkingstudio.obsidianui.util.RenderUtil;
+import org.thinkingstudio.obsidianui.widget.SpruceButtonWidget;
+import org.thinkingstudio.obsidianui.widget.SpruceLabelWidget;
+import org.thinkingstudio.obsidianui.widget.container.SpruceContainerWidget;
+import org.thinkingstudio.obsidianui.widget.container.SpruceOptionListWidget;
+import org.thinkingstudio.obsidianui.widget.container.tabbed.SpruceTabbedWidget;
 import net.minecraft.TextFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -107,7 +107,7 @@ public class SettingsScreen extends SpruceScreen {
 		var dynamicLightSources = Text.translatable(DYNAMIC_LIGHT_SOURCES_KEY);
 
 		this.tabbedWidget = new SpruceTabbedWidget(Position.origin(), this.width, this.height, null, Math.max(100, this.width / 8), 0);
-		this.tabbedWidget.getList().setBackground(RandomPrideFlagBackground.random());
+		this.tabbedWidget.getList().setBackground(TransparentBackground.DARKENED);
 		this.tabbedWidget.addTabEntry(Text.translatable("lambdynlights.menu.tabs.general"), null,
 				this.tabContainerBuilder(this::buildGeneralTab));
 		this.tabbedWidget.addSeparatorEntry(null);
@@ -142,11 +142,11 @@ public class SettingsScreen extends SpruceScreen {
 						widget.getX() + widget.getWidth(), widget.getY() + widget.getHeight(),
 						0xc0101010, 0xd0101010);
 			} else {
-				var bg = (DirtTexturedBackground) DirtTexturedBackground.NORMAL;
-				RenderUtil.renderBackgroundTexture(widget.getX(), widget.getY(),
+				var bg = (TransparentBackground) TransparentBackground.NORMAL;
+				RenderUtil.renderTransparentBackgroundTexture(widget.getX(), widget.getY(),
 						widget.getWidth(), innerWidget.getY() - widget.getY(),
 						vOffset / 32.f, bg.red(), bg.green(), bg.blue(), bg.alpha());
-				RenderUtil.renderBackgroundTexture(widget.getX(), innerWidget.getY() + innerWidget.getHeight(),
+				RenderUtil.renderTransparentBackgroundTexture(widget.getX(), innerWidget.getY() + innerWidget.getHeight(),
 						widget.getWidth(), widget.getHeight() - (innerWidget.getY() + innerWidget.getHeight()),
 						vOffset / 32.f, bg.red(), bg.green(), bg.blue(), bg.alpha());
 			}

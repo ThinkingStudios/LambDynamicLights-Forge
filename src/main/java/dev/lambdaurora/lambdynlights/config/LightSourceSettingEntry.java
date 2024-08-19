@@ -10,9 +10,9 @@
 package dev.lambdaurora.lambdynlights.config;
 
 import com.electronwill.nightconfig.core.Config;
-import dev.lambdaurora.spruceui.SpruceTexts;
-import dev.lambdaurora.spruceui.option.SpruceBooleanOption;
-import dev.lambdaurora.spruceui.option.SpruceOption;
+import org.thinkingstudio.obsidianui.SpruceTexts;
+import org.thinkingstudio.obsidianui.option.SpruceBooleanOption;
+import org.thinkingstudio.obsidianui.option.SpruceOption;
 import net.minecraft.TextFormatting;
 import net.minecraft.network.chat.Text;
 import org.jetbrains.annotations.Nullable;
