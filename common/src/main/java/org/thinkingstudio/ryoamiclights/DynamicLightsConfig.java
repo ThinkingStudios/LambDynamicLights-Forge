@@ -62,7 +62,10 @@ public class DynamicLightsConfig {
 	public DynamicLightsConfig(@NotNull RyoamicLights mod) {
 		this.mod = mod;
 
-		this.config = FileConfig.builder(CONFIG_FILE_PATH).autosave().writingMode(WritingMode.REPLACE).build();
+		this.config = FileConfig.builder(CONFIG_FILE_PATH)
+				.autosave()
+				.writingMode(WritingMode.REPLACE_ATOMIC)
+				.build();
 		this.entitiesLightSource = new BooleanSettingEntry("light_sources.entities", DEFAULT_ENTITIES_LIGHT_SOURCE, this.config,
 				Text.translatable("ryoamiclights.tooltip.entities"))
 				.withOnSet(value -> {
