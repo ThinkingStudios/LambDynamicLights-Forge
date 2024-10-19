@@ -11,6 +11,7 @@
 package org.thinkingstudio.ryoamiclights.fabric;
 
 import dev.lambdaurora.lambdynlights.api.DynamicLightsInitializer;
+import fuzs.forgeconfigapiport.fabric.api.neoforge.v4.NeoForgeConfigRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
@@ -19,10 +20,12 @@ import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
+import net.neoforged.fml.config.ModConfig;
+import org.thinkingstudio.ryoamiclights.DynamicLightsConfig;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
-import org.thinkingstudio.ryoamiclights.api.item.ItemLightSources;
+import dev.lambdaurora.lambdynlights.api.item.ItemLightSources;
 
 public class RyoamicLightsFabric implements ClientModInitializer {
     @Override
@@ -49,5 +52,7 @@ public class RyoamicLightsFabric implements ClientModInitializer {
             MinecraftClient.getInstance().getProfiler().swap("dynamic_lighting");
             RyoamicLights.get().updateAll(context.worldRenderer());
         });
+
+        NeoForgeConfigRegistry.INSTANCE.register(RyoamicLights.NAMESPACE, ModConfig.Type.CLIENT, DynamicLightsConfig.SPEC, "ryoamiclights.toml");
     }
 }

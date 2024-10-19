@@ -12,7 +12,7 @@ package org.thinkingstudio.ryoamiclights.mixin;
 
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
 import org.thinkingstudio.ryoamiclights.accessor.DynamicLightHandlerHolder;
-import org.thinkingstudio.ryoamiclights.api.DynamicLightHandler;
+import dev.lambdaurora.lambdynlights.api.DynamicLightHandler;
 import org.thinkingstudio.ryoamiclights.config.LightSourceSettingEntry;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;

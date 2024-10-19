@@ -10,12 +10,14 @@
 
 package org.thinkingstudio.ryoamiclights;
 
+import org.thinkingstudio.ryoamiclights.services.ModPlatform;
+
 /**
  * Represents a utility class for compatibility.
  *
- * @author LambdAurora
- * @version 1.3.3
- * @since 1.0.0
+ * @author TexTrue
+ * @version 0.2.12
+ * @since 0.1.0
  */
 public final class RyoamicLightsCompat {
 	/**
@@ -24,51 +26,6 @@ public final class RyoamicLightsCompat {
 	 * @return {@code true} if Canvas is installed, else {@code false}
 	 */
 	public static boolean isCanvasInstalled() {
-		return ModPlatform.isModLoaded("canvas");
-	}
-
-	/**
-	 * Returns whether Lil Tater Reloaded is installed.
-	 *
-	 * @return {@code true} if LTR is installed, else {@code false}
-	 */
-	public static boolean isLilTaterReloadedInstalled() {
-		return ModPlatform.isModLoaded("ltr");
-	}
-
-	/**
-	 * Returns whether Sodium is installed.
-	 *
-	 * @return {@code true} if Sodium is installed, else {@code false}
-	 */
-	public static boolean isSodiumInstalled() {
-		return ModPlatform.isModLoaded("sodium");
-	}
-
-	/**
-	 * Returns whether Embeddium is installed.
-	 *
-	 * @return {@code true} if Embeddium is installed, else {@code false}
-	 */
-	public static boolean isEmbeddiumInstalled() {
-		return ModPlatform.isModLoaded("embeddium");
-	}
-
-	/**
-	 * Returns whether Indium is installed.
-	 *
-	 * @return {@code true} if Indium is installed, else {@code false}
-	 */
-	public static boolean isIndiumInstalled() {
-		return ModPlatform.isModLoaded("indium");
-	}
-
-	/**
-	 * Returns whether Fabric API or Forgified Fabric API is installed.
-	 *
-	 * @return {@code true} if Fabric API or Forgified Fabric API is installed, else {@code false}
-	 */
-	public static boolean isFabricApiInstalled() {
-		return ModPlatform.isModLoaded("fabric-api") | ModPlatform.isModLoaded("fabric_api");
+		return ModPlatform.getInstance().isModLoaded("canvas");
 	}
 }

@@ -12,7 +12,7 @@ package org.thinkingstudio.ryoamiclights.mixin.lightsource;
 
 import org.thinkingstudio.ryoamiclights.DynamicLightSource;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
-import org.thinkingstudio.ryoamiclights.api.DynamicLightHandlers;
+import dev.lambdaurora.lambdynlights.api.DynamicLightHandlers;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;

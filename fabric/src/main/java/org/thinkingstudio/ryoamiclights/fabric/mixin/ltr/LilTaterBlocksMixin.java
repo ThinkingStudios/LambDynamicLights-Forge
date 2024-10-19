@@ -10,6 +10,8 @@
 
 package org.thinkingstudio.ryoamiclights.fabric.mixin.ltr;
 
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Dynamic;
@@ -20,9 +22,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
-import org.thinkingstudio.ryoamiclights.api.DynamicLightHandlers;
+import dev.lambdaurora.lambdynlights.api.DynamicLightHandlers;
 import org.thinkingstudio.ryoamiclights.util.LilTaterBlockEntityAccessor;
 
+@Restriction(require = @Condition("ltr"))
 @Pseudo
 @Mixin(targets = "mods.ltr.registry.LilTaterBlocks", remap = false)
 public class LilTaterBlocksMixin {

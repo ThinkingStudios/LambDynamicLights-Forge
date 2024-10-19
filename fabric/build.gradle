@@ -26,13 +26,13 @@ configurations {
 dependencies {
     modImplementation("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
     modApi("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
+    modCompileOnly("com.terraformersmc:modmenu:${rootProject.mod_menu_version}") { transitive false }
+    modImplementation(include("me.fallenbreath:conditional-mixin-fabric:${rootProject.conditionalmixin_version}"))
     modApi("maven.modrinth:obsidianui:${rootProject.obsidianui_version}-fabric")
+
     modCompileOnly("maven.modrinth:indium:${project.indium_version}")
 
-    modCompileOnly("com.terraformersmc:modmenu:${rootProject.mod_menu_version}") { transitive false }
-
-    shadowBundle("com.electronwill.night-config:core:3.8.0")
-    shadowBundle("com.electronwill.night-config:toml:3.8.0")
+    modImplementation("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${rootProject.fcapi_version}")
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowBundle(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
@@ -47,8 +47,6 @@ processResources {
 }
 
 shadowJar {
-    relocate "com.electronwill.nightconfig", "${rootProject.maven_group}.shadow.nightconfig"
-
     configurations = [project.configurations.shadowBundle]
     archiveClassifier.set("dev-shadow")
 }

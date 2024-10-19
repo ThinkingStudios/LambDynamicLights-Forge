@@ -12,10 +12,8 @@ package dev.lambdaurora.lambdynlights.api;
 
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EntityType;
-import org.thinkingstudio.ryoamiclights.api.DynamicLightHandler;
-import org.thinkingstudio.ryoamiclights.api.DynamicLightHandlers;
-import org.thinkingstudio.ryoamiclights.api.item.ItemLightSource;
-import org.thinkingstudio.ryoamiclights.api.item.ItemLightSources;
+import dev.lambdaurora.lambdynlights.api.item.ItemLightSource;
+import dev.lambdaurora.lambdynlights.api.item.ItemLightSources;
 
 /**
  * Represents the entrypoint for LDL API.
@@ -24,7 +22,6 @@ import org.thinkingstudio.ryoamiclights.api.item.ItemLightSources;
  * @version 1.3.2
  * @since 1.3.2
  */
-@Deprecated
 public interface DynamicLightsInitializer {
 	/**
 	 * Method called when RyoamicLights is initialized to register custom dynamic light handlers and item light sources.

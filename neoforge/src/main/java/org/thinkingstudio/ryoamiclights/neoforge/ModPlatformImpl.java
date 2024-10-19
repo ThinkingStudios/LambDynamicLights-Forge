@@ -1,16 +1,21 @@
 package org.thinkingstudio.ryoamiclights.neoforge;
 
+import com.google.auto.service.AutoService;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.fml.loading.FMLPaths;
+import org.thinkingstudio.ryoamiclights.services.interfaces.ModPlatformService;
 
 import java.nio.file.Path;
 
-public class ModPlatformImpl {
-    public static boolean isModLoaded(String modid) {
+@AutoService(ModPlatformService.class)
+public class ModPlatformImpl implements ModPlatformService {
+    @Override
+    public boolean isModLoaded(String modid) {
         return FMLLoader.getLoadingModList().getModFileById(modid) != null;
     }
 
-    public static Path getConfigDir() {
+    @Override
+    public Path getConfigDir() {
         return FMLPaths.CONFIGDIR.get();
     }
 }

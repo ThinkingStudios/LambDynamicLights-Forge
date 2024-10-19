@@ -11,7 +11,7 @@
     "EntityTypeMixin",
     "MinecraftClientMixin",
     "WorldMixin",
-    "lightsource.AbstractDecorationEntityMixin",
+    "lightsource.BlockAttachedEntityMixin",
     "lightsource.AbstractMinecartEntityMixin",
     "lightsource.BlockEntityMixin",
     "lightsource.EntityMixin",

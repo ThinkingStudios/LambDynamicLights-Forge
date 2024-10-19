@@ -8,7 +8,7 @@
  * see the LICENSE file.
  */
 
-package org.thinkingstudio.ryoamiclights.api;
+package dev.lambdaurora.lambdynlights.api;
 
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
 import org.thinkingstudio.ryoamiclights.accessor.DynamicLightHandlerHolder;

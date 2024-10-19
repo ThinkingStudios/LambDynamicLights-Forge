@@ -4,8 +4,7 @@ import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import org.thinkingstudio.ryoamiclights.gui.SettingsScreen;
 
-public class ModMenuCompat implements ModMenuApi {
-
+public class RyoamicLightsModMenu implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         return SettingsScreen::new;

@@ -10,59 +10,31 @@
 
 package org.thinkingstudio.ryoamiclights.neoforge;
 
-import org.thinkingstudio.ryoamiclights.RyoamicLightsCompat;
-import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
-import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
-import org.objectweb.asm.tree.ClassNode;
-import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
-import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
+import me.fallenbreath.conditionalmixin.api.mixin.RestrictiveMixinConfigPlugin;
+import org.thinkingstudio.ryoamiclights.RyoamicLights;
 
 import java.util.List;
 import java.util.Set;
 
-public class RyoamicLightsNeoForgeMixinPlugin implements IMixinConfigPlugin {
-    private final Object2BooleanMap<String> conditionalMixins = new Object2BooleanOpenHashMap<>();
-
-    public RyoamicLightsNeoForgeMixinPlugin() {
-        if (RyoamicLightsCompat.isEmbeddiumInstalled() == false) {
-            boolean sodiumInstalled = RyoamicLightsCompat.isSodiumInstalled();
-            this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.fabric.mixin.sodium.ArrayLightDataCacheMixin", sodiumInstalled);
-            this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.fabric.mixin.sodium.FlatLightPipelineMixin", sodiumInstalled);
-            this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.fabric.mixin.sodium.LightDataAccessMixin", sodiumInstalled);
-        }
-
-        boolean forgifiedFabricApiInstalled = RyoamicLightsCompat.isFabricApiInstalled();
-        this.conditionalMixins.put("org.thinkingstudio.ryoamiclights.neoforge.mixin.fabricapi.AoCalculatorMixin", forgifiedFabricApiInstalled);
-    }
-
-    @Override
-    public void onLoad(String mixinPackage) {
-    }
+public class RyoamicLightsNeoForgeMixinPlugin extends RestrictiveMixinConfigPlugin {
 
     @Override
     public String getRefMapperConfig() {
-        return null;
-    }
-
-    @Override
-    public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        return this.conditionalMixins.getOrDefault(mixinClassName, true);
+        return "";
     }
 
     @Override
     public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {
+
+    }
+
+    @Override
+    protected void onRestrictionCheckFailed(String mixinClassName, String reason) {
+        RyoamicLights.get().warn("Apply mixin " + mixinClassName + " is disabled, " + reason);
     }
 
     @Override
     public List<String> getMixins() {
-        return null;
-    }
-
-    @Override
-    public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
-    }
-
-    @Override
-    public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
+        return List.of();
     }
 }

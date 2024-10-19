@@ -11,8 +11,8 @@
 package org.thinkingstudio.ryoamiclights;
 
 import org.thinkingstudio.ryoamiclights.accessor.WorldRendererAccessor;
-import org.thinkingstudio.ryoamiclights.api.DynamicLightHandlers;
-import org.thinkingstudio.ryoamiclights.api.item.ItemLightSources;
+import dev.lambdaurora.lambdynlights.api.DynamicLightHandlers;
+import dev.lambdaurora.lambdynlights.api.item.ItemLightSources;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;

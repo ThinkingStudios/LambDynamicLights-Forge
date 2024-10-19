@@ -10,18 +10,18 @@
 
 package org.thinkingstudio.ryoamiclights.mixin.lightsource;
 
+import net.minecraft.entity.decoration.BlockAttachedEntity;
 import org.thinkingstudio.ryoamiclights.DynamicLightSource;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
-import org.thinkingstudio.ryoamiclights.api.DynamicLightHandlers;
+import dev.lambdaurora.lambdynlights.api.DynamicLightHandlers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.decoration.AbstractDecorationEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(AbstractDecorationEntity.class)
-public abstract class AbstractDecorationEntityMixin extends Entity implements DynamicLightSource {
-	public AbstractDecorationEntityMixin(EntityType<?> type, World world) {
+@Mixin(BlockAttachedEntity.class)
+public abstract class BlockAttachedEntityMixin extends Entity implements DynamicLightSource {
+	public BlockAttachedEntityMixin(EntityType<?> type, World world) {
 		super(type, world);
 	}
 

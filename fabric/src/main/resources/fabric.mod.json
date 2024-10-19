@@ -18,7 +18,7 @@
       "org.thinkingstudio.ryoamiclights.fabric.RyoamicLightsFabric"
     ],
     "modmenu": [
-      "org.thinkingstudio.ryoamiclights.fabric.ModMenuCompat"
+      "org.thinkingstudio.ryoamiclights.fabric.RyoamicLightsModMenu"
     ]
   },
   "mixins": [

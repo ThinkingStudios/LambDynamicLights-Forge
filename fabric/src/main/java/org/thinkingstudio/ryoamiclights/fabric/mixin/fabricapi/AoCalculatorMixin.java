@@ -10,6 +10,8 @@
 
 package org.thinkingstudio.ryoamiclights.fabric.mixin.fabricapi;
 
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -21,6 +23,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@Restriction(require = @Condition("fabric-renderer-indigo"))
 @Pseudo
 @Mixin(targets = "net.fabricmc.fabric.impl.client.indigo.renderer.aocalc.AoCalculator", remap = false)
 public abstract class AoCalculatorMixin {

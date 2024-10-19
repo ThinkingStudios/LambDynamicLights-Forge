@@ -16,15 +16,16 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
+import org.thinkingstudio.ryoamiclights.DynamicLightsConfig;
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
 import net.neoforged.fml.common.Mod;
-import org.thinkingstudio.ryoamiclights.api.item.ItemLightSources;
+import dev.lambdaurora.lambdynlights.api.item.ItemLightSources;
 import org.thinkingstudio.ryoamiclights.gui.SettingsScreen;
 
 @Mod(value = RyoamicLights.NAMESPACE, dist = Dist.CLIENT)
@@ -35,6 +36,7 @@ public class RyoamicLightsNeoForge {
         if (FMLLoader.getDist().isClient()) {
             RyoamicLights.get().clientInit();
 
+            modContainer.registerConfig(ModConfig.Type.CLIENT, DynamicLightsConfig.SPEC, "ryoamiclights.toml");
             modContainer.registerExtensionPoint(IConfigScreenFactory.class, (container, screen) -> new SettingsScreen(screen));
 
             forgeEventBus.addListener(EventPriority.HIGHEST, RenderLevelStageEvent.class, event -> {

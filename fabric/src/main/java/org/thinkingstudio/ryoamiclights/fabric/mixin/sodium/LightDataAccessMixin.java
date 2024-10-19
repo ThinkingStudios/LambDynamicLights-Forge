@@ -10,6 +10,8 @@
 
 package org.thinkingstudio.ryoamiclights.fabric.mixin.sodium;
 
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.thinkingstudio.ryoamiclights.util.SodiumDynamicLightHandler;
 import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,6 +20,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@Restriction(require = @Condition("sodium"), conflict = @Condition("embeddium"))
 @Pseudo
 @Mixin(targets = {
 		"me.jellysquid.mods.sodium.client.model.light.data.LightDataAccess",

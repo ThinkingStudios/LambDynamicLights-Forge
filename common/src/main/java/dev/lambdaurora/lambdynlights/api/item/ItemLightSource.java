@@ -8,7 +8,7 @@
  * see the LICENSE file.
  */
 
-package org.thinkingstudio.ryoamiclights.api.item;
+package dev.lambdaurora.lambdynlights.api.item;
 
 import com.google.gson.JsonObject;
 import net.minecraft.component.DataComponentTypes;

@@ -10,6 +10,8 @@
 
 package org.thinkingstudio.ryoamiclights.fabric.mixin.ltr;
 
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
@@ -18,6 +20,7 @@ import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.thinkingstudio.ryoamiclights.util.LilTaterBlockEntityAccessor;
 
+@Restriction(require = @Condition("ltr"))
 @Pseudo
 @Mixin(targets = "mods.ltr.entities.LilTaterBlockEntity")
 public abstract class LilTaterBlockEntityMixin implements Inventory, LilTaterBlockEntityAccessor {

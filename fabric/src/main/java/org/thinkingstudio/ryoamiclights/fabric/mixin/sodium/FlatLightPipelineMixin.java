@@ -10,6 +10,8 @@
 
 package org.thinkingstudio.ryoamiclights.fabric.mixin.sodium;
 
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.thinkingstudio.ryoamiclights.util.SodiumDynamicLightHandler;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -21,6 +23,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+@Restriction(require = @Condition("sodium"), conflict = @Condition("embeddium"))
 @Pseudo
 @Mixin(targets = {
 		"me.jellysquid.mods.sodium.client.model.light.flat.FlatLightPipeline",
